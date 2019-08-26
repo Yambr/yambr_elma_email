@@ -19,8 +19,8 @@ namespace Yambr.ELMA.Email.Models
 
         protected AbstractQueueObject(string model) : this()
         {
-            var setting = Locator.GetServiceNotNull<MessageQueueRMQSettingsModule>().Settings;
-            Headers.Add(setting.ModelHeaderKey, model);
+            var setting = Locator.GetServiceNotNull<YambrEmailSettingsModule>().Settings;
+            Headers.Add(QueueConstants.ModelHeaderKey, model);
         }
 
         protected AbstractQueueObject(string model, string routingKey) : this(model)

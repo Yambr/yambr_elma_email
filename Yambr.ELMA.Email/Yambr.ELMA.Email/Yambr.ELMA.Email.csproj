@@ -31,32 +31,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EleWise.ELMA.Common">
-      <HintPath>..\..\..\..\..\..\..\..\ELMA311-Enterprise\Designer\EleWise.ELMA.Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="EleWise.ELMA.CRM">
-      <HintPath>..\..\..\..\..\..\..\..\ELMA311-Enterprise\Designer\EleWise.ELMA.CRM.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Designer\EleWise.ELMA.CRM.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="EleWise.ELMA.SDK">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\ylog3n3h.lzf\EleWise.ELMA.SDK.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\5qwtzkdl.zqn\EleWise.ELMA.SDK.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="EleWise.ELMA.Security">
-      <HintPath>..\..\..\..\..\..\..\..\ELMA311-Enterprise\Designer\EleWise.ELMA.Security.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Designer\EleWise.ELMA.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Iesi.Collections">
-      <HintPath>C:\ELMA311-Enterprise\Designer\Iesi.Collections.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\..\..\..\..\..\..\..\ELMA311-Enterprise\Web\bin\NHibernate.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\RabbitMQ.Client.3.6.0\lib\net40\RabbitMQ.Client.dll</HintPath>
@@ -97,8 +92,8 @@
     <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="EmailLogger.cs" />
-    <Compile Include="MessageQueueRMQSettings.cs" />
-    <Compile Include="MessageQueueRMQSettingsModule.cs" />
+    <Compile Include="YambrEmailSettings.cs" />
+    <Compile Include="YambrEmailSettingsModule.cs" />
     <Compile Include="Models\AbstractQueueTempObject.cs" />
     <Compile Include="Models\DefaultQueueObject.cs" />
     <Compile Include="Models\IQueueObject.cs" />

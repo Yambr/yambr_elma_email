@@ -7,7 +7,6 @@ using EleWise.ELMA;
 using EleWise.ELMA.Cache;
 using EleWise.ELMA.ComponentModel;
 using EleWise.ELMA.Logging;
-using EleWise.ELMA.Model.Managers;
 using EleWise.ELMA.Runtime.Context;
 using EleWise.ELMA.Security;
 using EleWise.ELMA.Services;
@@ -15,7 +14,6 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Yambr.ELMA.Email.Exceptions;
 using Yambr.ELMA.Email.ExtensionPoints;
-using Yambr.ELMA.Email.Extensions;
 using Yambr.ELMA.Email.Models;
 
 namespace Yambr.ELMA.Email.Services.Impl
@@ -28,7 +26,7 @@ namespace Yambr.ELMA.Email.Services.Impl
     // ReSharper disable once InconsistentNaming
     public class RabbitMQService : IRabbitMQService
     {
-        private const string RabbitMQServiceRegion = nameof(RabbitMQService);
+        private const string RabbitMqServiceRegion = nameof(RabbitMQService);
         private readonly ConcurrentDictionary<string, IEnumerable<IRabbitMessageHandler>> _map;
         private readonly ISecurityService _securityService;
         private readonly IEnumerable<IRabbitMessageHandler> _handlers;
@@ -47,14 +45,11 @@ namespace Yambr.ELMA.Email.Services.Impl
             _contextBoundVariableService = contextBoundVariableService;
             _cacheService = cacheService;
             _map = new ConcurrentDictionary<string, IEnumerable<IRabbitMessageHandler>>();
-            OtherConnections = new List<IModel>();
         }
         /// <summary>
         /// Активное подключение
         /// </summary>
         public IModel Connection { get; private set; }
-
-        public ICollection<IModel> OtherConnections { get; }
 
         /// <summary>
         /// Закрыть подключения
@@ -63,12 +58,6 @@ namespace Yambr.ELMA.Email.Services.Impl
         {
             DisposeConnection(Connection);
             Connection = null;
-            if (OtherConnections == null) return;
-            foreach (var otherConnection in OtherConnections)
-            {
-                DisposeConnection(otherConnection);
-            }
-            OtherConnections.Clear();
         }
 
         private static void DisposeConnection(IModel connection)
@@ -86,85 +75,28 @@ namespace Yambr.ELMA.Email.Services.Impl
         public string GetModelFromMessage(BasicDeliverEventArgs eventArgs, string message)
         {
             if (eventArgs == null) throw new ArgumentNullException(nameof(eventArgs));
-            var settings = Locator.GetServiceNotNull<MessageQueueRMQSettingsModule>().Settings;
+            if (!eventArgs.BasicProperties.Headers.ContainsKey(QueueConstants.ModelHeaderKey))
+                throw new ArgumentNullException(QueueConstants.ModelHeaderKey, $"Не содержится заголовок {QueueConstants.ModelHeaderKey} сообщения в сообщении");
 
-            if (!eventArgs.BasicProperties.Headers.ContainsKey(settings.ModelHeaderKey))
-                throw new ArgumentNullException(settings.ModelHeaderKey, $"Не содержится заголовок {settings.ModelHeaderKey} сообщения в сообщении");
-
-            var header = eventArgs.BasicProperties.Headers[settings.ModelHeaderKey] as byte[];
+            var header = eventArgs.BasicProperties.Headers[QueueConstants.ModelHeaderKey] as byte[];
             if (header == null)
-                throw new ArgumentNullException(settings.ModelHeaderKey, $"Не указан заголовок {settings.ModelHeaderKey} сообщения в сообщении");
+                throw new ArgumentNullException(QueueConstants.ModelHeaderKey, $"Не указан заголовок {QueueConstants.ModelHeaderKey} сообщения в сообщении");
             return Encoding.UTF8.GetString(header);
         }
+
+        
 
         /// <summary>
         /// Подключиться к Очереди
         /// </summary>
         public void Init()
         {
-            _cacheService.ClearRegion(RabbitMQServiceRegion);
+            _cacheService.ClearRegion(RabbitMqServiceRegion);
             DisposeConnection();
-            var settings = Locator.GetServiceNotNull<MessageQueueRMQSettingsModule>().Settings;
-            if (!(settings.Enabled ?? false)) return;
-            ConsumeDefaultQueue(settings);
-
-            if (!(settings.MultipleRead ?? false)) return;
-            ConsumeOtherQueues(settings);
-        }
-
-        #region Подписка на очереди
-
-        private void ConsumeDefaultQueue(MessageQueueRMQSettings settings)
-        {
-            var queuesMessages = settings.QueuesMessages;
-            if (queuesMessages != null)
-            {
-                Connection = Init(queuesMessages, true);
-            }
-            else
-            {
-                Logger.Debug(
-                    $"Очередь {nameof(MessageQueueRMQSettings.QueuesMessages)} не выбрана в настройках {nameof(MessageQueueRMQSettings)}");
-            }
-        }
-
-        private void ConsumeOtherQueues(MessageQueueRMQSettings settings)
-        {
-            var otherQueuesMessages =
-                EntityManager<IQueuesMessages>.Instance.Find(
-                    c =>
-                        c.Id != settings.QueuesMessagesId &&
-                        c.Id != settings.ErrorQueuesMessagesId &&
-                        c.UidTypeQueue == MessageQueueRMQConstants.GeneralUidMessageQueueRMQ);
-            foreach (var otherQueuesMessage in otherQueuesMessages)
-            {
-                try
-                {
-                    var connection = Init(otherQueuesMessage, false);
-                    OtherConnections.Add(connection);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Debug(
-                        $"Очередь {otherQueuesMessage.Name} не прослушивается", ex);
-                }
-            }
-        }
-
-        private IModel Init(IQueuesMessages queuesMessages, bool exclusiveRead)
-        {
-            if (queuesMessages == null) throw new ArgumentNullException(nameof(queuesMessages));
-            var rmqSetting = queuesMessages.Setting as RMQSetting;
-            if (rmqSetting == null)
-            {
-                Logger.Debug(
-                    $"Очередь {queuesMessages.Name} не настроена");
-                return null;
-            }
-
+            var rmqSetting = Locator.GetServiceNotNull<YambrEmailSettingsModule>().Settings;
             try
             {
-                if (rmqSetting.HostName == null) return null;
+                if (rmqSetting.HostName == null) return;
                 var connectionFactory = new ConnectionFactory
                 {
                     HostName = rmqSetting.HostName,
@@ -176,55 +108,33 @@ namespace Yambr.ELMA.Email.Services.Impl
                     AutomaticRecoveryEnabled = true,
                     TopologyRecoveryEnabled = false
                 };
-                var connectionFactory2 = connectionFactory;
-                if (rmqSetting.UseProxyServer)
-                {
-                    connectionFactory2.SocketFactory =
-                        family =>
-                            new TunneledTcpClient(
-                                family,
-                                rmqSetting.ProxyServerHostName,
-                                rmqSetting.ProxyServerPort,
-                                rmqSetting.ProxyServerUserName,
-                                rmqSetting.ProxyServerPassword);
-                }
 
-                var connection = connectionFactory2.CreateConnection();
+                var connection = connectionFactory.CreateConnection();
                 var model = connection.CreateModel();
+                InitTopology(model);
                 //Читаем по одному сообщению по умолчанию
                 model.BasicQos(0, 1, true);
-                Logger.Debug($"Waiting for messages {rmqSetting.QueuesName}.");
+                Logger.Debug($"Waiting for messages {QueueConstants.RabbitMqQueue}.");
                 var consumer = new EventingBasicConsumer(model);
                 consumer.Received += (sender, args) => { OnReceived(sender, args, model); };
-                if (exclusiveRead)
-                {
-                    model.BasicConsume(
-                        rmqSetting.QueuesName,
-                        false,
-                        "",
-                        false,
-                        true,
-                        null,
-                        consumer);
-                }
-                else
-                {
-                    model.BasicConsume(
-                        rmqSetting.QueuesName, 
-                        false, 
-                        consumer);
-                }
-                
-                return model;
+                model.BasicConsume(QueueConstants.RabbitMqQueue, false, consumer);
             }
             catch (Exception ex)
             {
-                Logger.Error($"Не удалось подключиться {queuesMessages.Name}", ex);
+                Logger.Error($"Не удалось подключиться {rmqSetting.HostName}:{rmqSetting.Port}/{rmqSetting.VirtualHost}", ex);
                 throw;
             }
         }
 
-        #endregion
+        private static void InitTopology(IModel model)
+        {
+            model.QueueDeclare(QueueConstants.RabbitMqQueue, true, false, false, null);
+            model.QueueDeclare(QueueConstants.RabbitMqQueueTasks, true, false, false, null);
+
+            model.ExchangeDeclare(QueueConstants.RabbitMqExchange, ExchangeType.Fanout, false, false, null);
+
+            model.QueueBind(QueueConstants.RabbitMqQueueTasks, QueueConstants.RabbitMqExchange, String.Empty);
+        }
 
 
         #region Обработка входящего сообщения
@@ -276,8 +186,7 @@ namespace Yambr.ELMA.Email.Services.Impl
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
-                PrepareError(messageJson, eventArgs, connection, ex);
+                PrepareError(eventArgs, connection, ex);
             }
         }
 
@@ -299,41 +208,31 @@ namespace Yambr.ELMA.Email.Services.Impl
             return rMessageHandlers;
         }
 
-        private void PrepareError(string messageJson, BasicDeliverEventArgs eventArgs, IModel connection, Exception ex)
+        private void PrepareError(BasicDeliverEventArgs eventArgs, IModel connection, Exception ex)
         {
-            try
-            {
-                var defaultQueueObject = NewExceptionMessage(messageJson, eventArgs, ex);
-                SendError(defaultQueueObject);
-                //Если в очередь ошибки мы не смогли сбросить то сообщение не отмечается как обработанное
-                connection.BasicAck(eventArgs.DeliveryTag, false);
-            }
-            catch (Exception newException)
-            {
-                
                 
                 var hash = GetHash(eventArgs.Body);
                 int attemptCount;
-                _cacheService.TryGetValue(hash, RabbitMQServiceRegion, out attemptCount);
+                _cacheService.TryGetValue(hash, RabbitMqServiceRegion, out attemptCount);
                 if (attemptCount < 10)
                 {
                     Logger.Error(
                         $"Сообщение возвращено в очередь (попытка #{attemptCount})",
-                        newException);
+                        ex);
                     //Если в очередь ошибки мы не смогли сбросить то сообщение выплевывается обратно
                     connection.BasicNack(eventArgs.DeliveryTag, false, true);
                     attemptCount++;
-                    _cacheService.Insert(hash, attemptCount, RabbitMQServiceRegion);
+                    _cacheService.Insert(hash, attemptCount, RabbitMqServiceRegion);
                 }
                 else
                 {
                     Logger.Error(
                         $"Сообщение удалено из очереде после {attemptCount} попыток",
-                        newException);
+                        ex);
                     connection.BasicAck(eventArgs.DeliveryTag, false);
-                    _cacheService.Remove(hash, RabbitMQServiceRegion);
+                    _cacheService.Remove(hash, RabbitMqServiceRegion);
                 }
-            }
+            
         }
 
         private static string GetHash(byte[] inputBytes)
@@ -352,42 +251,14 @@ namespace Yambr.ELMA.Email.Services.Impl
                 return sb.ToString();
             }
         }
-
-        private static DefaultQueueObject NewExceptionMessage(string messageJson, BasicDeliverEventArgs eventArgs, Exception ex)
-        {
-            var defaultQueueObject = new DefaultQueueObject()
-            {
-                Message = messageJson
-            };
-            defaultQueueObject.Headers.Add("base_routing_key", eventArgs.RoutingKey);
-            defaultQueueObject.Headers.Add("exception", ex.Message);
-            if (eventArgs.BasicProperties.Headers != null)
-                CopyBasicProperies(eventArgs, defaultQueueObject);
-
-            return defaultQueueObject;
-        }
-
-        private static void CopyBasicProperies(BasicDeliverEventArgs eventArgs, DefaultQueueObject defaultQueueObject)
-        {
-            foreach (var propertiesHeader in eventArgs.BasicProperties.Headers)
-            {
-                if (defaultQueueObject.Headers.ContainsKey(propertiesHeader.Key))
-                {
-                    defaultQueueObject.Headers[propertiesHeader.Key] = propertiesHeader.Value;
-                }
-                else
-                {
-                    defaultQueueObject.Headers.Add(propertiesHeader.Key, propertiesHeader.Value);
-                }
-            }
-        }
+        
 
         #endregion
 
 
         #region Отправка сообщений
 
-        public void SendMessage(RMQSetting setting, IQueueObject queueObject)
+        private void SendMessage(YambrEmailSettings setting, IQueueObject queueObject)
         {
             if (string.IsNullOrWhiteSpace(queueObject?.Message))
             {
@@ -414,20 +285,15 @@ namespace Yambr.ELMA.Email.Services.Impl
                     Password = setting.Password
                 };
                 var connectionFactory2 = connectionFactory;
-                if (setting.UseProxyServer)
-                {
-                    connectionFactory2.SocketFactory = (family => new TunneledTcpClient(family, setting.ProxyServerHostName, setting.ProxyServerPort, setting.ProxyServerUserName, setting.ProxyServerPassword));
-                }
                 using (var connection = connectionFactory2.CreateConnection())
                 {
                     using (var model = connection.CreateModel())
                     {
-                        var settings = Locator.GetServiceNotNull<MessageQueueRMQSettingsModule>().Settings;
                         var basicProperties = model.CreateBasicProperties();
                         basicProperties.DeliveryMode = 2;
                         basicProperties.Headers = queueObject.Headers;
-                        basicProperties.AppId = settings.AppId;
-                        model.BasicPublish(setting.ExchangeName, queueObject.RoutingKey, basicProperties, body);
+                        basicProperties.AppId = "ELMA";
+                        model.BasicPublish(QueueConstants.RabbitMqExchange, queueObject.RoutingKey, basicProperties, body);
                     }
                 }
             }
@@ -443,11 +309,10 @@ namespace Yambr.ELMA.Email.Services.Impl
         {
             try
             {
-                    var queue = GetQueue();
-                    var rMQSetting = queue.Setting as RMQSetting;
-                    if (rMQSetting == null) return;
-                    Logger.Debug(SR.T("Отправляется сообщение в очередь: {0}. Адрес подключения: {1}. Имя очереди: {2}.", queue.Name, GetHost(rMQSetting), rMQSetting.QueuesName));
-                    SendMessage(rMQSetting, message);
+                    var rMqSetting = Locator.GetServiceNotNull<YambrEmailSettingsModule>().Settings;
+                    if (rMqSetting == null) return;
+                    Logger.Debug(SR.T("Отправляется сообщение в очередь: {0}. Адрес подключения: {1}. Имя очереди: {2}.", QueueConstants.RabbitMqExchange, GetHost(rMqSetting), QueueConstants.RabbitMqQueue));
+                    SendMessage(rMqSetting, message);
             }
             catch (Exception ex)
             {
@@ -464,43 +329,10 @@ namespace Yambr.ELMA.Email.Services.Impl
             queueObjects.Add(queueObject);
         }
 
-        public void SendError(IQueueObject message)
-        {
-            Action sendErrorAction = () =>
-            {
-                var queue = GetErrorQueue();
-                if (queue == null)
-                    throw  new RabbitException($"Очередь для ошибок не настроена \"{__Resources_MessageQueueRMQSettings.ErrorQueuesMessages_P}\"");
-                var rMQSetting = queue.Setting as RMQSetting;
-                if (rMQSetting == null) return;
-                Logger.Debug(SR.T("Отправляется сообщение в: {0}. Адрес подключения: {1}. Имя exchange: {2}.", queue.Name, GetHost(rMQSetting), rMQSetting.ExchangeName));
-                SendMessage(rMQSetting, message);
-            };
-            sendErrorAction.InNewThread(
-                "Отправка ошибки в очередь ошибок",
-                ex =>
-                {
-                    throw new RabbitException("Ошибка при попытке отправить сообщение в очередь ошибок", ex);
-                },
-                null,
-                1);
-        }
-
-        private static string GetHost(RMQSetting setting)
+       
+        private static string GetHost(YambrEmailSettings setting)
         {
             return setting != null ? $"amqp://{setting.HostName}:{setting.Port}" : "";
-        }
-        private static IQueuesMessages GetErrorQueue()
-        {
-            var settings = Locator.GetServiceNotNull<MessageQueueRMQSettingsModule>().Settings;
-            return settings.ErrorQueuesMessagesId.HasValue
-                ? settings.ErrorQueuesMessages : null;
-        }
-        private static IQueuesMessages GetQueue()
-        {
-            var settings = Locator.GetServiceNotNull<MessageQueueRMQSettingsModule>().Settings;
-            return settings.QueuesMessagesId.HasValue
-                ? settings.QueuesMessages : null;
         }
         #endregion
 

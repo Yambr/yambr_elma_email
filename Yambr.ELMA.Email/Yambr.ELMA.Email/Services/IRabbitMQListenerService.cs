@@ -28,13 +28,7 @@ namespace Yambr.ELMA.Email.Services
         /// <param name="message">сообщение</param>
         /// <returns></returns>
         string GetModelFromMessage(BasicDeliverEventArgs eventArgs, string message);
-
-        /// <summary>
-        /// Отправить сообщение немедленно в очередь
-        /// </summary>
-        /// <param name="setting">настройки очереди RMQSetting</param>
-        /// <param name="queueObject"> сообщение для отправки</param>
-        void SendMessage(RMQSetting setting, IQueueObject queueObject);
+        
         /// <summary>
         /// Отправить сообщение немедленно
         /// в exchange очереди
