@@ -106,6 +106,12 @@
   <ItemGroup>
     <Folder Include="Managers\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Yambr.Email.Common\Yambr.Email.Common.csproj">
+      <Project>{9958f5e1-d8d0-4e79-8ab1-505b2207a733}</Project>
+      <Name>Yambr.Email.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
