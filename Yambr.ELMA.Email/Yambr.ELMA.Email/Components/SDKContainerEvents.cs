@@ -1,4 +1,6 @@
-﻿using EleWise.ELMA.ComponentModel;
+﻿using System;
+using EleWise.ELMA.ComponentModel;
+using EleWise.ELMA.Logging;
 using EleWise.ELMA.Modules;
 using EleWise.ELMA.Services;
 using Yambr.ELMA.Email.Services;
@@ -19,8 +21,15 @@ namespace Yambr.ELMA.Email.Components
         /// </summary>
         private static void StartListening()
         {
-            var rabbitMqListenerService = Locator.GetServiceNotNull<IRabbitMQService>();
-            rabbitMqListenerService.Init();
+            try
+            {
+                var rabbitMqListenerService = Locator.GetServiceNotNull<IRabbitMQService>();
+                rabbitMqListenerService.Init();
+            }
+            catch (Exception ex)
+            {
+                EmailLogger.Logger.Error(ex);
+            }
         }
 
         public void Terminating()
