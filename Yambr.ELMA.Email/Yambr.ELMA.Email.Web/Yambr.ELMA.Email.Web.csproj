@@ -43,49 +43,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac.Integration.Web">
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\Autofac.Integration.Web.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EleWise.ELMA.BPM">
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\EleWise.ELMA.BPM.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EleWise.ELMA.BPM.Web.Common">
-      <HintPath>C:\ELMA311-Enterprise\Web\Modules\EleWise.ELMA.BPM.Web.Common\bin\EleWise.ELMA.BPM.Web.Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EleWise.ELMA.BPM.Web.Content">
-      <HintPath>C:\ELMA311-Enterprise\Web\Modules\EleWise.ELMA.BPM.Web.Content\bin\EleWise.ELMA.BPM.Web.Content.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EleWise.ELMA.BPM.Web.Security">
-      <HintPath>C:\ELMA311-Enterprise\Web\Modules\EleWise.ELMA.BPM.Web.Security\bin\EleWise.ELMA.BPM.Web.Security.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EleWise.ELMA.Common">
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\EleWise.ELMA.Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EleWise.ELMA.Content">
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\EleWise.ELMA.Content.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="EleWise.ELMA.SDK">
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\EleWise.ELMA.SDK.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\EleWise.ELMA.SDK.dll</HintPath>
     </Reference>
     <Reference Include="EleWise.ELMA.SDK.Web">
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\EleWise.ELMA.SDK.Web.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\EleWise.ELMA.SDK.Web.dll</HintPath>
     </Reference>
-    <Reference Include="EleWise.ELMA.Security">
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\EleWise.ELMA.Security.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Mvc">
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\Microsoft.Web.Mvc.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Abstractions" />
@@ -99,17 +67,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\System.Web.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\ELMA311-Enterprise\Web\bin\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -119,10 +79,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Telerik.Web.Mvc">
-      <HintPath>C:\ELMA311-Enterprise\Web\bin\Telerik.Web.Mvc.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
