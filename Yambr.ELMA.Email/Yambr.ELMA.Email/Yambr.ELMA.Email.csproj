@@ -31,13 +31,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EleWise.ELMA.Common">
+      <HintPath>..\..\..\..\..\..\..\..\ELMA311-Enterprise\Designer\EleWise.ELMA.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EleWise.ELMA.CRM">
+      <HintPath>..\..\..\..\..\..\..\..\ELMA311-Enterprise\Designer\EleWise.ELMA.CRM.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="EleWise.ELMA.SDK">
-      <HintPath>C:\ELMA311-Enterprise\Designer\EleWise.ELMA.SDK.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\ylog3n3h.lzf\EleWise.ELMA.SDK.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EleWise.ELMA.Security">
+      <HintPath>..\..\..\..\..\..\..\..\ELMA311-Enterprise\Designer\EleWise.ELMA.Security.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>C:\ELMA311-Enterprise\Designer\Iesi.Collections.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\..\..\..\..\..\..\ELMA311-Enterprise\Web\bin\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RabbitMQ.Client.3.6.0\lib\net40\RabbitMQ.Client.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -54,6 +77,7 @@
       <Generator>MDCodeGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Yambr.ELMA.Email.nuspec" />
   </ItemGroup>
   <ItemGroup>
@@ -62,14 +86,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.md</DependentUpon>
     </Compile>
+    <Compile Include="Components\AbstractRabbitEntityHandler.cs" />
+    <Compile Include="Components\AbstractRabbitEntitysHandler.cs" />
+    <Compile Include="Components\AbstractRabbitMessageHandler.cs" />
+    <Compile Include="Components\IRabbitEntityMessage.cs" />
+    <Compile Include="Components\IRabbitEntitysMessage.cs" />
+    <Compile Include="Components\QueueUnitOfWorkListener.cs" />
+    <Compile Include="Components\SDKContainerEvents.cs" />
+    <Compile Include="Exceptions\RabbitException.cs" />
+    <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
+    <Compile Include="Extensions\ActionExtensions.cs" />
+    <Compile Include="EmailLogger.cs" />
+    <Compile Include="MessageQueueRMQSettings.cs" />
+    <Compile Include="MessageQueueRMQSettingsModule.cs" />
+    <Compile Include="Models\AbstractQueueTempObject.cs" />
+    <Compile Include="Models\DefaultQueueObject.cs" />
+    <Compile Include="Models\IQueueObject.cs" />
+    <Compile Include="Models\JsonQueueObject.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
+    <Compile Include="QueueConstants.cs" />
+    <Compile Include="Services\Impl\RabbitMQListenerService.cs" />
+    <Compile Include="Services\IRabbitMQListenerService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Exceptions\" />
     <Folder Include="Managers\" />
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
