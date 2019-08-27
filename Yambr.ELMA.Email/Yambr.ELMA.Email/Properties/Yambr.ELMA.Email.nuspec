@@ -2,10 +2,10 @@
 <package>
   <metadata>
     <id>$id$</id>
-    <title>My ELMA3 Module</title>
+    <title>История переписок CRM</title>
     <version>$version$</version>
-    <description>ELMA3 Module Sample</description>
-    <authors>My Company</authors>
+    <description>Интеграция с сервисом чтения писем</description>
+    <authors>Y A M B R</authors>
     <tags>[Type:Module] [Priority:100]</tags>
     <dependencies>
     </dependencies>

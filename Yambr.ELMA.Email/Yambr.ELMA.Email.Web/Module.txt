@@ -1,15 +1,15 @@
 ﻿Name: Yambr.ELMA.Email.Web
 Module: Yambr.ELMA.Email
 AntiForgery: disabled
-DisplayName: МуModule
-Author: My Company
-Website: http://www.elma-bpm.ru
+DisplayName: История переписок CRM
+Author: Y A M B R
+Website: http://yambr.ru
 Version: 3.0.0
 OrchardVersion: 1.0.20
-Description: My ELMA3 Module
+Description: История переписок CRM
 Features:
     Yambr.ELMA.Email.Web:
         Name: Yambr.ELMA.Email.Web
-        Description: My ELMA3 Module
-        Category: My ELMA Modules
+        Description: История переписок CRM
+        Category: YAMBR
         Dependencies: EleWise.ELMA.BPM.Web.Content, EleWise.ELMA.BPM.Web.Common

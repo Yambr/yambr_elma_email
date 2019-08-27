@@ -2,10 +2,10 @@
 <package>
   <metadata>
     <id>$id$</id>
-    <title>My ELMA3 Web Module</title>
+    <title>История переписок CRM Web Module</title>
     <version>$version$</version>
-    <description>My ELMA3 Web Module Sample</description>
-    <authors>My Company</authors>
+    <description>Интеграция с сервисом чтения писем Web Module</description>
+    <authors>Y A M B R</authors>
     <tags>[OwnerId:Yambr.ELMA.Email] [Component:Web]</tags>
     <dependencies>
     </dependencies>

@@ -43,17 +43,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EleWise.ELMA.CRM">
+      <HintPath>..\..\Assemblies\EleWise.ELMA.CRM.dll</HintPath>
+    </Reference>
     <Reference Include="EleWise.ELMA.SDK">
-      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\EleWise.ELMA.SDK.dll</HintPath>
+      <HintPath>..\..\Assemblies\EleWise.ELMA.SDK.dll</HintPath>
     </Reference>
     <Reference Include="EleWise.ELMA.SDK.Web">
-      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\EleWise.ELMA.SDK.Web.dll</HintPath>
+      <HintPath>..\..\Assemblies\EleWise.ELMA.SDK.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="EleWise.ELMA.Security">
+      <HintPath>..\..\Assemblies\EleWise.ELMA.Security.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
-      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\Iesi.Collections.dll</HintPath>
+      <HintPath>..\..\Assemblies\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\NHibernate.dll</HintPath>
+      <HintPath>..\..\Assemblies\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Abstractions" />

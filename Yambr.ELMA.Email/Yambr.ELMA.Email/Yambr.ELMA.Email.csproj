@@ -32,26 +32,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EleWise.ELMA.CRM">
-      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Designer\EleWise.ELMA.CRM.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\Assemblies\EleWise.ELMA.CRM.dll</HintPath>
     </Reference>
     <Reference Include="EleWise.ELMA.SDK">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\5qwtzkdl.zqn\EleWise.ELMA.SDK.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\Assemblies\EleWise.ELMA.SDK.dll</HintPath>
     </Reference>
     <Reference Include="EleWise.ELMA.Security">
-      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Designer\EleWise.ELMA.Security.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\Assemblies\EleWise.ELMA.Security.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
-      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\Iesi.Collections.dll</HintPath>
+      <HintPath>..\..\Assemblies\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\NHibernate.dll</HintPath>
+      <HintPath>..\..\Assemblies\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\RabbitMQ.Client.3.6.0\lib\net40\RabbitMQ.Client.dll</HintPath>
