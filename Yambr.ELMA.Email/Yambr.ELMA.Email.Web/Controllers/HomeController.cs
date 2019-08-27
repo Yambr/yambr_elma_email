@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using EleWise.ELMA.Extensions;
-using EleWise.ELMA.Web.Mvc.Extensions;
-using EleWise.ELMA.Web.Mvc.Attributes;
+﻿using System.Web.Mvc;
 using EleWise.ELMA.Web.Mvc.Controllers;
-using Orchard;
 using Orchard.Themes;
 
 namespace Yambr.ELMA.Email.Web.Controllers
@@ -16,7 +8,7 @@ namespace Yambr.ELMA.Email.Web.Controllers
     public class HomeController : BaseController
     {
         //
-        // GET: /Yambr.ELMA.Email.Web/
+        // GET: /Yambr.ELMA.YambrEmailSettings.Web/
 
         public ActionResult Index()
         {

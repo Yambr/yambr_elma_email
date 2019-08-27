@@ -1,0 +1,11 @@
+﻿@using EleWise.ELMA.Security.Managers
+@using EleWise.ELMA.Security.Diagrams.Elements
+@model Yambr.ELMA.Email.YambrEmailSettings
+@using (Html.TableForm(f => f.ViewType(EleWise.ELMA.Model.Views.ViewType.Display).Attributes(a => a.AddClass("settings_table"))))
+{
+    @Html.EditableProperty(m => m.HostName)
+    @Html.EditableProperty(m => m.VirtualHost)
+    @Html.EditableProperty(m => m.Port)
+    @Html.EditableProperty(m => m.UserName)
+    @Html.EditableProperty(m => m.Password)
+}
