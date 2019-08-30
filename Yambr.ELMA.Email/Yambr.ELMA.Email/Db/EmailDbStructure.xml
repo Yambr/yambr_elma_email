@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root uid="{3F80EFC0-ED3E-4D3A-89A1-A1BC4C8CDFB0}">
+  <methods>
+    <method ExecuteTime="OnIndexesCreated" AlwaysExecute="true" name="TrimEmailCreateIndex" />
+  </methods>
+</root>

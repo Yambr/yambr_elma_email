@@ -10,7 +10,7 @@ namespace Yambr.ELMA.Email
     public class YambrEmailSettingsModule : GlobalSettingsModuleBase<YambrEmailSettings>
     {
 
-        public override Guid ModuleGuid => new Guid("{E5582CE6-D5A9-4588-B58E-61C4CF955EDB}");
+        public override Guid ModuleGuid => new Guid("{8602D11C-7F3D-4520-A4DD-1BB0A57C6AE1}");
 
         public override string ModuleName => "История переписки - CRM";
 

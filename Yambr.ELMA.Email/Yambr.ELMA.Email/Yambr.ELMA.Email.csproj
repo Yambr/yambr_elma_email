@@ -43,9 +43,9 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\Assemblies\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Assemblies\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\..\Assemblies\NHibernate.dll</HintPath>
@@ -78,13 +78,53 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyInfo.md</DependentUpon>
     </Compile>
+    <Compile Include="Common\Enums\ConnectionType.cs" />
+    <Compile Include="Common\Enums\Direction.cs" />
+    <Compile Include="Common\Enums\EmailLoadingStatus.cs" />
+    <Compile Include="Common\Enums\UserStatus.cs" />
+    <Compile Include="Common\Models\AttachmentSummary.cs" />
+    <Compile Include="Common\Models\Contact.cs" />
+    <Compile Include="Common\Models\ContactSummary.cs" />
+    <Compile Include="Common\Models\Contractor.cs" />
+    <Compile Include="Common\Models\ContractorSummary.cs" />
+    <Compile Include="Common\Models\DataSource.cs" />
+    <Compile Include="Common\Models\Domain.cs" />
+    <Compile Include="Common\Models\Email.cs" />
+    <Compile Include="Common\Models\EmailMessage.cs" />
+    <Compile Include="Common\Models\EmailMessageSummary.cs" />
+    <Compile Include="Common\Models\EmbeddedSummary.cs" />
+    <Compile Include="Common\Models\HeaderSummary.cs" />
+    <Compile Include="Common\Models\IAttachmentsPart.cs" />
+    <Compile Include="Common\Models\IBodyPart.cs" />
+    <Compile Include="Common\Models\IBodySummaryPart.cs" />
+    <Compile Include="Common\Models\IContact.cs" />
+    <Compile Include="Common\Models\IContentItem.cs" />
+    <Compile Include="Common\Models\IContractor.cs" />
+    <Compile Include="Common\Models\IDomain.cs" />
+    <Compile Include="Common\Models\IEmbeddedPart.cs" />
+    <Compile Include="Common\Models\ILoadingState.cs" />
+    <Compile Include="Common\Models\ILocalUser.cs" />
+    <Compile Include="Common\Models\IMailBox.cs" />
+    <Compile Include="Common\Models\IMessagePart.cs" />
+    <Compile Include="Common\Models\IPhone.cs" />
+    <Compile Include="Common\Models\IServer.cs" />
+    <Compile Include="Common\Models\ITagsPart.cs" />
+    <Compile Include="Common\Models\LocalUser.cs" />
+    <Compile Include="Common\Models\MailBox.cs" />
+    <Compile Include="Common\Models\MailOwnerSummary.cs" />
+    <Compile Include="Common\Models\Phone.cs" />
+    <Compile Include="Common\Models\PublicDomain.cs" />
+    <Compile Include="Common\Models\Server.cs" />
+    <Compile Include="Common\Models\Tag.cs" />
     <Compile Include="Components\AbstractRabbitEntityHandler.cs" />
     <Compile Include="Components\AbstractRabbitEntitysHandler.cs" />
     <Compile Include="Components\AbstractRabbitMessageHandler.cs" />
+    <Compile Include="Components\EmailMessageHandler.cs" />
     <Compile Include="Components\IRabbitEntityMessage.cs" />
     <Compile Include="Components\IRabbitEntitysMessage.cs" />
     <Compile Include="Components\QueueUnitOfWorkListener.cs" />
     <Compile Include="Components\SDKContainerEvents.cs" />
+    <Compile Include="Db\EmailDbStructure.cs" />
     <Compile Include="Exceptions\RabbitException.cs" />
     <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
@@ -104,10 +144,7 @@
     <Folder Include="Managers\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Yambr.Email.Common\Yambr.Email.Common.csproj">
-      <Project>{9958f5e1-d8d0-4e79-8ab1-505b2207a733}</Project>
-      <Name>Yambr.Email.Common</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Db\EmailDbStructure.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
