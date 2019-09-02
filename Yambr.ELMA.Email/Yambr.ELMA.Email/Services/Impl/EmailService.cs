@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using EleWise.ELMA.ComponentModel;
-using EleWise.ELMA.CRM.Models;
-using EleWise.ELMA.Model.Metadata;
 using EleWise.ELMA.Model.Services;
 using EleWise.ELMA.Runtime.Db.Migrator.Framework;
 using EleWise.ELMA.Runtime.NH;
-using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.SqlCommand;
+using Yambr.ELMA.Email.Common.Models;
+using Yambr.ELMA.Email.Enums;
+using Yambr.ELMA.Email.Managers;
+using Yambr.ELMA.Email.Models;
+using System.Web;
 
 namespace Yambr.ELMA.Email.Services.Impl
 {
     [Service]
-    public  class EmailService
+    public  class EmailService : IEmailService
     {
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly ISessionProvider _sessionProvider;
@@ -27,57 +25,62 @@ namespace Yambr.ELMA.Email.Services.Impl
             _transformationProvider = transformationProvider;
         }
 
-        public ICollection<object> GetEntityesByEmails(IEnumerable<string> emails)
+        public IEmailMessage Save(EmailMessage emailMessage)
         {
-            var emails = new List<string>() { "erg" };
-            var session = _sessionProvider.GetSession("");
-            var @join = string.Join(",", emails.Select(c => $"'{c}'"));
-            var hqlQuery =
-                session.CreateQuery(
-                    $"FROM Contractor contractor where contractor.Email in ({@join})");
-           Type type = null;
-           
-           var contractorCriteria = EmailCriterisIn(typeof(IContractor), session, emails);
-           var contactCriteria = EmailCriterisIn(typeof(IContact), session, emails);
-           var leadCriteria = EmailCriterisIn(typeof(ILead), session, emails);
-
+            var message = EmailMessageManager.Instance.Load(emailMessage.Hash);
+            if (message != null)
+                return message;
+            message = InterfaceActivator.Create<IEmailMessage>();
+            message.DateUtc = emailMessage.DateUtc;
+            message.Hash = emailMessage.Hash;
+            message.MainHeader = ConvertHeader(emailMessage.MainHeader);
+            message.CommonHeaders = ConvertHeaders(emailMessage.CommonHeaders);
+            message.Body = ConvertBody(emailMessage.Body);
+            message.IsBodyHtml = emailMessage.IsBodyHtml;
+            message.Subject = emailMessage.Subject;
+            message.SubjectWithoutTags = emailMessage.SubjectWithoutTags;
+            FillParticipants(emailMessage, message);
+            message.Direction = (EmailDirection)(int)emailMessage.Direction;
+            message.Tags = ConvertTags(emailMessage.Tags);
+            message.Owners = GetOwners(emailMessage.Owners);
+            message.Save();
+            return message;
         }
 
-        private static ICriteria EmailCriterisIn( Type type, ISession session, IEnumerable<string> emails)
+        private static HtmlString ConvertHeader(string emailHeader)
         {
-            var criteria = session.CreateCriteria(type);
-            foreach (var email in emails)
-            {
-                var dc = DetachedCriteria
-                    .For(InterfaceActivator.TypeOf(type))
-                    .CreateAlias("Email", "EmailAlias", JoinType.InnerJoin)
-                    .Add(Restrictions.Eq("EmailAlias.EmailString", email))
-                    .SetProjection(Projections.Property("Id"));
-                criteria.Add(Subqueries.PropertyIn("Id", dc));
-            }
-            return criteria;
+            return new HtmlString($"<i>{emailHeader}</i>");
         }
 
-        public ICollection<long> GetFilterPropertyList(ICriteria criteria, Type type, EntityPropertyMetadata property, object propertyValue, string nameReturnProperty)
+        private static HtmlString ConvertBody(string emailMessageBody)
         {
-            IEnumerable<IEmail> enumerable = propertyValue as IEnumerable<IEmail>;
-            if (enumerable != null && enumerable.Any())
-            {
-                List<long> list = new List<long>();
-                foreach (IEmail item in enumerable)
-                {
-                    DetachedCriteria dc = DetachedCriteria
-                        .For(InterfaceActivator.TypeOf(type))
-                        .CreateAlias("Email", "EmailAlias", JoinType.InnerJoin)
-                        .Add(Restrictions.Eq("EmailAlias.EmailString", item.EmailString))
-                        .SetProjection(Projections.Property("Id"));
-                    criteria.Add(Subqueries.PropertyIn("Id", dc));
-                    criteria.SetProjection(Projections.ProjectionList().Add(Projections.Property(nameReturnProperty)));
-                    list.AddRange(criteria.List<long>());
-                }
-                return list.Distinct().ToList();
-            }
-            return new List<long>();
+           return new HtmlString(emailMessageBody);
+        }
+
+        private static HtmlString ConvertHeaders(IEnumerable<HeaderSummary> emailHeaders)
+        {
+            var headers = emailHeaders.Select(c=>ConvertHeader(c.Text));
+            var list = string.Join("", headers);
+            return new HtmlString($"<ul>{list}</ul>");
+        }
+
+        private static IUserMailbox GetOwners(ICollection<MailOwnerSummary> emailMessageOwners)
+        {
+            //TODO
+            return null;
+        }
+
+        private static string ConvertTags(IEnumerable<HashTag> emailMessageTags)
+        {
+            return 
+                string.Join(",", emailMessageTags.Select(c => $"#{c.Name}"));
+        }
+
+        private static void FillParticipants(EmailMessage emailMessage, IEmailMessage message)
+        {
+            //TODO
+          /*  message.To = emailMessage.To;
+            message.From = emailMessage.From;*/
         }
     }
 }

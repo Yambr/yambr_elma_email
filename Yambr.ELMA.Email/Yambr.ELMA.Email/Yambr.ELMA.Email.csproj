@@ -58,6 +58,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,6 +69,34 @@
     <None Include="AssemblyInfo.md">
       <Generator>MDCodeGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
+    </None>
+    <None Include="Enums\EmailDirection.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>EmailDirection.cs</LastGenOutput>
+    </None>
+    <None Include="Models\EmailMessage.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>EmailMessage.cs</LastGenOutput>
+    </None>
+    <None Include="Models\EmailMessageParticipant.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>EmailMessageParticipant.cs</LastGenOutput>
+    </None>
+    <None Include="Models\EmailMessageParticipantContact.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>EmailMessageParticipantContact.cs</LastGenOutput>
+    </None>
+    <None Include="Models\EmailMessageParticipantUser.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>EmailMessageParticipantUser.cs</LastGenOutput>
+    </None>
+    <None Include="Models\MailServer.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>MailServer.cs</LastGenOutput>
+    </None>
+    <None Include="Models\UserMailbox.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>UserMailbox.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Yambr.ELMA.Email.nuspec" />
@@ -116,19 +145,57 @@
     <Compile Include="Common\Models\PublicDomain.cs" />
     <Compile Include="Common\Models\Server.cs" />
     <Compile Include="Common\Models\Tag.cs" />
-    <Compile Include="Components\AbstractRabbitEntityHandler.cs" />
-    <Compile Include="Components\AbstractRabbitEntitysHandler.cs" />
-    <Compile Include="Components\AbstractRabbitMessageHandler.cs" />
-    <Compile Include="Components\EmailMessageHandler.cs" />
-    <Compile Include="Components\IRabbitEntityMessage.cs" />
-    <Compile Include="Components\IRabbitEntitysMessage.cs" />
-    <Compile Include="Components\QueueUnitOfWorkListener.cs" />
+    <Compile Include="Components\Queue\AbstractRabbitEntityHandler.cs" />
+    <Compile Include="Components\Queue\AbstractRabbitEntitysHandler.cs" />
+    <Compile Include="Components\Queue\AbstractRabbitMessageHandler.cs" />
+    <Compile Include="Components\Queue\EmailMessageHandler.cs" />
+    <Compile Include="Components\Queue\IRabbitEntityMessage.cs" />
+    <Compile Include="Components\Queue\IRabbitEntitysMessage.cs" />
+    <Compile Include="Components\Queue\QueueUnitOfWorkListener.cs" />
     <Compile Include="Components\SDKContainerEvents.cs" />
     <Compile Include="Db\EmailDbStructure.cs" />
+    <Compile Include="Enums\EmailDirection.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailDirection.md</DependentUpon>
+    </Compile>
     <Compile Include="Exceptions\RabbitException.cs" />
     <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="EmailLogger.cs" />
+    <Compile Include="Managers\EmailMessageManager.cs" />
+    <Compile Include="Models\EmailMessage.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailMessage.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmailMessageParticipant.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailMessageParticipant.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmailMessageParticipantContact.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailMessageParticipantContact.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmailMessageParticipantUser.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailMessageParticipantUser.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MailServer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailServer.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserMailbox.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserMailbox.md</DependentUpon>
+    </Compile>
+    <Compile Include="Services\IEmailService.cs" />
+    <Compile Include="Services\Impl\EmailService.cs" />
     <Compile Include="YambrEmailSettings.cs" />
     <Compile Include="YambrEmailSettingsModule.cs" />
     <Compile Include="Models\AbstractQueueTempObject.cs" />
@@ -140,9 +207,7 @@
     <Compile Include="Services\Impl\RabbitMQListenerService.cs" />
     <Compile Include="Services\IRabbitMQListenerService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Managers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Db\EmailDbStructure.xml" />
   </ItemGroup>

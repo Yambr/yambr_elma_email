@@ -1,6 +1,6 @@
 ﻿using EleWise.ELMA.Model.Entities;
 
-namespace Yambr.ELMA.Email.Components
+namespace Yambr.ELMA.Email.Components.Queue
 {
     public abstract class AbstractRabbitEntityHandler<TMessage, TEntity> : AbstractRabbitMessageHandler<TMessage, long?>
         where TEntity : IEntity<long>

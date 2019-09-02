@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Yambr.ELMA.Email.Common.Enums;
+using Yambr.ELMA.Email.Components.Queue;
+using Yambr.ELMA.Email.Models;
 
 namespace Yambr.ELMA.Email.Common.Models
 {
-    public class EmailMessage :  IContentItem, IBodyPart, IMessagePart, IAttachmentsPart, ITagsPart, IEmbeddedPart
+    public partial class EmailMessage :  IContentItem, IBodyPart, IMessagePart, IAttachmentsPart, ITagsPart, IEmbeddedPart
     {
      
         [JsonConstructor]

@@ -7,7 +7,7 @@ using Yambr.ELMA.Email.ExtensionPoints;
 using Yambr.ELMA.Email.Extensions;
 using Newtonsoft.Json;
 
-namespace Yambr.ELMA.Email.Components
+namespace Yambr.ELMA.Email.Components.Queue
 {
 
     public abstract class AbstractRabbitMessageHandler<TMessage, TResult> : IRabbitMessageHandler

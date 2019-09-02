@@ -9,7 +9,7 @@ using EleWise.ELMA.Services;
 using Yambr.ELMA.Email.Models;
 using Yambr.ELMA.Email.Services;
 
-namespace Yambr.ELMA.Email.Components
+namespace Yambr.ELMA.Email.Components.Queue
 {
     [Component(Order = 1000010)]
     internal class QueueUnitOfWorkListener : IUnitOfWorkEventListener

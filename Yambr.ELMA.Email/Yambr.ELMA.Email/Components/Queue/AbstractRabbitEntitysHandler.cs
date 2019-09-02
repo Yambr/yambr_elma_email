@@ -2,7 +2,7 @@
 using System.Linq;
 using EleWise.ELMA.Model.Entities;
 
-namespace Yambr.ELMA.Email.Components
+namespace Yambr.ELMA.Email.Components.Queue
 {
     public abstract class AbstractRabbitEntitysHandler<TMessage, TEntity> : AbstractRabbitMessageHandler<TMessage, IEnumerable<long>>
         where TEntity : IEntity<long>
