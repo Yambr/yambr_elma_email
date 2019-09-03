@@ -147,8 +147,10 @@ namespace Yambr.ELMA.Email.Services.Impl
         /// <param name="connection"></param>
         private void OnReceived(object model, BasicDeliverEventArgs eventArgs, IModel connection)
         {
+            var dateTimeNow = DateTime.Now;
             try
             {
+                
                 var body = eventArgs.Body;
                 var message = Encoding.UTF8.GetString(body);
                 Logger.Debug($"{eventArgs.Exchange}: { eventArgs.RoutingKey}: {model}: {message}");
@@ -163,6 +165,13 @@ namespace Yambr.ELMA.Email.Services.Impl
             {
                 Logger.Error(ex);
             }
+
+            if (Logger.IsDebugEnabled())
+            {
+                var timePrepare = DateTime.Now - dateTimeNow;
+                Logger.Debug($"{model}: {timePrepare:g}");
+            }
+          
         }
 
         /// <summary>
