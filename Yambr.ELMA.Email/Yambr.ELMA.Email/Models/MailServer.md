@@ -45,8 +45,8 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>List</ViewType>
@@ -70,20 +70,20 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
+            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Edit</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -108,20 +108,20 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
+            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Edit</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -145,20 +145,20 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
+            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Edit</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -183,20 +183,20 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
+            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Edit</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -206,6 +206,107 @@
           <HandlerUid>d152e660-1ee9-4b5f-a614-df280e5b3f98</HandlerUid>
         </PropertyHandlerInfo>
       </Handlers>
+      <Filterable>true</Filterable>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>d301f68b-52fb-4203-b4b4-3b137d1f20a3</Uid>
+      <Name>ImapHost</Name>
+      <DisplayName>Адрес IMAP</DisplayName>
+      <TypeUid>9b9aac17-22bb-425c-aa93-9c02c5146965</TypeUid>
+      <Settings xsi:type="StringSettings">
+        <FieldName>ImapHost</FieldName>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>6</Order>
+      <InFastSearch>true</InFastSearch>
+      <Filterable>true</Filterable>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>2cbe8b88-74de-4d0f-b975-4958786a69f2</Uid>
+      <Name>ImapPort</Name>
+      <DisplayName>Порт IMAP</DisplayName>
+      <TypeUid>d90a59af-7e47-48c5-8c4c-dad04834e6e3</TypeUid>
+      <Settings xsi:type="Int64Settings">
+        <FieldName>ImapPort</FieldName>
+        <DefaultValue>993</DefaultValue>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>7</Order>
+      <Filterable>true</Filterable>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>66c1b4b5-b162-499b-83db-160af1f686f1</Uid>
+      <Name>RequaredSSL</Name>
+      <DisplayName>Требуется SSL</DisplayName>
+      <TypeUid>9cd56a40-6192-4d8a-840c-c4bd4dfb88eb</TypeUid>
+      <Settings xsi:type="BoolSettings">
+        <FieldName>RequaredSSL</FieldName>
+      </Settings>
+      <Nullable>false</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>8</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
   </Properties>

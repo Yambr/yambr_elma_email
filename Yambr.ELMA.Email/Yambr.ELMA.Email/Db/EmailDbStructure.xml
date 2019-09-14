@@ -2,5 +2,6 @@
 <root uid="{3F80EFC0-ED3E-4D3A-89A1-A1BC4C8CDFB0}">
   <methods>
     <method ExecuteTime="OnIndexesCreated" AlwaysExecute="true" name="TrimEmailCreateIndex" />
+    <method ExecuteTime="OnIndexesCreated" AlwaysExecute="true" name="EmailMessageParticipantCreateIndex" />
   </methods>
 </root>

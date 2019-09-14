@@ -13,7 +13,7 @@
     [global::EleWise.ELMA.Model.Attributes.Uid("06aeb963-e379-4fff-9951-de6bf6cb508f")]
     [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "DisplayName")]
     [global::EleWise.ELMA.Model.Attributes.DisplayFormat(null)]
-    [global::EleWise.ELMA.Model.Attributes.TitleProperty("8aba5c2c-e2e6-466a-8fbe-9fbf6287db1e")]
+    [global::EleWise.ELMA.Model.Attributes.TitleProperty("ab12b139-f183-414f-8043-529a1c0936f7")]
     [global::EleWise.ELMA.Model.Attributes.TableView(@"<?xml version=""1.0"" encoding=""utf-8""?>
 <TableView xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <Uid>2b183cbc-bbcc-4b07-8eb6-16de28e59de3</Uid>
@@ -47,33 +47,10 @@
         }
         
         /// <summary>
-        /// Наименование
-        /// </summary>
-        [global::EleWise.ELMA.Model.Attributes.Uid("8aba5c2c-e2e6-466a-8fbe-9fbf6287db1e")]
-        [global::EleWise.ELMA.Model.Attributes.Order(1)]
-        [global::EleWise.ELMA.Model.Attributes.Required(true)]
-        [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
-        [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="Name")]
-        [global::EleWise.ELMA.Model.Types.Validation.RequiredField()]
-        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_Name_DisplayName")]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.FastSearch(true)]
-        [global::EleWise.ELMA.Model.Attributes.Filterable()]
-        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
-        string Name
-        {
-            get;
-            set;
-        }
-        
-        /// <summary>
         /// Дата создания
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("824e8f7e-a414-4f0b-8c01-8579a556045a")]
-        [global::EleWise.ELMA.Model.Attributes.Order(2)]
+        [global::EleWise.ELMA.Model.Attributes.Order(1)]
         [global::EleWise.ELMA.ComponentModel.NotNull()]
         [global::EleWise.ELMA.Model.Attributes.Property("dac9211e-e02b-47cd-8868-89a3bfc0f749")]
         [global::EleWise.ELMA.Model.Types.Settings.DateTimeSettings(SetCurrentDate=true, FieldName="CreationDate")]
@@ -95,7 +72,7 @@
         /// Автор создания
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("5200cb77-1e0f-4aa8-b89a-7df03624a320")]
-        [global::EleWise.ELMA.Model.Attributes.Order(3)]
+        [global::EleWise.ELMA.Model.Attributes.Order(2)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "cfdeb03c-35e9-45e7-aad8-037d83888f73")]
         [global::EleWise.ELMA.Security.Types.Settings.EntityUserSettings(FieldName="CreationAuthor")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_CreationAuthor_DisplayName")]
@@ -116,7 +93,7 @@
         /// Дата изменения
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("139faf94-ad8f-43c1-bc9a-f16c0aff553b")]
-        [global::EleWise.ELMA.Model.Attributes.Order(4)]
+        [global::EleWise.ELMA.Model.Attributes.Order(3)]
         [global::EleWise.ELMA.ComponentModel.CanBeNull()]
         [global::EleWise.ELMA.Model.Attributes.Property("dac9211e-e02b-47cd-8868-89a3bfc0f749")]
         [global::EleWise.ELMA.Model.Types.Settings.DateTimeSettings(FieldName="ChangeDate")]
@@ -138,7 +115,7 @@
         /// Автор изменения
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("8b6d961c-b64c-48b0-ade4-84ecda73c9a1")]
-        [global::EleWise.ELMA.Model.Attributes.Order(5)]
+        [global::EleWise.ELMA.Model.Attributes.Order(4)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "cfdeb03c-35e9-45e7-aad8-037d83888f73")]
         [global::EleWise.ELMA.Security.Types.Settings.EntityUserSettings(FieldName="ChangeAuthor")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_ChangeAuthor_DisplayName")]
@@ -159,7 +136,7 @@
         /// Владелец
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("e11d2fdd-fb0e-4449-822b-cd42d10104ea")]
-        [global::EleWise.ELMA.Model.Attributes.Order(6)]
+        [global::EleWise.ELMA.Model.Attributes.Order(5)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "cfdeb03c-35e9-45e7-aad8-037d83888f73")]
         [global::EleWise.ELMA.Security.Types.Settings.EntityUserSettings(CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate, FieldName="Owner")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_Owner_DisplayName")]
@@ -179,7 +156,7 @@
         /// Сервер
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("3535c6a8-360e-45ba-95b7-0e0efeff8d5d")]
-        [global::EleWise.ELMA.Model.Attributes.Order(7)]
+        [global::EleWise.ELMA.Model.Attributes.Order(6)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "8786ded0-8825-482d-9446-e9a6eaf6caa0")]
         [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate, FieldName="Server")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_Server_DisplayName")]
@@ -190,6 +167,70 @@
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         Yambr.ELMA.Email.Models.IMailServer Server
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Почтовый логин
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("ab12b139-f183-414f-8043-529a1c0936f7")]
+        [global::EleWise.ELMA.Model.Attributes.Order(7)]
+        [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
+        [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="EmailLogin")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_EmailLogin_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.FastSearch(true)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        string EmailLogin
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Почтовый пароль
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("a7295997-9533-4d16-9da5-d1cf9741eaea")]
+        [global::EleWise.ELMA.Model.Attributes.Order(8)]
+        [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
+        [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="EmailPassword")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_EmailPassword_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.ForceHidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        string EmailPassword
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Время последнего сбора писем
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("3c5b0672-8b44-403c-8f88-2e153a88fa82")]
+        [global::EleWise.ELMA.Model.Attributes.Order(9)]
+        [global::EleWise.ELMA.ComponentModel.NotNull()]
+        [global::EleWise.ELMA.Model.Attributes.Property("dac9211e-e02b-47cd-8868-89a3bfc0f749")]
+        [global::EleWise.ELMA.Model.Types.Settings.DateTimeSettings(FieldName="LastMailUpdate")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_LastMailUpdate_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        System.DateTime LastMailUpdate
         {
             get;
             set;
@@ -212,14 +253,6 @@
             get
             {
                 return global::EleWise.ELMA.SR.T("Уникальный идентификатор");
-            }
-        }
-        
-        public static string P_Name_DisplayName
-        {
-            get
-            {
-                return global::EleWise.ELMA.SR.T("Наименование");
             }
         }
         
@@ -268,6 +301,30 @@
             get
             {
                 return global::EleWise.ELMA.SR.T("Сервер");
+            }
+        }
+        
+        public static string P_EmailLogin_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Почтовый логин");
+            }
+        }
+        
+        public static string P_EmailPassword_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Почтовый пароль");
+            }
+        }
+        
+        public static string P_LastMailUpdate_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Время последнего сбора писем");
             }
         }
     }

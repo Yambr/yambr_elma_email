@@ -45,8 +45,8 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>List</ViewType>
@@ -75,12 +75,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -107,12 +107,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -141,12 +141,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -173,12 +173,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -205,12 +205,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -237,12 +237,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -269,12 +269,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -303,12 +303,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -340,12 +340,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -377,12 +377,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -409,12 +409,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -441,12 +441,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -475,12 +475,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>

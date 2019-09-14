@@ -153,8 +153,6 @@ namespace Yambr.ELMA.Email.Services.Impl
                 
                 var body = eventArgs.Body;
                 var message = Encoding.UTF8.GetString(body);
-                Logger.Debug($"{eventArgs.Exchange}: { eventArgs.RoutingKey}: {model}: {message}");
-
                 _securityService
                     .RunWithElevatedPrivilegies(() =>
                     {

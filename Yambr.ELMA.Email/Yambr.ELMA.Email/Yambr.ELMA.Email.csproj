@@ -94,6 +94,10 @@
       <Generator>MDCodeGenerator</Generator>
       <LastGenOutput>MailServer.cs</LastGenOutput>
     </None>
+    <None Include="Models\UserExt.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>UserExt.cs</LastGenOutput>
+    </None>
     <None Include="Models\UserMailbox.md">
       <Generator>MDCodeGenerator</Generator>
       <LastGenOutput>UserMailbox.cs</LastGenOutput>
@@ -188,6 +192,14 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MailServer.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserExt.Actions.cs">
+      <DependentUpon>UserExt.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserExt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserExt.md</DependentUpon>
     </Compile>
     <Compile Include="Models\UserMailbox.cs">
       <AutoGen>True</AutoGen>

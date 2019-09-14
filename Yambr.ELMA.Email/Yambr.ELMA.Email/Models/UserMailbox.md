@@ -27,37 +27,6 @@
       <Order>0</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
-      <Uid>8aba5c2c-e2e6-466a-8fbe-9fbf6287db1e</Uid>
-      <Name>Name</Name>
-      <DisplayName>Наименование</DisplayName>
-      <TypeUid>9b9aac17-22bb-425c-aa93-9c02c5146965</TypeUid>
-      <Settings xsi:type="StringSettings">
-        <FieldName>Name</FieldName>
-      </Settings>
-      <Nullable>false</Nullable>
-      <Required>true</Required>
-      <ViewSettings>
-        <Attributes>
-          <ViewAttribute>
-            <ViewType>Create</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Edit</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>List</ViewType>
-          </ViewAttribute>
-        </Attributes>
-      </ViewSettings>
-      <Order>1</Order>
-      <InFastSearch>true</InFastSearch>
-      <Filterable>true</Filterable>
-    </PropertyMetadata>
-    <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>824e8f7e-a414-4f0b-8c01-8579a556045a</Uid>
       <Name>CreationDate</Name>
       <DisplayName>Дата создания</DisplayName>
@@ -70,24 +39,24 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
+            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Edit</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>2</Order>
+      <Order>1</Order>
       <Handlers>
         <PropertyHandlerInfo>
           <HandlerUid>d0c00d8a-e003-427d-9942-f52cfb77b0f0</HandlerUid>
@@ -108,24 +77,24 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
+            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Edit</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>3</Order>
+      <Order>2</Order>
       <Handlers>
         <PropertyHandlerInfo>
           <HandlerUid>b05ac6bd-eb8b-474a-a796-b53831a9967e</HandlerUid>
@@ -145,24 +114,24 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
+            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Edit</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>4</Order>
+      <Order>3</Order>
       <Handlers>
         <PropertyHandlerInfo>
           <HandlerUid>12a6c5c4-12f8-4b2e-b7ea-5438974a2d25</HandlerUid>
@@ -183,24 +152,24 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
+            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Edit</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>5</Order>
+      <Order>4</Order>
       <Handlers>
         <PropertyHandlerInfo>
           <HandlerUid>d152e660-1ee9-4b5f-a614-df280e5b3f98</HandlerUid>
@@ -228,19 +197,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>6</Order>
+      <Order>5</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>3535c6a8-360e-45ba-95b7-0e0efeff8d5d</Uid>
@@ -262,12 +231,44 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>List</ViewType>
             <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>6</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>ab12b139-f183-414f-8043-529a1c0936f7</Uid>
+      <Name>EmailLogin</Name>
+      <DisplayName>Почтовый логин</DisplayName>
+      <TypeUid>9b9aac17-22bb-425c-aa93-9c02c5146965</TypeUid>
+      <Settings xsi:type="StringSettings">
+        <FieldName>EmailLogin</FieldName>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -275,6 +276,77 @@
         </Attributes>
       </ViewSettings>
       <Order>7</Order>
+      <InFastSearch>true</InFastSearch>
+      <Filterable>true</Filterable>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>a7295997-9533-4d16-9da5-d1cf9741eaea</Uid>
+      <Name>EmailPassword</Name>
+      <DisplayName>Почтовый пароль</DisplayName>
+      <TypeUid>9b9aac17-22bb-425c-aa93-9c02c5146965</TypeUid>
+      <Settings xsi:type="StringSettings">
+        <FieldName>EmailPassword</FieldName>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>ForceHidden</Visibility>
+            <ViewType>List</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>8</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>3c5b0672-8b44-403c-8f88-2e153a88fa82</Uid>
+      <Name>LastMailUpdate</Name>
+      <DisplayName>Время последнего сбора писем</DisplayName>
+      <TypeUid>dac9211e-e02b-47cd-8868-89a3bfc0f749</TypeUid>
+      <Settings xsi:type="DateTimeSettings">
+        <FieldName>LastMailUpdate</FieldName>
+      </Settings>
+      <Nullable>false</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>9</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
   </Properties>
   <PropertiesDiffContainer />
@@ -296,7 +368,7 @@
       <GroupDescriptors />
     </TableView>
   </TableViews>
-  <TitlePropertyUid>8aba5c2c-e2e6-466a-8fbe-9fbf6287db1e</TitlePropertyUid>
+  <TitlePropertyUid>ab12b139-f183-414f-8043-529a1c0936f7</TitlePropertyUid>
   <Type>Interface</Type>
   <ImplementationUid>ca2f3a69-b8d4-427f-9c32-d99985594dac</ImplementationUid>
   <IdTypeUid>d90a59af-7e47-48c5-8c4c-dad04834e6e3</IdTypeUid>

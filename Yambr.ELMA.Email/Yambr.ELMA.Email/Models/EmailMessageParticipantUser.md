@@ -5,7 +5,76 @@
   <DisplayName>EmailMessageParticipantUser</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
   <BaseClassUid>2474afc5-cfb2-4c63-aa91-12c4087819d9</BaseClassUid>
-  <Properties />
+  <Properties>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>62ebc39c-714f-471e-955e-ec1c5717c279</Uid>
+      <Name>User</Name>
+      <DisplayName>User</DisplayName>
+      <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
+      <SubTypeUid>cfdeb03c-35e9-45e7-aad8-037d83888f73</SubTypeUid>
+      <Settings xsi:type="EntityUserSettings">
+        <FieldName>User</FieldName>
+        <CascadeMode>SaveUpdate</CascadeMode>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>0</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>cbf3be84-d207-45d0-a26b-e60822be9197</Uid>
+      <Name>Mailbox</Name>
+      <DisplayName>Mailbox</DisplayName>
+      <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
+      <SubTypeUid>06aeb963-e379-4fff-9951-de6bf6cb508f</SubTypeUid>
+      <Settings xsi:type="EntitySettings">
+        <FieldName>Mailbox</FieldName>
+        <CascadeMode>SaveUpdate</CascadeMode>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>1</Order>
+    </PropertyMetadata>
+  </Properties>
   <PropertiesDiffContainer />
   <DefaultForms>
     <CreateUid>00000000-0000-0000-0000-000000000000</CreateUid>

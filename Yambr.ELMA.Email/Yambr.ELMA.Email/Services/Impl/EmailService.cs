@@ -59,9 +59,11 @@ namespace Yambr.ELMA.Email.Services.Impl
 
         private static HtmlString ConvertHeaders(IEnumerable<HeaderSummary> emailHeaders)
         {
+            if (emailHeaders == null) return null;
             var headers = emailHeaders.Select(c=>$"<li>{ConvertHeader(c.Text)}</li>");
             var list = string.Join("", headers);
             return new HtmlString($"<ul>{list}</ul>");
+
         }
 
         private static IUserMailbox GetOwners(ICollection<MailOwnerSummary> emailMessageOwners)
@@ -73,14 +75,16 @@ namespace Yambr.ELMA.Email.Services.Impl
         private static string ConvertTags(IEnumerable<HashTag> emailMessageTags)
         {
             return 
-                string.Join(",", emailMessageTags.Select(c => $"{c.Name}"));
+                emailMessageTags != null ? 
+                    string.Join(",", emailMessageTags.Select(c => $"{c.Name}")) :
+                    null;
         }
 
         private static void FillParticipants(EmailMessage emailMessage, IEmailMessage message)
         {
             //TODO
-          /*  message.To = emailMessage.To;
-            message.From = emailMessage.From;*/
+            message.To = emailMessage.To;
+            /*message.From = emailMessage.From;*/
         }
     }
 }

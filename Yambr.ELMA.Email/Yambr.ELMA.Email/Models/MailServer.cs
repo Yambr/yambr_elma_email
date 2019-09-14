@@ -154,6 +154,72 @@
             get;
             set;
         }
+        
+        /// <summary>
+        /// Адрес IMAP
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("d301f68b-52fb-4203-b4b4-3b137d1f20a3")]
+        [global::EleWise.ELMA.Model.Attributes.Order(6)]
+        [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
+        [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="ImapHost")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IMailServer), "P_ImapHost_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.FastSearch(true)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        string ImapHost
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Порт IMAP
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("2cbe8b88-74de-4d0f-b975-4958786a69f2")]
+        [global::EleWise.ELMA.Model.Attributes.Order(7)]
+        [global::EleWise.ELMA.ComponentModel.CanBeNull()]
+        [global::EleWise.ELMA.Model.Attributes.Property("d90a59af-7e47-48c5-8c4c-dad04834e6e3")]
+        [global::EleWise.ELMA.Model.Types.Settings.Int64Settings(DefaultValueStr="993", FieldName="ImapPort")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IMailServer), "P_ImapPort_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        System.Nullable<long> ImapPort
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Требуется SSL
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("66c1b4b5-b162-499b-83db-160af1f686f1")]
+        [global::EleWise.ELMA.Model.Attributes.Order(8)]
+        [global::EleWise.ELMA.ComponentModel.NotNull()]
+        [global::EleWise.ELMA.Model.Attributes.Property("9cd56a40-6192-4d8a-840c-c4bd4dfb88eb")]
+        [global::EleWise.ELMA.Model.Types.Settings.BoolSettings(FieldName="RequaredSSL")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IMailServer), "P_RequaredSSL_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        bool RequaredSSL
+        {
+            get;
+            set;
+        }
     }
     
     internal class @__Resources_IMailServer
@@ -212,6 +278,30 @@
             get
             {
                 return global::EleWise.ELMA.SR.T("Автор изменения");
+            }
+        }
+        
+        public static string P_ImapHost_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Адрес IMAP");
+            }
+        }
+        
+        public static string P_ImapPort_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Порт IMAP");
+            }
+        }
+        
+        public static string P_RequaredSSL_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Требуется SSL");
             }
         }
     }

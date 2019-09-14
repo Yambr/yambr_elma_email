@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EleWise.ELMA.CRM.Models;
 using EleWise.ELMA.Runtime.Db;
 using EleWise.ELMA.Runtime.Db.Migrator.Framework;
+using Yambr.ELMA.Email.Models;
 
 namespace Yambr.ELMA.Email.Db
 {
@@ -35,7 +36,23 @@ namespace Yambr.ELMA.Email.Db
                     nameof(IEmail.EmailString)
                 }
             });
-            
+        }
+
+        /// <summary>
+        /// Создать индекс для поля Уникальный идентификатор по ЕГРЮЛ
+        /// </summary>
+        public void EmailMessageParticipantCreateIndex()
+        {
+            Transformation.AddIndex(new Index
+            {
+                Name = "IX_EmailMessageParticipant_EmailString",
+                TableName = "EmailMessageParticipant",
+                Columns = new List<string>
+                {
+                    nameof(IEmailMessageParticipant.EmailString)
+                }
+            });
+
         }
     }
 }

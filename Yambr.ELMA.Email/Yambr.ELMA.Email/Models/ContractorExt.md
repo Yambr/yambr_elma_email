@@ -1,20 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Uid>a8ee5fd8-6f4e-4fe3-bd0b-063fe92694ab</Uid>
-  <Name>EmailMessageParticipantContact</Name>
-  <DisplayName>EmailMessageParticipantContact</DisplayName>
+  <Uid>f1254386-a72a-4f41-9986-8060c7dae23a</Uid>
+  <Name>ContractorExt</Name>
+  <DisplayName>ContractorExt</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
-  <BaseClassUid>2474afc5-cfb2-4c63-aa91-12c4087819d9</BaseClassUid>
+  <BaseClassUid>38096146-0c73-4809-94f5-e18b2d525531</BaseClassUid>
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
-      <Uid>dac4aebc-48ea-401e-9a45-86139f08bec9</Uid>
-      <Name>Contact</Name>
-      <DisplayName>Contact</DisplayName>
+      <Uid>f296ac2f-83c2-45e6-8357-4e0f36b42043</Uid>
+      <Name>Domens</Name>
+      <DisplayName>Домены</DisplayName>
+      <Description>письма с этих доменов автоматически создадут новые контакты и прикрепят к ним новые письма</Description>
       <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
-      <SubTypeUid>a9b1bc6a-3286-4264-81aa-02f6df73c080</SubTypeUid>
+      <SubTypeUid>9634d99b-edd4-45fe-9b2e-0dc68465bcc0</SubTypeUid>
       <Settings xsi:type="EntitySettings">
-        <FieldName>Contact</FieldName>
-        <CascadeMode>SaveUpdate</CascadeMode>
+        <RelationType>OneToMany</RelationType>
+        <KeyColumnUid>58c867aa-df79-4795-b3a4-8be6fb9b740c</KeyColumnUid>
       </Settings>
       <Nullable>true</Nullable>
       <ViewSettings>
@@ -39,6 +40,7 @@
         </Attributes>
       </ViewSettings>
       <Order>0</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
   </Properties>
   <PropertiesDiffContainer />
@@ -54,17 +56,17 @@
   <FormViews />
   <TableViews>
     <TableView>
-      <Uid>bc4af76d-9693-4b58-ac85-fdd3be8b4938</Uid>
+      <Uid>e7c98776-cd21-43f9-9290-b27741b61630</Uid>
       <ViewType>List</ViewType>
       <SortDescriptors />
       <GroupDescriptors />
     </TableView>
   </TableViews>
   <TitlePropertyUid>00000000-0000-0000-0000-000000000000</TitlePropertyUid>
-  <Type>Interface</Type>
-  <ImplementationUid>99cb0b2d-1597-4d14-8fee-45e4c511647c</ImplementationUid>
+  <Type>InterfaceExtension</Type>
+  <ImplementationUid>88daecfa-09ba-4e4c-85ba-97878639bbc0</ImplementationUid>
   <IdTypeUid>d90a59af-7e47-48c5-8c4c-dad04834e6e3</IdTypeUid>
-  <TableName>EmailMessageParticipantConta</TableName>
+  <TableName>ContractorExt</TableName>
   <IsSoftDeletable>true</IsSoftDeletable>
   <ParentPropertyUid>00000000-0000-0000-0000-000000000000</ParentPropertyUid>
   <IsGroupPropertyUid>00000000-0000-0000-0000-000000000000</IsGroupPropertyUid>

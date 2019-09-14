@@ -46,8 +46,8 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ViewType>Display</ViewType>
             <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>List</ViewType>
@@ -56,6 +56,40 @@
       </ViewSettings>
       <Order>1</Order>
       <InFastSearch>true</InFastSearch>
+      <Filterable>true</Filterable>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>15f523ba-7a38-458a-a4bf-ecad277f09d1</Uid>
+      <Name>EmailString</Name>
+      <DisplayName>Email</DisplayName>
+      <TypeUid>9b9aac17-22bb-425c-aa93-9c02c5146965</TypeUid>
+      <Settings xsi:type="StringSettings">
+        <FieldName>EmailString</FieldName>
+        <MaxValue>320</MaxValue>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ReadOnly>true</ReadOnly>
+            <ViewType>Display</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <Visibility>Hidden</Visibility>
+            <ViewType>List</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>2</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
   </Properties>
@@ -84,6 +118,7 @@
   <IdTypeUid>d90a59af-7e47-48c5-8c4c-dad04834e6e3</IdTypeUid>
   <TableName>EmailMessageParticipant</TableName>
   <IsSoftDeletable>true</IsSoftDeletable>
+  <Filterable>true</Filterable>
   <ParentPropertyUid>00000000-0000-0000-0000-000000000000</ParentPropertyUid>
   <IsGroupPropertyUid>00000000-0000-0000-0000-000000000000</IsGroupPropertyUid>
   <Filter>

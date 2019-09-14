@@ -68,8 +68,6 @@ namespace Yambr.ELMA.Email.Components.Queue
         }
         public virtual TMessage Before(string message, string model)
         {
-
-            EmailLogger.Debug("{0} message\r\n{1}", model, message);
             return CheckModel(model) && !string.IsNullOrWhiteSpace(message)
                 ? JsonConvert.DeserializeObject<TMessage>(message, SerializerSettings)
                 : null;
