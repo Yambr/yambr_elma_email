@@ -1,0 +1,1 @@
+"C:\ELMA3-Enterprise\PackageManager\EleWise.ELMA.Packaging.Console.exe" packSln %~dp0Yambr.ELMA.Email.sln -v 1.0.0.1006 -out "C:\ELMA3-Enterprise\Packages"

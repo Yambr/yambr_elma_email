@@ -1,9 +1,9 @@
-﻿namespace Yambr.ELMA.Email.Models
+﻿#pragma warning disable 108,114,162
+namespace Yambr.ELMA.Email.Models
 {
     using System;
     using System.Linq;
     using EleWise.ELMA.Extensions;
-    using Iesi.Collections.Generic;
     
     
     /// <summary>
@@ -14,15 +14,13 @@
     [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IMailboxDomain), "DisplayName")]
     [global::EleWise.ELMA.Model.Attributes.DisplayFormat(null)]
     [global::EleWise.ELMA.Model.Attributes.TitleProperty("490e2a1a-431a-43e9-a7e7-d4d8cfb5debf")]
-    [global::EleWise.ELMA.Model.Attributes.TableView(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<TableView xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <Uid>4cbe40d1-208f-4159-a150-75211c0eb313</Uid>
-  <ViewType>List</ViewType>
-  <SortDescriptors />
-  <GroupDescriptors />
-</TableView>")]
+    [global::EleWise.ELMA.Model.Attributes.TableView("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<TableView xmlns:xsi=\"http://www.w3.org/2" +
+        "001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <Uid>4c" +
+        "be40d1-208f-4159-a150-75211c0eb313</Uid>\r\n  <ViewType>List</ViewType>\r\n</TableVi" +
+        "ew>")]
     [global::EleWise.ELMA.Model.Attributes.Entity("MailboxDomain")]
     [global::EleWise.ELMA.Model.Attributes.IdType("d90a59af-7e47-48c5-8c4c-dad04834e6e3")]
+    [global::EleWise.ELMA.Model.Attributes.ShowInCatalogList(false)]
     [global::EleWise.ELMA.Model.Attributes.EntityMetadataType(global::EleWise.ELMA.Model.Metadata.EntityMetadataType.Interface)]
     [global::EleWise.ELMA.Model.Attributes.ImplementationUid("67c6f258-4c85-4c41-87e7-b19adf6cbfd4")]
     public partial interface IMailboxDomain : global::EleWise.ELMA.Model.Entities.IEntity<long>
@@ -126,3 +124,4 @@
         }
     }
 }
+#pragma warning restore 108,114,162

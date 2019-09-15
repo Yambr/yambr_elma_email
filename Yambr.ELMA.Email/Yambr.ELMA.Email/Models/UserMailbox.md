@@ -4,7 +4,6 @@
   <Name>UserMailbox</Name>
   <DisplayName>UserMailbox</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
-  <BaseClassUid>00000000-0000-0000-0000-000000000000</BaseClassUid>
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>398135e9-1c05-4571-a13f-2e7fe60a3a09</Uid>
@@ -39,20 +38,20 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
-            <ViewType>Edit</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
-            <ViewType>Display</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
             <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -77,20 +76,20 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
-            <ViewType>Edit</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
-            <ViewType>Display</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
             <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -114,20 +113,20 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
-            <ViewType>Edit</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
-            <ViewType>Display</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
             <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -152,20 +151,20 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
-            <ViewType>Edit</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
-            <ViewType>Display</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
             <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -197,12 +196,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -231,12 +230,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -263,12 +262,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -291,25 +290,21 @@
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>Create</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>ForceHidden</Visibility>
             <ViewType>List</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>Filter</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -333,12 +328,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -348,24 +343,79 @@
       <Order>9</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>18913b8c-1c8b-43bf-9754-a9421a93e5a2</Uid>
+      <Name>EmailParticipant</Name>
+      <DisplayName>Участник письма</DisplayName>
+      <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
+      <SubTypeUid>71e11768-05e2-4788-b93e-7440e72b32b5</SubTypeUid>
+      <Settings xsi:type="EntitySettings">
+        <FieldName>EmailParticipant</FieldName>
+        <CascadeMode>SaveUpdate</CascadeMode>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>10</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>5ac0cb4a-57c1-4a9d-b72d-017fec7aeb52</Uid>
+      <Name>Aliases</Name>
+      <DisplayName>Псевдонимы почтового ящика</DisplayName>
+      <Description>алиасы через запятую: example@mail.ru, example2@mail.ru</Description>
+      <TypeUid>317e3d72-9c47-4b68-926d-ba77a2579bc2</TypeUid>
+      <Settings xsi:type="TextSettings">
+        <FieldName>Aliases</FieldName>
+        <MultiLine>true</MultiLine>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>11</Order>
+    </PropertyMetadata>
   </Properties>
-  <PropertiesDiffContainer />
-  <DefaultForms>
-    <CreateUid>00000000-0000-0000-0000-000000000000</CreateUid>
-    <EditUid>00000000-0000-0000-0000-000000000000</EditUid>
-    <DisplayUid>00000000-0000-0000-0000-000000000000</DisplayUid>
-    <ActionGuids />
-    <FormSettings />
-  </DefaultForms>
-  <Forms />
-  <FormTransformations />
-  <FormViews />
   <TableViews>
     <TableView>
       <Uid>2b183cbc-bbcc-4b07-8eb6-16de28e59de3</Uid>
       <ViewType>List</ViewType>
-      <SortDescriptors />
-      <GroupDescriptors />
     </TableView>
   </TableViews>
   <TitlePropertyUid>ab12b139-f183-414f-8043-529a1c0936f7</TitlePropertyUid>
@@ -375,31 +425,5 @@
   <TableName>UserMailbox</TableName>
   <IsSoftDeletable>true</IsSoftDeletable>
   <ShowInCatalogList>true</ShowInCatalogList>
-  <ParentPropertyUid>00000000-0000-0000-0000-000000000000</ParentPropertyUid>
-  <IsGroupPropertyUid>00000000-0000-0000-0000-000000000000</IsGroupPropertyUid>
-  <Filter>
-    <Uid>00000000-0000-0000-0000-000000000000</Uid>
-    <BaseClassUid>00000000-0000-0000-0000-000000000000</BaseClassUid>
-    <Properties />
-    <PropertiesDiffContainer />
-    <DefaultForms>
-      <CreateUid>00000000-0000-0000-0000-000000000000</CreateUid>
-      <EditUid>00000000-0000-0000-0000-000000000000</EditUid>
-      <DisplayUid>00000000-0000-0000-0000-000000000000</DisplayUid>
-      <ActionGuids />
-      <FormSettings />
-    </DefaultForms>
-    <Forms />
-    <FormTransformations />
-    <FormViews />
-    <TableViews />
-    <TitlePropertyUid>00000000-0000-0000-0000-000000000000</TitlePropertyUid>
-  </Filter>
-  <ImplementedExtensionUids />
-  <Actions>
-    <Uid>00000000-0000-0000-0000-000000000000</Uid>
-    <BaseTypeUid>00000000-0000-0000-0000-000000000000</BaseTypeUid>
-    <Values />
-  </Actions>
-  <TableParts />
+  <Actions />
 </Entity>

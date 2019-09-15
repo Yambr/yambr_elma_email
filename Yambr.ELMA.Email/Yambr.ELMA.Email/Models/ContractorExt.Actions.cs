@@ -9,6 +9,9 @@
     public class ContractorExtActions : EleWise.ELMA.CRM.Models.ContractorActions
     {
         
+        /// <summary>
+        /// ctor
+        /// </summary>
         protected ContractorExtActions()
         {
         }

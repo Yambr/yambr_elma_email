@@ -8,7 +8,7 @@
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>f18d2967-d7d1-43a9-be82-8ff0d7fe70e3</Uid>
-      <Name>MailBoxes</Name>
+      <Name>UserMailBoxes</Name>
       <DisplayName>Почтовые ящики</DisplayName>
       <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
       <SubTypeUid>06aeb963-e379-4fff-9951-de6bf6cb508f</SubTypeUid>
@@ -27,12 +27,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -43,56 +43,16 @@
       <Filterable>true</Filterable>
     </PropertyMetadata>
   </Properties>
-  <PropertiesDiffContainer />
-  <DefaultForms>
-    <CreateUid>00000000-0000-0000-0000-000000000000</CreateUid>
-    <EditUid>00000000-0000-0000-0000-000000000000</EditUid>
-    <DisplayUid>00000000-0000-0000-0000-000000000000</DisplayUid>
-    <ActionGuids />
-    <FormSettings />
-  </DefaultForms>
-  <Forms />
-  <FormTransformations />
-  <FormViews />
   <TableViews>
     <TableView>
       <Uid>2eaa076a-3c1a-4be2-b6ee-f730b9aedeb5</Uid>
       <ViewType>List</ViewType>
-      <SortDescriptors />
-      <GroupDescriptors />
     </TableView>
   </TableViews>
-  <TitlePropertyUid>00000000-0000-0000-0000-000000000000</TitlePropertyUid>
   <Type>InterfaceExtension</Type>
   <ImplementationUid>10b7a75e-293f-4afb-8c10-e31bef75e3df</ImplementationUid>
   <IdTypeUid>d90a59af-7e47-48c5-8c4c-dad04834e6e3</IdTypeUid>
   <TableName>UserExt</TableName>
   <IsSoftDeletable>true</IsSoftDeletable>
-  <ParentPropertyUid>00000000-0000-0000-0000-000000000000</ParentPropertyUid>
-  <IsGroupPropertyUid>00000000-0000-0000-0000-000000000000</IsGroupPropertyUid>
-  <Filter>
-    <Uid>00000000-0000-0000-0000-000000000000</Uid>
-    <BaseClassUid>00000000-0000-0000-0000-000000000000</BaseClassUid>
-    <Properties />
-    <PropertiesDiffContainer />
-    <DefaultForms>
-      <CreateUid>00000000-0000-0000-0000-000000000000</CreateUid>
-      <EditUid>00000000-0000-0000-0000-000000000000</EditUid>
-      <DisplayUid>00000000-0000-0000-0000-000000000000</DisplayUid>
-      <ActionGuids />
-      <FormSettings />
-    </DefaultForms>
-    <Forms />
-    <FormTransformations />
-    <FormViews />
-    <TableViews />
-    <TitlePropertyUid>00000000-0000-0000-0000-000000000000</TitlePropertyUid>
-  </Filter>
-  <ImplementedExtensionUids />
-  <Actions>
-    <Uid>00000000-0000-0000-0000-000000000000</Uid>
-    <BaseTypeUid>00000000-0000-0000-0000-000000000000</BaseTypeUid>
-    <Values />
-  </Actions>
-  <TableParts />
+  <Actions />
 </Entity>

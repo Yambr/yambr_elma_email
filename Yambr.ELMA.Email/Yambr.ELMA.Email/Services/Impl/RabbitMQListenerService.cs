@@ -8,13 +8,13 @@ using EleWise.ELMA.Cache;
 using EleWise.ELMA.ComponentModel;
 using EleWise.ELMA.Logging;
 using EleWise.ELMA.Runtime.Context;
-using EleWise.ELMA.Security;
 using EleWise.ELMA.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Yambr.ELMA.Email.Exceptions;
 using Yambr.ELMA.Email.ExtensionPoints;
 using Yambr.ELMA.Email.Models;
+using ISecurityService = EleWise.ELMA.Security.ISecurityService;
 
 namespace Yambr.ELMA.Email.Services.Impl
 {
@@ -22,25 +22,22 @@ namespace Yambr.ELMA.Email.Services.Impl
     /// <summary>
     /// Реализация подписки на Rabbit
     /// </summary>
-    [Service]
+    [Service(InjectProperties = false)]
     // ReSharper disable once InconsistentNaming
     public class RabbitMQService : IRabbitMQService
     {
         private const string RabbitMqServiceRegion = nameof(RabbitMQService);
         private readonly ConcurrentDictionary<string, IEnumerable<IRabbitMessageHandler>> _map;
-        private readonly ISecurityService _securityService;
         private readonly IEnumerable<IRabbitMessageHandler> _handlers;
         private readonly IContextBoundVariableService _contextBoundVariableService;
         private readonly ICacheService _cacheService;
         private static readonly ILogger Logger = EmailLogger.Logger;
 
         public RabbitMQService(
-            ISecurityService securityService, 
             IEnumerable<IRabbitMessageHandler> handlers,
             IContextBoundVariableService contextBoundVariableService,
             ICacheService cacheService)
         {
-            _securityService = securityService;
             _handlers = handlers;
             _contextBoundVariableService = contextBoundVariableService;
             _cacheService = cacheService;
@@ -114,10 +111,10 @@ namespace Yambr.ELMA.Email.Services.Impl
                 InitTopology(model);
                 //Читаем по одному сообщению по умолчанию
                 model.BasicQos(0, 1, true);
-                Logger.Debug($"Waiting for messages {QueueConstants.RabbitMqQueue}.");
+                Logger.Debug($"Waiting for messages {QueueConstants.QueueNewEmail}.");
                 var consumer = new EventingBasicConsumer(model);
                 consumer.Received += (sender, args) => { OnReceived(sender, args, model); };
-                model.BasicConsume(QueueConstants.RabbitMqQueue, false, consumer);
+                model.BasicConsume(QueueConstants.QueueNewEmail, false, consumer);
             }
             catch (Exception ex)
             {
@@ -128,12 +125,12 @@ namespace Yambr.ELMA.Email.Services.Impl
 
         private static void InitTopology(IModel model)
         {
-            model.QueueDeclare(QueueConstants.RabbitMqQueue, true, false, false, null);
-            model.QueueDeclare(QueueConstants.RabbitMqQueueTasks, true, false, false, null);
+            model.ExchangeDeclare(QueueConstants.ExchangeMailBox, ExchangeType.Fanout, false, false, null);
 
-            model.ExchangeDeclare(QueueConstants.RabbitMqExchange, ExchangeType.Fanout, false, false, null);
-
-            model.QueueBind(QueueConstants.RabbitMqQueueTasks, QueueConstants.RabbitMqExchange, String.Empty);
+            model.QueueDeclare(QueueConstants.QueueMailboxDownload, true, false, false, null);
+            model.QueueDeclare(QueueConstants.QueueNewEmail, true, false, false, null);
+            
+            model.QueueBind(QueueConstants.QueueMailboxDownload, QueueConstants.ExchangeMailBox, QueueConstants.RoutingKeyMailBoxCmdDownload);
         }
 
 
@@ -153,7 +150,8 @@ namespace Yambr.ELMA.Email.Services.Impl
                 
                 var body = eventArgs.Body;
                 var message = Encoding.UTF8.GetString(body);
-                _securityService
+                var securityService = Locator.GetServiceNotNull<ISecurityService>();
+                securityService
                     .RunWithElevatedPrivilegies(() =>
                     {
                         PrepareMessage(message, eventArgs, connection);
@@ -300,7 +298,7 @@ namespace Yambr.ELMA.Email.Services.Impl
                         basicProperties.DeliveryMode = 2;
                         basicProperties.Headers = queueObject.Headers;
                         basicProperties.AppId = "ELMA";
-                        model.BasicPublish(QueueConstants.RabbitMqExchange, queueObject.RoutingKey, basicProperties, body);
+                        model.BasicPublish(QueueConstants.ExchangeMailBox, queueObject.RoutingKey, basicProperties, body);
                     }
                 }
             }
@@ -318,7 +316,11 @@ namespace Yambr.ELMA.Email.Services.Impl
             {
                     var rMqSetting = Locator.GetServiceNotNull<YambrEmailSettingsModule>().Settings;
                     if (rMqSetting == null) return;
-                    Logger.Debug(SR.T("Отправляется сообщение в очередь: {0}. Адрес подключения: {1}. Имя очереди: {2}.", QueueConstants.RabbitMqExchange, GetHost(rMqSetting), QueueConstants.RabbitMqQueue));
+                    Logger.Debug(
+                        SR.T("Отправляется сообщение в очередь: {0}. Адрес подключения: {1}. Имя очереди: {2}.", 
+                            QueueConstants.ExchangeMailBox, 
+                            GetHost(rMqSetting),
+                            QueueConstants.RoutingKeyMailBoxCmdDownload));
                     SendMessage(rMqSetting, message);
             }
             catch (Exception ex)

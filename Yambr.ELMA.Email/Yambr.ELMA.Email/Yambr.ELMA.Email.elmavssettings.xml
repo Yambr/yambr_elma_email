@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AssemblyLoadSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Solutions />
-  <Urls />
-  <SelectedUrl>http://</SelectedUrl>
-  <Login />
+  <Urls>
+    <string>http://dev.yambr.ru</string>
+  </Urls>
+  <SelectedUrl>http://dev.yambr.ru</SelectedUrl>
+  <Login>admin</Login>
   <SelectedModules />
 </AssemblyLoadSettings>

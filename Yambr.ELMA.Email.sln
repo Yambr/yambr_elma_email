@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yambr.ELMA.Email", "Yambr.ELMA.Email\Yambr.ELMA.Email\Yambr.ELMA.Email.csproj", "{4B644D16-A9A1-410B-9850-699954203F3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yambr.ELMA.Email.Web", "Yambr.ELMA.Email\Yambr.ELMA.Email.Web\Yambr.ELMA.Email.Web.csproj", "{9CD407C8-F3F7-495D-A84D-25857FE8D692}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F46EE7D-FA2D-458A-B24A-20F8FBF42E4A}"
+	ProjectSection(SolutionItems) = preProject
+		build_packages.bat = build_packages.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +29,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A822EDD1-50B8-4810-B05B-D5D8AF773099}
 	EndGlobalSection
 EndGlobal

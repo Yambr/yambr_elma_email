@@ -2,8 +2,6 @@
 using System.Linq;
 using EleWise.ELMA.ComponentModel;
 using EleWise.ELMA.Model.Services;
-using EleWise.ELMA.Runtime.Db.Migrator.Framework;
-using EleWise.ELMA.Runtime.NH;
 using Yambr.ELMA.Email.Common.Models;
 using Yambr.ELMA.Email.Enums;
 using Yambr.ELMA.Email.Managers;
@@ -13,17 +11,8 @@ using System.Web;
 namespace Yambr.ELMA.Email.Services.Impl
 {
     [Service]
-    public  class EmailService : IEmailService
+    public class EmailService : IEmailService
     {
-        private readonly IUnitOfWorkManager _unitOfWorkManager;
-        private readonly ISessionProvider _sessionProvider;
-        private readonly ITransformationProvider _transformationProvider;
-
-        public EmailService(ISessionProvider sessionProvider, ITransformationProvider transformationProvider)
-        {
-            _sessionProvider = sessionProvider;
-            _transformationProvider = transformationProvider;
-        }
 
         public IEmailMessage Save(EmailMessage emailMessage)
         {
@@ -42,7 +31,7 @@ namespace Yambr.ELMA.Email.Services.Impl
             FillParticipants(emailMessage, message);
             message.Direction = (EmailDirection)(int)emailMessage.Direction;
             message.Tags = ConvertTags(emailMessage.Tags);
-            message.Owners = GetOwners(emailMessage.Owners);
+            message.Owners.AddAll(GetOwners(emailMessage.Owners));
             message.Save();
             return message;
         }
@@ -54,37 +43,71 @@ namespace Yambr.ELMA.Email.Services.Impl
 
         private static HtmlString ConvertBody(string emailMessageBody)
         {
-           return new HtmlString(emailMessageBody);
+            return new HtmlString(emailMessageBody);
         }
 
         private static HtmlString ConvertHeaders(IEnumerable<HeaderSummary> emailHeaders)
         {
             if (emailHeaders == null) return null;
-            var headers = emailHeaders.Select(c=>$"<li>{ConvertHeader(c.Text)}</li>");
+            var headers = emailHeaders.Select(c => $"<li>{ConvertHeader(c.Text)}</li>");
             var list = string.Join("", headers);
             return new HtmlString($"<ul>{list}</ul>");
 
         }
 
-        private static IUserMailbox GetOwners(ICollection<MailOwnerSummary> emailMessageOwners)
+        private static ICollection<IUserMailbox> GetOwners(ICollection<MailOwnerSummary> emailMessageOwners)
         {
-            //TODO
-            return null;
+            var emailList = emailMessageOwners.Select(c => c.Email).ToList();
+            return UserMailboxManager.Instance.GetUserMailboxes(emailList);
         }
 
         private static string ConvertTags(IEnumerable<HashTag> emailMessageTags)
         {
-            return 
-                emailMessageTags != null ? 
+            return
+                emailMessageTags != null ?
                     string.Join(",", emailMessageTags.Select(c => $"{c.Name}")) :
                     null;
         }
 
-        private static void FillParticipants(EmailMessage emailMessage, IEmailMessage message)
+        private static void FillParticipants(IMessagePart emailMessage, IEmailMessage message)
         {
-            //TODO
-            message.To = emailMessage.To;
-            /*message.From = emailMessage.From;*/
+            var participants = EmailMessageParticipants(emailMessage);
+
+            var toParticipants =
+                participants
+                    .Where(c => 
+                        emailMessage.To.Any(e => e.Email == c.EmailString)).ToList();
+            message.To.AddAll(toParticipants);
+
+            var fromParticipants = 
+                participants
+                    .Where(c => 
+                        emailMessage.From.Any(e => e.Email == c.EmailString)).ToList();
+
+            message.From.AddAll(fromParticipants);
+        }
+
+        private static List<IEmailMessageParticipant> EmailMessageParticipants(IMessagePart emailMessage)
+        {
+            var contactSummaries = emailMessage.From.ToList();
+            contactSummaries.AddRange(emailMessage.To);
+            var emailList = contactSummaries.Select(c => c.Email).ToList();
+
+            var emailMessageParticipantManager = EmailMessageParticipantManager.Instance;
+            var participants = emailMessageParticipantManager.GetParticipants(emailList).ToList();
+
+            var notExistingParticipants =
+                contactSummaries
+                    .Where(c =>
+                        participants.All(e => e.EmailString != c.Email)).ToList();
+
+            if (notExistingParticipants.Any())
+            {
+                var newParticipants = emailMessageParticipantManager.CreateParticipants(notExistingParticipants);
+                participants.AddRange(newParticipants);
+            }
+
+            return participants;
         }
     }
 }

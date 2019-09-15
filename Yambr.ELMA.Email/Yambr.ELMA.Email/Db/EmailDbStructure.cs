@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EleWise.ELMA.CRM.Models;
 using EleWise.ELMA.Runtime.Db;
 using EleWise.ELMA.Runtime.Db.Migrator.Framework;
+using Yambr.ELMA.Email.Managers;
 using Yambr.ELMA.Email.Models;
 
 namespace Yambr.ELMA.Email.Db
@@ -53,6 +54,11 @@ namespace Yambr.ELMA.Email.Db
                 }
             });
 
+        }
+
+        public void UpdatePublicDomains()
+        {
+            PublicDomainManager.Instance.UpdateDomains();
         }
     }
 }

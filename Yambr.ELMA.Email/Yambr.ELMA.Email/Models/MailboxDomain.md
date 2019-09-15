@@ -4,7 +4,6 @@
   <Name>MailboxDomain</Name>
   <DisplayName>MailboxDomain</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
-  <BaseClassUid>00000000-0000-0000-0000-000000000000</BaseClassUid>
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>7a794ac4-40f1-418a-b12b-0a458460b991</Uid>
@@ -46,12 +45,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -80,8 +79,8 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>List</ViewType>
@@ -93,23 +92,10 @@
       <Filterable>true</Filterable>
     </PropertyMetadata>
   </Properties>
-  <PropertiesDiffContainer />
-  <DefaultForms>
-    <CreateUid>00000000-0000-0000-0000-000000000000</CreateUid>
-    <EditUid>00000000-0000-0000-0000-000000000000</EditUid>
-    <DisplayUid>00000000-0000-0000-0000-000000000000</DisplayUid>
-    <ActionGuids />
-    <FormSettings />
-  </DefaultForms>
-  <Forms />
-  <FormTransformations />
-  <FormViews />
   <TableViews>
     <TableView>
       <Uid>4cbe40d1-208f-4159-a150-75211c0eb313</Uid>
       <ViewType>List</ViewType>
-      <SortDescriptors />
-      <GroupDescriptors />
     </TableView>
   </TableViews>
   <TitlePropertyUid>490e2a1a-431a-43e9-a7e7-d4d8cfb5debf</TitlePropertyUid>
@@ -118,31 +104,5 @@
   <IdTypeUid>d90a59af-7e47-48c5-8c4c-dad04834e6e3</IdTypeUid>
   <TableName>MailboxDomain</TableName>
   <IsSoftDeletable>true</IsSoftDeletable>
-  <ParentPropertyUid>00000000-0000-0000-0000-000000000000</ParentPropertyUid>
-  <IsGroupPropertyUid>00000000-0000-0000-0000-000000000000</IsGroupPropertyUid>
-  <Filter>
-    <Uid>00000000-0000-0000-0000-000000000000</Uid>
-    <BaseClassUid>00000000-0000-0000-0000-000000000000</BaseClassUid>
-    <Properties />
-    <PropertiesDiffContainer />
-    <DefaultForms>
-      <CreateUid>00000000-0000-0000-0000-000000000000</CreateUid>
-      <EditUid>00000000-0000-0000-0000-000000000000</EditUid>
-      <DisplayUid>00000000-0000-0000-0000-000000000000</DisplayUid>
-      <ActionGuids />
-      <FormSettings />
-    </DefaultForms>
-    <Forms />
-    <FormTransformations />
-    <FormViews />
-    <TableViews />
-    <TitlePropertyUid>00000000-0000-0000-0000-000000000000</TitlePropertyUid>
-  </Filter>
-  <ImplementedExtensionUids />
-  <Actions>
-    <Uid>00000000-0000-0000-0000-000000000000</Uid>
-    <BaseTypeUid>00000000-0000-0000-0000-000000000000</BaseTypeUid>
-    <Values />
-  </Actions>
-  <TableParts />
+  <Actions />
 </Entity>

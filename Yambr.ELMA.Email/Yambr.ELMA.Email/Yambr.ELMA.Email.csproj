@@ -32,23 +32,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EleWise.ELMA.CRM">
-      <HintPath>..\..\Assemblies\EleWise.ELMA.CRM.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\EleWise.ELMA.CRM.dll</HintPath>
     </Reference>
     <Reference Include="EleWise.ELMA.SDK">
-      <HintPath>..\..\Assemblies\EleWise.ELMA.SDK.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\EleWise.ELMA.SDK.dll</HintPath>
     </Reference>
     <Reference Include="EleWise.ELMA.Security">
-      <HintPath>..\..\Assemblies\EleWise.ELMA.Security.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\EleWise.ELMA.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\..\Assemblies\Iesi.Collections.dll</HintPath>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Assemblies\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\..\Assemblies\NHibernate.dll</HintPath>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\RabbitMQ.Client.3.6.0\lib\net40\RabbitMQ.Client.dll</HintPath>
@@ -56,14 +58,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AssemblyInfo.md">
@@ -73,6 +71,10 @@
     <None Include="Enums\EmailDirection.md">
       <Generator>MDCodeGenerator</Generator>
       <LastGenOutput>EmailDirection.cs</LastGenOutput>
+    </None>
+    <None Include="Models\ContractorExt.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>ContractorExt.cs</LastGenOutput>
     </None>
     <None Include="Models\EmailMessage.md">
       <Generator>MDCodeGenerator</Generator>
@@ -90,9 +92,17 @@
       <Generator>MDCodeGenerator</Generator>
       <LastGenOutput>EmailMessageParticipantUser.cs</LastGenOutput>
     </None>
-    <None Include="Models\MailServer.md">
+    <None Include="Models\MailboxDomain.md">
       <Generator>MDCodeGenerator</Generator>
-      <LastGenOutput>MailServer.cs</LastGenOutput>
+      <LastGenOutput>MailboxDomain.cs</LastGenOutput>
+    </None>
+    <None Include="Models\UserMailServer.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>UserMailServer.cs</LastGenOutput>
+    </None>
+    <None Include="Models\PublicDomain.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>PublicDomain.cs</LastGenOutput>
     </None>
     <None Include="Models\UserExt.md">
       <Generator>MDCodeGenerator</Generator>
@@ -167,7 +177,21 @@
     <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="EmailLogger.cs" />
+    <Compile Include="Managers\EmailMessageParticipantContactManager.cs" />
+    <Compile Include="Managers\EmailMessageParticipantUserManager.cs" />
+    <Compile Include="Managers\PublicDomainManager.cs" />
+    <Compile Include="Managers\MailboxDomainManager.cs" />
+    <Compile Include="Managers\UserMailboxManager.cs" />
+    <Compile Include="Managers\EmailMessageParticipantManager.cs" />
     <Compile Include="Managers\EmailMessageManager.cs" />
+    <Compile Include="Models\ContractorExt.Actions.cs">
+      <DependentUpon>ContractorExt.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContractorExt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContractorExt.md</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmailMessage.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -188,10 +212,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmailMessageParticipantUser.md</DependentUpon>
     </Compile>
-    <Compile Include="Models\MailServer.cs">
+    <Compile Include="Models\MailboxDomain.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MailServer.md</DependentUpon>
+      <DependentUpon>MailboxDomain.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserMailServer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserMailServer.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PublicDomain.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PublicDomain.md</DependentUpon>
     </Compile>
     <Compile Include="Models\UserExt.Actions.cs">
       <DependentUpon>UserExt.md</DependentUpon>
@@ -206,6 +240,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserMailbox.md</DependentUpon>
     </Compile>
+    <Compile Include="Scheduler\SendMailboxesJobRepository.cs" />
+    <Compile Include="Scheduler\UpdatePublicDomainJobRepository.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\Impl\EmailService.cs" />
     <Compile Include="YambrEmailSettings.cs" />

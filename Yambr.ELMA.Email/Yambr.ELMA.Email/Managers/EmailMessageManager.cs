@@ -29,7 +29,7 @@ namespace Yambr.ELMA.Email.Managers
             base.Save(obj);
         }
 
-        private string GetName(IEmailMessage emailMessage)
+        private static string GetName(IEmailMessage emailMessage)
         {
             return $"{emailMessage.DateUtc:f} {emailMessage.SubjectWithoutTags}";
         }

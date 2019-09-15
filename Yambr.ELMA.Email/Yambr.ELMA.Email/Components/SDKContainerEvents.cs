@@ -7,7 +7,7 @@ using Yambr.ELMA.Email.Services;
 
 namespace Yambr.ELMA.Email.Components
 {
-    [Component()]
+    [Component(Order = 100000)]
     // ReSharper disable once InconsistentNaming
     public class SDKContainerEvents : IModuleContainerEvents
     {

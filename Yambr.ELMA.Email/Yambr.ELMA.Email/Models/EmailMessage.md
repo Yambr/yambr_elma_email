@@ -4,7 +4,6 @@
   <Name>EmailMessage</Name>
   <DisplayName>Электронное письмо</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
-  <BaseClassUid>00000000-0000-0000-0000-000000000000</BaseClassUid>
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>3b180cda-c266-4252-a43a-2d5093cf80d4</Uid>
@@ -45,8 +44,8 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>List</ViewType>
@@ -75,12 +74,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -107,12 +106,12 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -120,40 +119,6 @@
         </Attributes>
       </ViewSettings>
       <Order>3</Order>
-    </PropertyMetadata>
-    <PropertyMetadata xsi:type="EntityPropertyMetadata">
-      <Uid>189e1ab1-acd0-42ee-9f60-5f55b8f4a40a</Uid>
-      <Name>Owners</Name>
-      <DisplayName>Владельцы письма</DisplayName>
-      <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
-      <SubTypeUid>06aeb963-e379-4fff-9951-de6bf6cb508f</SubTypeUid>
-      <Settings xsi:type="EntitySettings">
-        <FieldName>Owners</FieldName>
-        <CascadeMode>SaveUpdate</CascadeMode>
-      </Settings>
-      <Nullable>true</Nullable>
-      <ViewSettings>
-        <Attributes>
-          <ViewAttribute>
-            <ViewType>Create</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Edit</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
-            <ViewType>Display</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <Visibility>Hidden</Visibility>
-            <ViewType>List</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Filter</ViewType>
-          </ViewAttribute>
-        </Attributes>
-      </ViewSettings>
-      <Order>4</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>63ffa1a8-e8b0-47c7-8e2f-532a4b72a291</Uid>
@@ -173,19 +138,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>5</Order>
+      <Order>4</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>98886b73-7ebf-4c06-860b-2863f32a0d4f</Uid>
@@ -205,19 +170,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>6</Order>
+      <Order>5</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>f2cfb4df-fb46-4a2b-aa20-3165cc08af79</Uid>
@@ -237,19 +202,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>7</Order>
+      <Order>6</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>4b378993-25ae-457b-b8bb-3762cf7997a9</Uid>
@@ -269,19 +234,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>8</Order>
+      <Order>7</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>a68aa038-1344-43fb-863f-6966eea402c1</Uid>
@@ -303,19 +268,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>9</Order>
+      <Order>8</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>6bb71d88-ab64-4fe3-813b-d7cae7677827</Uid>
@@ -340,19 +305,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>10</Order>
+      <Order>9</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>813fc69c-8716-40af-846c-4437552f50b5</Uid>
@@ -377,19 +342,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>11</Order>
+      <Order>10</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>eeeb8ddd-eb36-4903-ad28-2f467dffd44e</Uid>
@@ -409,19 +374,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>12</Order>
+      <Order>11</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>7c753539-013d-4137-8edb-78984be9012a</Uid>
@@ -441,19 +406,19 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>13</Order>
+      <Order>12</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>fde76d12-ce30-4a72-8cd5-9bb85ba2dded</Uid>
@@ -475,12 +440,49 @@
             <ViewType>Edit</ViewType>
           </ViewAttribute>
           <ViewAttribute>
-            <ReadOnly>true</ReadOnly>
             <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
-            <Visibility>Hidden</Visibility>
             <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>13</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>71fc1c0c-d424-4fbc-aa0c-0edff6352ce1</Uid>
+      <Name>Owners</Name>
+      <DisplayName>Владельцы письма</DisplayName>
+      <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
+      <SubTypeUid>06aeb963-e379-4fff-9951-de6bf6cb508f</SubTypeUid>
+      <Settings xsi:type="EntitySettings">
+        <RelationType>ManyToMany</RelationType>
+        <RelationTableName>M_EmailMessage_Owners</RelationTableName>
+        <ParentColumnName>Parent</ParentColumnName>
+        <ChildColumnName>Child</ChildColumnName>
+        <CascadeMode>SaveUpdate</CascadeMode>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -490,23 +492,10 @@
       <Order>14</Order>
     </PropertyMetadata>
   </Properties>
-  <PropertiesDiffContainer />
-  <DefaultForms>
-    <CreateUid>00000000-0000-0000-0000-000000000000</CreateUid>
-    <EditUid>00000000-0000-0000-0000-000000000000</EditUid>
-    <DisplayUid>00000000-0000-0000-0000-000000000000</DisplayUid>
-    <ActionGuids />
-    <FormSettings />
-  </DefaultForms>
-  <Forms />
-  <FormTransformations />
-  <FormViews />
   <TableViews>
     <TableView>
       <Uid>4a482dc8-e1c7-44b9-a57b-cefcc44424a7</Uid>
       <ViewType>List</ViewType>
-      <SortDescriptors />
-      <GroupDescriptors />
     </TableView>
   </TableViews>
   <TitlePropertyUid>408d066b-f103-4c0f-825f-a37909f64a2a</TitlePropertyUid>
@@ -516,31 +505,5 @@
   <TableName>EmailMessage</TableName>
   <IsSoftDeletable>true</IsSoftDeletable>
   <ShowInCatalogList>true</ShowInCatalogList>
-  <ParentPropertyUid>00000000-0000-0000-0000-000000000000</ParentPropertyUid>
-  <IsGroupPropertyUid>00000000-0000-0000-0000-000000000000</IsGroupPropertyUid>
-  <Filter>
-    <Uid>00000000-0000-0000-0000-000000000000</Uid>
-    <BaseClassUid>00000000-0000-0000-0000-000000000000</BaseClassUid>
-    <Properties />
-    <PropertiesDiffContainer />
-    <DefaultForms>
-      <CreateUid>00000000-0000-0000-0000-000000000000</CreateUid>
-      <EditUid>00000000-0000-0000-0000-000000000000</EditUid>
-      <DisplayUid>00000000-0000-0000-0000-000000000000</DisplayUid>
-      <ActionGuids />
-      <FormSettings />
-    </DefaultForms>
-    <Forms />
-    <FormTransformations />
-    <FormViews />
-    <TableViews />
-    <TitlePropertyUid>00000000-0000-0000-0000-000000000000</TitlePropertyUid>
-  </Filter>
-  <ImplementedExtensionUids />
-  <Actions>
-    <Uid>00000000-0000-0000-0000-000000000000</Uid>
-    <BaseTypeUid>00000000-0000-0000-0000-000000000000</BaseTypeUid>
-    <Values />
-  </Actions>
-  <TableParts />
+  <Actions />
 </Entity>

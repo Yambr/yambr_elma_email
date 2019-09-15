@@ -1,9 +1,9 @@
-﻿namespace Yambr.ELMA.Email.Models
+﻿#pragma warning disable 108,114,162
+namespace Yambr.ELMA.Email.Models
 {
     using System;
     using System.Linq;
     using EleWise.ELMA.Extensions;
-    using Iesi.Collections.Generic;
     
     
     /// <summary>
@@ -14,17 +14,14 @@
     [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "DisplayName")]
     [global::EleWise.ELMA.Model.Attributes.DisplayFormat(null)]
     [global::EleWise.ELMA.Model.Attributes.TitleProperty("408d066b-f103-4c0f-825f-a37909f64a2a")]
-    [global::EleWise.ELMA.Model.Attributes.TableView(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<TableView xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <Uid>4a482dc8-e1c7-44b9-a57b-cefcc44424a7</Uid>
-  <ViewType>List</ViewType>
-  <SortDescriptors />
-  <GroupDescriptors />
-</TableView>")]
+    [global::EleWise.ELMA.Model.Attributes.TableView("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<TableView xmlns:xsi=\"http://www.w3.org/2" +
+        "001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <Uid>4a" +
+        "482dc8-e1c7-44b9-a57b-cefcc44424a7</Uid>\r\n  <ViewType>List</ViewType>\r\n</TableVi" +
+        "ew>")]
     [global::EleWise.ELMA.Model.Attributes.Entity("EmailMessage")]
     [global::EleWise.ELMA.Model.Attributes.IdType("d90a59af-7e47-48c5-8c4c-dad04834e6e3")]
+    [global::EleWise.ELMA.Model.Attributes.ShowInCatalogList(true)]
     [global::EleWise.ELMA.Model.Attributes.EntityMetadataType(global::EleWise.ELMA.Model.Metadata.EntityMetadataType.Interface)]
-    [global::EleWise.ELMA.Model.Attributes.ShowInCatalogList()]
     [global::EleWise.ELMA.Model.Attributes.ImplementationUid("59760e6a-3a97-4e9f-a608-d5d402150c2f")]
     public partial interface IEmailMessage : global::EleWise.ELMA.Model.Entities.IEntity<long>
     {
@@ -111,30 +108,10 @@
         }
         
         /// <summary>
-        /// Владельцы письма
-        /// </summary>
-        [global::EleWise.ELMA.Model.Attributes.Uid("189e1ab1-acd0-42ee-9f60-5f55b8f4a40a")]
-        [global::EleWise.ELMA.Model.Attributes.Order(4)]
-        [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "06aeb963-e379-4fff-9951-de6bf6cb508f")]
-        [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate, FieldName="Owners")]
-        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Owners_DisplayName")]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
-        Yambr.ELMA.Email.Models.IUserMailbox Owners
-        {
-            get;
-            set;
-        }
-        
-        /// <summary>
         /// Основной заголовок
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("63ffa1a8-e8b0-47c7-8e2f-532a4b72a291")]
-        [global::EleWise.ELMA.Model.Attributes.Order(5)]
+        [global::EleWise.ELMA.Model.Attributes.Order(4)]
         [global::EleWise.ELMA.Model.Attributes.Property("0aef74a9-d37c-4731-813b-d5f0b5ec4392")]
         [global::EleWise.ELMA.Model.Types.Settings.HtmlStringSettings(FieldName="MainHeader")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_MainHeader_DisplayName")]
@@ -154,7 +131,7 @@
         /// Все заголовки
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("98886b73-7ebf-4c06-860b-2863f32a0d4f")]
-        [global::EleWise.ELMA.Model.Attributes.Order(6)]
+        [global::EleWise.ELMA.Model.Attributes.Order(5)]
         [global::EleWise.ELMA.Model.Attributes.Property("0aef74a9-d37c-4731-813b-d5f0b5ec4392")]
         [global::EleWise.ELMA.Model.Types.Settings.HtmlStringSettings(FieldName="CommonHeaders")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_CommonHeaders_DisplayName")]
@@ -174,7 +151,7 @@
         /// Тело письма
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("f2cfb4df-fb46-4a2b-aa20-3165cc08af79")]
-        [global::EleWise.ELMA.Model.Attributes.Order(7)]
+        [global::EleWise.ELMA.Model.Attributes.Order(6)]
         [global::EleWise.ELMA.Model.Attributes.Property("0aef74a9-d37c-4731-813b-d5f0b5ec4392")]
         [global::EleWise.ELMA.Model.Types.Settings.HtmlStringSettings(FieldName="Body")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Body_DisplayName")]
@@ -194,7 +171,7 @@
         /// Html письмо
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("4b378993-25ae-457b-b8bb-3762cf7997a9")]
-        [global::EleWise.ELMA.Model.Attributes.Order(8)]
+        [global::EleWise.ELMA.Model.Attributes.Order(7)]
         [global::EleWise.ELMA.ComponentModel.NotNull()]
         [global::EleWise.ELMA.Model.Attributes.Property("9cd56a40-6192-4d8a-840c-c4bd4dfb88eb")]
         [global::EleWise.ELMA.Model.Types.Settings.BoolSettings(FieldName="IsBodyHtml")]
@@ -215,7 +192,7 @@
         /// Направление письма
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("a68aa038-1344-43fb-863f-6966eea402c1")]
-        [global::EleWise.ELMA.Model.Attributes.Order(9)]
+        [global::EleWise.ELMA.Model.Attributes.Order(8)]
         [global::EleWise.ELMA.ComponentModel.NotNull()]
         [global::EleWise.ELMA.Model.Attributes.Property("849c1ac9-4d46-4194-8cbb-43f84adf9c17", "efab67bf-2e70-4118-afb6-82d1990c3777")]
         [global::EleWise.ELMA.Model.Types.Settings.EnumSettings(DefaultValueStr="2c402344-245d-40f1-b6ad-95839adc8ed6", FieldName="Direction")]
@@ -236,7 +213,7 @@
         /// От
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("6bb71d88-ab64-4fe3-813b-d7cae7677827")]
-        [global::EleWise.ELMA.Model.Attributes.Order(10)]
+        [global::EleWise.ELMA.Model.Attributes.Order(9)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "2474afc5-cfb2-4c63-aa91-12c4087819d9")]
         [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_From", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_From_DisplayName")]
@@ -256,7 +233,7 @@
         /// Кому
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("813fc69c-8716-40af-846c-4437552f50b5")]
-        [global::EleWise.ELMA.Model.Attributes.Order(11)]
+        [global::EleWise.ELMA.Model.Attributes.Order(10)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "2474afc5-cfb2-4c63-aa91-12c4087819d9")]
         [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_To", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_To_DisplayName")]
@@ -276,7 +253,7 @@
         /// Тема
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("eeeb8ddd-eb36-4903-ad28-2f467dffd44e")]
-        [global::EleWise.ELMA.Model.Attributes.Order(12)]
+        [global::EleWise.ELMA.Model.Attributes.Order(11)]
         [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
         [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="Subject")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Subject_DisplayName")]
@@ -296,7 +273,7 @@
         /// Тема (без тегов)
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("7c753539-013d-4137-8edb-78984be9012a")]
-        [global::EleWise.ELMA.Model.Attributes.Order(13)]
+        [global::EleWise.ELMA.Model.Attributes.Order(12)]
         [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
         [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="SubjectWithoutTags")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_SubjectWithoutTags_DisplayName")]
@@ -319,7 +296,7 @@
         /// теги через запятую
         /// </remarks>
         [global::EleWise.ELMA.Model.Attributes.Uid("fde76d12-ce30-4a72-8cd5-9bb85ba2dded")]
-        [global::EleWise.ELMA.Model.Attributes.Order(14)]
+        [global::EleWise.ELMA.Model.Attributes.Order(13)]
         [global::EleWise.ELMA.Model.Attributes.Property("317e3d72-9c47-4b68-926d-ba77a2579bc2")]
         [global::EleWise.ELMA.Model.Types.Settings.TextSettings(FieldName="Tags")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Tags_DisplayName")]
@@ -331,6 +308,26 @@
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         string Tags
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Владельцы письма
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("71fc1c0c-d424-4fbc-aa0c-0edff6352ce1")]
+        [global::EleWise.ELMA.Model.Attributes.Order(14)]
+        [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "06aeb963-e379-4fff-9951-de6bf6cb508f")]
+        [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_Owners", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Owners_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        Iesi.Collections.Generic.ISet<Yambr.ELMA.Email.Models.IUserMailbox> Owners
         {
             get;
             set;
@@ -377,14 +374,6 @@
             get
             {
                 return global::EleWise.ELMA.SR.T("Hash");
-            }
-        }
-        
-        public static string P_Owners_DisplayName
-        {
-            get
-            {
-                return global::EleWise.ELMA.SR.T("Владельцы письма");
             }
         }
         
@@ -475,5 +464,14 @@
                 return global::EleWise.ELMA.SR.T("теги через запятую");
             }
         }
+        
+        public static string P_Owners_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Владельцы письма");
+            }
+        }
     }
 }
+#pragma warning restore 108,114,162

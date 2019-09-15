@@ -9,6 +9,9 @@
     public class UserExtActions : EleWise.ELMA.Security.Models.UserActions
     {
         
+        /// <summary>
+        /// ctor
+        /// </summary>
         protected UserExtActions()
         {
         }
