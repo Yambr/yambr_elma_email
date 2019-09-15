@@ -1,9 +1,9 @@
-﻿namespace Yambr.ELMA.Email.Models
+﻿#pragma warning disable 108,114,162
+namespace Yambr.ELMA.Email.Models
 {
     using System;
     using System.Linq;
     using EleWise.ELMA.Extensions;
-    using Iesi.Collections.Generic;
     
     
     /// <summary>
@@ -15,15 +15,13 @@
     [global::EleWise.ELMA.Model.Attributes.AllowCreateHeirs(true)]
     [global::EleWise.ELMA.Model.Attributes.DisplayFormat(null)]
     [global::EleWise.ELMA.Model.Attributes.TitleProperty("57cd9014-871c-47f0-b1f5-4600fa36fd12")]
-    [global::EleWise.ELMA.Model.Attributes.TableView(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<TableView xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <Uid>7cddebaa-37b0-48a0-b36f-d72e36b4042a</Uid>
-  <ViewType>List</ViewType>
-  <SortDescriptors />
-  <GroupDescriptors />
-</TableView>")]
+    [global::EleWise.ELMA.Model.Attributes.TableView("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<TableView xmlns:xsi=\"http://www.w3.org/2" +
+        "001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <Uid>7c" +
+        "ddebaa-37b0-48a0-b36f-d72e36b4042a</Uid>\r\n  <ViewType>List</ViewType>\r\n</TableVi" +
+        "ew>")]
     [global::EleWise.ELMA.Model.Attributes.Entity("EmailMessageParticipant")]
     [global::EleWise.ELMA.Model.Attributes.IdType("d90a59af-7e47-48c5-8c4c-dad04834e6e3")]
+    [global::EleWise.ELMA.Model.Attributes.ShowInCatalogList(true)]
     [global::EleWise.ELMA.Model.Attributes.EntityMetadataType(global::EleWise.ELMA.Model.Metadata.EntityMetadataType.Interface)]
     [global::EleWise.ELMA.Model.Attributes.Filterable()]
     [global::EleWise.ELMA.Model.Attributes.ImplementationUid("557cb1c9-4b4d-4be0-b3c8-c7d071e2931c")]
@@ -156,3 +154,4 @@
         }
     }
 }
+#pragma warning restore 108,114,162

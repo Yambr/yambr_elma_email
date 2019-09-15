@@ -86,5 +86,6 @@
   <IdTypeUid>d90a59af-7e47-48c5-8c4c-dad04834e6e3</IdTypeUid>
   <TableName>EmailMessageParticipantUser</TableName>
   <IsSoftDeletable>true</IsSoftDeletable>
+  <ShowInCatalogList>true</ShowInCatalogList>
   <Actions />
 </Entity>

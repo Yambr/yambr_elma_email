@@ -7,12 +7,14 @@ using Yambr.ELMA.Email.Enums;
 using Yambr.ELMA.Email.Managers;
 using Yambr.ELMA.Email.Models;
 using System.Web;
+using EleWise.ELMA.Logging;
 
 namespace Yambr.ELMA.Email.Services.Impl
 {
     [Service]
     public class EmailService : IEmailService
     {
+        private static readonly ILogger Logger = EmailLogger.Logger;
 
         public IEmailMessage Save(EmailMessage emailMessage)
         {
@@ -28,8 +30,13 @@ namespace Yambr.ELMA.Email.Services.Impl
             message.IsBodyHtml = emailMessage.IsBodyHtml;
             message.Subject = emailMessage.Subject;
             message.SubjectWithoutTags = emailMessage.SubjectWithoutTags;
-            FillParticipants(emailMessage, message);
             message.Direction = (EmailDirection)(int)emailMessage.Direction;
+            if (Logger.IsDebugEnabled())
+            {
+                Logger.Log(LogLevel.Debug, $"{message.DateUtc?.ToLocalTime():g} :{ message.Direction} : { message.Subject}");
+            }
+            FillParticipants(emailMessage, message);
+          
             message.Tags = ConvertTags(emailMessage.Tags);
             message.Owners.AddAll(GetOwners(emailMessage.Owners));
             message.Save();

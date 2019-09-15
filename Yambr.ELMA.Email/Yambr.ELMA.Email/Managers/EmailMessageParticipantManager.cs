@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EleWise.ELMA.CRM.Models;
 using EleWise.ELMA.Extensions;
+using EleWise.ELMA.Logging;
 using EleWise.ELMA.Model.Managers;
 using EleWise.ELMA.Model.Services;
 using EleWise.ELMA.Runtime.NH;
@@ -19,6 +20,7 @@ namespace Yambr.ELMA.Email.Managers
     {
         private readonly ISessionProvider _sessionProvider;
 
+        private static readonly ILogger Logger = EmailLogger.Logger;
 
         public EmailMessageParticipantManager(
             ISessionProvider sessionProvider)
@@ -122,6 +124,11 @@ namespace Yambr.ELMA.Email.Managers
             emailMessageParticipant.Contact = currentContact;
             emailMessageParticipant.EmailString = contactSummary.Email;
             emailMessageParticipant.Save();
+            if (Logger.IsDebugEnabled())
+            {
+                Logger.Log(LogLevel.Debug, $"Created ParticipantContact: {emailMessageParticipant.EmailString}");
+            }
+
             return emailMessageParticipant;
         }
 
@@ -147,7 +154,7 @@ namespace Yambr.ELMA.Email.Managers
                     }
                 }
             }
-
+            //TODO не создавать контрагентов в настройках
             if (notExistingContactSummaries.Any())
             {
                 foreach (var notExistingContactSummary in notExistingContactSummaries)
@@ -194,6 +201,11 @@ namespace Yambr.ELMA.Email.Managers
             {
                 contact.Firstname = notExistingContactSummary.Email;
             }
+            if (Logger.IsDebugEnabled())
+            {
+                Logger.Log(LogLevel.Debug, $"Created Contact: {notExistingContactSummary.Email}");
+            }
+
 
             return contact;
         }
@@ -221,6 +233,11 @@ namespace Yambr.ELMA.Email.Managers
             mailboxDomain.Contractor = contractorLegal;
             mailboxDomain.Save();
             contractorLegal.Save();
+
+            if (Logger.IsDebugEnabled())
+            {
+                Logger.Log(LogLevel.Debug, $"Created ContractorLegal: {domain}");
+            }
             return contractorLegal;
         }
 

@@ -20,7 +20,7 @@ namespace Yambr.ELMA.Email.Models
         "ew>")]
     [global::EleWise.ELMA.Model.Attributes.Entity("MailboxDomain")]
     [global::EleWise.ELMA.Model.Attributes.IdType("d90a59af-7e47-48c5-8c4c-dad04834e6e3")]
-    [global::EleWise.ELMA.Model.Attributes.ShowInCatalogList(false)]
+    [global::EleWise.ELMA.Model.Attributes.ShowInCatalogList(true)]
     [global::EleWise.ELMA.Model.Attributes.EntityMetadataType(global::EleWise.ELMA.Model.Metadata.EntityMetadataType.Interface)]
     [global::EleWise.ELMA.Model.Attributes.ImplementationUid("67c6f258-4c85-4c41-87e7-b19adf6cbfd4")]
     public partial interface IMailboxDomain : global::EleWise.ELMA.Model.Entities.IEntity<long>
