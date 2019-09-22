@@ -15,7 +15,7 @@ yambremail = {
                 $.each(data,
                     function (i, el) {
                         var date = Date.UTC(el.year, el.month, 1);
-                        chartData.push([date, el.count, el]);
+                        chartData.push([date, el.count]);
                     });
                 if (chartData.length > 0) {
                     var series = [
