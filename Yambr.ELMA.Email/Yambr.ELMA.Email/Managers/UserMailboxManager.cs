@@ -71,7 +71,7 @@ namespace Yambr.ELMA.Email.Managers
 
             var hqlQuery =
                 session.CreateQuery(
-                    $"select usermailbox FROM UserMailbox usermailbox " +
+                    "select usermailbox FROM UserMailbox usermailbox " +
                     $"where usermailbox.Uid in ({emailsString})");
             hqlQuery.SetMaxResults(email.Count);
 

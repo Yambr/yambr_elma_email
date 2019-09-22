@@ -25,20 +25,22 @@ namespace Yambr.ELMA.Email.Scheduler
         {
             public SendMailboxesJob()
             {
-                Trigger = new NthIncludedDayTrigger(
-                    new NthIncludedDaySettings
+                Trigger = new NthIncludedDayTrigger(new NthIncludedDaySettings
+                {
+                    ScheduleType = ScheduleType.Daily,
+                    DailySettings = new DailySettings
                     {
-                        ScheduleType = ScheduleType.Daily,
-                        RepeatSettings = new RepeatSettings()
-                        {
-                            Enabled = true,
-                            RepeatEvery = TimeSpan.FromMinutes(15),
-                            RepeatTo = TimeSpan.FromDays(1)
-                        },
-                        StartDate = DateTime.Today.AddMinutes(10),
-                        OvertimeToRun = TimeSpan.FromDays(1)
+                        EveryDay = 1,
+                        OnlyWorkDays = false
                     },
-                    Locator.GetService<IProductionCalendarService>().GetGlobalProductionSchedule())
+                    RepeatSettings = new RepeatSettings
+                    {
+                        Enabled = true,
+                        RepeatEvery = TimeSpan.FromMinutes(15.0),
+                        RepeatTo = TimeSpan.FromHours(24.0)
+                    },
+                    StartDate = DateTime.Today
+                }, Locator.GetServiceNotNull<IProductionCalendarService>().GetGlobalProductionSchedule())
                 {
                     Name = "Триггер запуска отправки почтовых ящиков",
                     Id = new Guid("{3A6C7BC6-9B0D-41EB-9237-E693C2FCE5E2}")

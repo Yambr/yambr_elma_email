@@ -8,6 +8,8 @@ using Yambr.ELMA.Email.Managers;
 using Yambr.ELMA.Email.Models;
 using System.Web;
 using EleWise.ELMA.Logging;
+using EleWise.ELMA.Security;
+using EleWise.ELMA.Services;
 
 namespace Yambr.ELMA.Email.Services.Impl
 {
@@ -22,6 +24,8 @@ namespace Yambr.ELMA.Email.Services.Impl
             if (message != null)
                 return message;
             message = InterfaceActivator.Create<IEmailMessage>();
+            var userMailboxs = GetOwners(emailMessage.Owners);
+            message.Owners.AddAll(userMailboxs);
             message.DateUtc = emailMessage.DateUtc;
             message.Hash = emailMessage.Hash;
             message.MainHeader = ConvertHeader(emailMessage.MainHeader);
@@ -35,10 +39,9 @@ namespace Yambr.ELMA.Email.Services.Impl
             {
                 Logger.Log(LogLevel.Debug, $"{message.DateUtc?.ToLocalTime():g} :{ message.Direction} : { message.Subject}");
             }
-            FillParticipants(emailMessage, message);
+            FillParticipants(userMailboxs.FirstOrDefault(), emailMessage, message);
           
             message.Tags = ConvertTags(emailMessage.Tags);
-            message.Owners.AddAll(GetOwners(emailMessage.Owners));
             message.Save();
             return message;
         }
@@ -76,9 +79,9 @@ namespace Yambr.ELMA.Email.Services.Impl
                     null;
         }
 
-        private static void FillParticipants(IMessagePart emailMessage, IEmailMessage message)
+        private static void FillParticipants(IUserMailbox userMailbox, IMessagePart emailMessage, IEmailMessage message)
         {
-            var participants = EmailMessageParticipants(emailMessage);
+            var participants = EmailMessageParticipants(userMailbox, emailMessage);
 
             var toParticipants =
                 participants
@@ -94,7 +97,7 @@ namespace Yambr.ELMA.Email.Services.Impl
             message.From.AddAll(fromParticipants);
         }
 
-        private static List<IEmailMessageParticipant> EmailMessageParticipants(IMessagePart emailMessage)
+        private static List<IEmailMessageParticipant> EmailMessageParticipants(IUserMailbox userMailbox, IMessagePart emailMessage)
         {
             var contactSummaries = emailMessage.From.ToList();
             contactSummaries.AddRange(emailMessage.To);
@@ -110,8 +113,12 @@ namespace Yambr.ELMA.Email.Services.Impl
 
             if (notExistingParticipants.Any())
             {
-                var newParticipants = emailMessageParticipantManager.CreateParticipants(notExistingParticipants);
-                participants.AddRange(newParticipants);
+                 var securityService =    Locator.GetServiceNotNull<ISecurityService>();
+                 securityService.RunByUser(userMailbox.Owner, () =>
+                 {
+                     var newParticipants = emailMessageParticipantManager.CreateParticipants(notExistingParticipants);
+                     participants.AddRange(newParticipants);
+                 });
             }
 
             return participants;

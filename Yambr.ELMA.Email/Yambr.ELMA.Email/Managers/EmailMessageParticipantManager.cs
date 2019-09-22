@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EleWise.ELMA.CRM.Managers;
 using EleWise.ELMA.CRM.Models;
 using EleWise.ELMA.Extensions;
 using EleWise.ELMA.Logging;
 using EleWise.ELMA.Model.Managers;
 using EleWise.ELMA.Model.Services;
 using EleWise.ELMA.Runtime.NH;
+using EleWise.ELMA.Security;
+using EleWise.ELMA.Security.Managers;
 using EleWise.ELMA.Services;
 using NHibernate;
 using Yambr.ELMA.Email.Common.Models;
@@ -75,7 +78,7 @@ namespace Yambr.ELMA.Email.Managers
         /// </summary>
         /// <param name="contactSummaries"></param>
         /// <returns></returns>
-        public ICollection<IEmailMessageParticipant> CreateParticipants(ICollection<ContactSummary> contactSummaries)
+        public ICollection<IEmailMessageParticipant> CreateParticipants( ICollection<ContactSummary> contactSummaries)
         {
             var emails = contactSummaries.Select(c => c.Email).ToList();
             var session = _sessionProvider.GetSession("");
@@ -88,8 +91,7 @@ namespace Yambr.ELMA.Email.Managers
                     .All(
                         ec => ec.Email.All(
                             ecm => ecm.EmailString != c.Email))).ToList();
-            var publicDomains = PublicDomainManager.Instance.GetPublicDomains();
-            var newContacts = CreateContacts(session, notExistingContactSummaries, publicDomains);
+            var newContacts = CreateContacts(session, notExistingContactSummaries);
             existContacts.AddRange(newContacts);
 
             return CreateParticipants(contactSummaries, existContacts);
@@ -132,39 +134,67 @@ namespace Yambr.ELMA.Email.Managers
             return emailMessageParticipant;
         }
 
-        private ICollection<IContact> CreateContacts(ISession session, List<ContactSummary> notExistingContactSummaries, ICollection<string> publicDomains)
-        {
+        private ICollection<IContact> CreateContacts(ISession session, List<ContactSummary> notExistingContactSummaries)
+        { 
 
             var newContacts = new List<IContact>();
             var contractors = GetContractors(session, notExistingContactSummaries);
-            foreach (var contractor in contractors)
-            {
-                var forCreateContactSummaries = notExistingContactSummaries
-                    .Where(c =>
-                        contractor.Email.Any(ce => ce.EmailString == c.Email) ||
-                        contractor.Domains.Any(d => d.Name == Domain(c.Email)))
-                    .ToList();
-                if (forCreateContactSummaries.Any())
+            if (contractors != null)
+                foreach (var contractor in contractors)
                 {
-                    foreach (var forCreateContactSummary in forCreateContactSummaries)
+                    var forCreateContactSummaries = notExistingContactSummaries
+                        .Where(c =>
+                            contractor.Email.Any(ce => ce.EmailString == c.Email) ||
+                            contractor.Domains.Any(d => d.Name == Domain(c.Email)))
+                        .ToList();
+                    if (forCreateContactSummaries.Any())
                     {
-                        var contact = CreateContact(contractor, forCreateContactSummary);
-                        newContacts.Add(contact);
-                        notExistingContactSummaries.Remove(forCreateContactSummary);
+                        foreach (var forCreateContactSummary in forCreateContactSummaries)
+                        {
+                            var contact = CreateContact(contractor, forCreateContactSummary);
+                            newContacts.Add(contact);
+                            notExistingContactSummaries.Remove(forCreateContactSummary);
+                        }
                     }
                 }
-            }
+
             //TODO не создавать контрагентов в настройках
             if (notExistingContactSummaries.Any())
             {
-                foreach (var notExistingContactSummary in notExistingContactSummaries)
+               
+                var contractorsToCreate = notExistingContactSummaries
+                     .GroupBy(s => Domain(s.Email));
+
+                foreach (var groupedByDomain in contractorsToCreate)
                 {
-                    var contact = CreateContact(notExistingContactSummary, publicDomains);
-                    newContacts.Add(contact);
+                    var contacts = CreateContacts(groupedByDomain.Key, groupedByDomain.ToList());
+                    newContacts.AddRange(contacts);
                 }
             }
 
             return newContacts;
+        }
+
+        private static IEnumerable<IContact> CreateContacts(string domain, ICollection<ContactSummary> notExistingContactSummaries)
+        {
+            IContractor contractor = null;
+            var publicDomains = PublicDomainManager.Instance.GetPublicDomains();
+            if (!string.IsNullOrWhiteSpace(domain) && !publicDomains.Contains(domain))
+            {
+                contractor = CreateContractor(notExistingContactSummaries, domain);
+            }
+
+            return notExistingContactSummaries
+                .Select(notExistingContactSummary => CreateContact(notExistingContactSummary, contractor)).ToList();
+        }
+        private static IContact CreateContact(ContactSummary notExistingContactSummary, IContractor contractor)
+        {
+            var contact = CreateContact(notExistingContactSummary);
+            if (contractor != null)
+            {
+                contact.Contractor = contractor;
+            }
+            return contact;
         }
         private static IContact CreateContact(ContactSummary notExistingContactSummary)
         {
@@ -209,30 +239,21 @@ namespace Yambr.ELMA.Email.Managers
 
             return contact;
         }
-        private IContact CreateContact(ContactSummary notExistingContactSummary, ICollection<string> publicDomains)
-        {
-            var contact = CreateContact(notExistingContactSummary);
+       
 
-            var email = notExistingContactSummary.Email;
-            var domain = Domain(email);
-
-            if (string.IsNullOrWhiteSpace(domain) && !publicDomains.Contains(domain))
-            {
-                contact.Contractor = CreateContractor(notExistingContactSummary, domain);
-            }
-
-            return contact;
-        }
-
-        private static IContractorExt CreateContractor(ContactSummary notExistingContactSummary, string domain)
+        private static IContractorExt CreateContractor(IEnumerable<ContactSummary> notExistingContactSummaries, string domain)
         {
             //Теоретчиески у всез у кого домены - все юрики
             var contractorLegal = (IContractorExt)InterfaceActivator.Create<IContractorLegal>();
+         
             var mailboxDomain = InterfaceActivator.Create<IMailboxDomain>();
             mailboxDomain.Name = domain;
             mailboxDomain.Contractor = contractorLegal;
             mailboxDomain.Save();
-            contractorLegal.Save();
+            contractorLegal.Name = domain;
+            contractorLegal.Responsible = UserManager.Instance.GetCurrentUser();
+            contractorLegal.Domains.Add(mailboxDomain);
+            ContractorManager.Instance.SaveWithCategoryRules(contractorLegal);
 
             if (Logger.IsDebugEnabled())
             {
@@ -243,7 +264,7 @@ namespace Yambr.ELMA.Email.Managers
 
         private static string Domain(string email)
         {
-            return email.Split(new[] { '@' }, StringSplitOptions.None)[1];
+            return email.Split(new[] { '@' }, StringSplitOptions.None)[1]?.ToLowerInvariant();
         }
 
         private static IContact CreateContact(IContractor contractor, ContactSummary forCreateContactSummary)
@@ -257,7 +278,7 @@ namespace Yambr.ELMA.Email.Managers
         {
             if (notExistingContactSummaries == null)
                 throw new ArgumentNullException(nameof(notExistingContactSummaries));
-            if (notExistingContactSummaries.Any()) return new List<IContractorExt>();
+            if (!notExistingContactSummaries.Any()) return null;
 
             var emails = notExistingContactSummaries.Select(c => c.Email).ToList();
             var domains = emails.Select(Domain).ToList();
@@ -268,8 +289,8 @@ namespace Yambr.ELMA.Email.Managers
                 session.CreateQuery(
                     "select contractor " +
                     "FROM Contractor contractor " +
-                    "JOIN contractor.Email e " +
-                    "JOIN contractor.Domains d " +
+                    "LEFT JOIN contractor.Email e " +
+                    "LEFT JOIN contractor.Domains d " +
                     "where " +
                     $"e.EmailString in ({emailsString}) OR " +
                     $"d.Uid in ({domainsString})");
@@ -282,7 +303,7 @@ namespace Yambr.ELMA.Email.Managers
             var hqlQuery =
                 session.CreateQuery(
                     "select contact FROM Contact contact " +
-                    "JOIN contact.Email e " +
+                    "LEFT JOIN contact.Email e " +
                     $"where e.EmailString in ({emailsString})");
             hqlQuery.SetMaxResults(100);
             return hqlQuery.List<IContact>();

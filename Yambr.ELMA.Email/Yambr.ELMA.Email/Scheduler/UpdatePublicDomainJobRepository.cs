@@ -33,6 +33,11 @@ namespace Yambr.ELMA.Email.Scheduler
                     new NthIncludedDaySettings
                     {
                         ScheduleType = ScheduleType.Daily,
+                        DailySettings = new DailySettings()
+                        {
+                            EveryDay = 1,
+                            OnlyWorkDays = false
+                        },
                         StartDate = DateTime.Today.AddMinutes(10),
                         OvertimeToRun = TimeSpan.FromDays(1)
                     },
