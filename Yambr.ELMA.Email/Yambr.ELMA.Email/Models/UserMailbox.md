@@ -425,5 +425,7 @@
   <TableName>UserMailbox</TableName>
   <IsSoftDeletable>true</IsSoftDeletable>
   <ShowInCatalogList>true</ShowInCatalogList>
+  <Filterable>true</Filterable>
+  <Filter />
   <Actions />
 </Entity>

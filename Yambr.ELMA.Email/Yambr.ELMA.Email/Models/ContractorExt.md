@@ -43,6 +43,62 @@
       <Filterable>true</Filterable>
     </PropertyMetadata>
   </Properties>
+  <FormsScheme>FormConstructor</FormsScheme>
+  <FormTransformations>
+    <FormViewItemTransformation>
+      <Uid>43452920-ec84-4f11-b3c2-4efaeb99540c</Uid>
+      <FormName>Display</FormName>
+      <Items>
+        <ViewItemTransformation xsi:type="ViewItemTransformationMove">
+          <Uid>bf6e8266-403d-4559-b136-a62e3256fa4d</Uid>
+          <MoveItemUid>92d255c1-3006-43be-81d3-e174a9366987</MoveItemUid>
+          <BeforeItem>932bee4f-e8ad-4517-ab18-b51875b8ba23</BeforeItem>
+          <AfterItem>4d8e2d2d-854f-434d-8b1f-d4229cc475f1</AfterItem>
+        </ViewItemTransformation>
+        <ViewItemTransformation xsi:type="ViewItemTransformationMove">
+          <Uid>bf6e8266-403d-4559-b136-a62e3256fa4d</Uid>
+          <MoveItemUid>932bee4f-e8ad-4517-ab18-b51875b8ba23</MoveItemUid>
+          <BeforeItem>a45a3146-d52b-450a-b193-a324e09e554e</BeforeItem>
+          <AfterItem>92d255c1-3006-43be-81d3-e174a9366987</AfterItem>
+        </ViewItemTransformation>
+        <ViewItemTransformation xsi:type="ViewItemTransformationMove">
+          <Uid>bf6e8266-403d-4559-b136-a62e3256fa4d</Uid>
+          <MoveItemUid>a45a3146-d52b-450a-b193-a324e09e554e</MoveItemUid>
+          <BeforeItem>38a82144-c5c1-4bf9-b944-aa7069126427</BeforeItem>
+          <AfterItem>932bee4f-e8ad-4517-ab18-b51875b8ba23</AfterItem>
+        </ViewItemTransformation>
+        <ViewItemTransformation xsi:type="ViewItemTransformationMove">
+          <Uid>bf6e8266-403d-4559-b136-a62e3256fa4d</Uid>
+          <MoveItemUid>38a82144-c5c1-4bf9-b944-aa7069126427</MoveItemUid>
+          <BeforeItem>8c7dc804-ee44-4dfc-baec-0232609b99c7</BeforeItem>
+          <AfterItem>a45a3146-d52b-450a-b193-a324e09e554e</AfterItem>
+        </ViewItemTransformation>
+        <ViewItemTransformation xsi:type="ViewItemTransformationMove">
+          <Uid>bf6e8266-403d-4559-b136-a62e3256fa4d</Uid>
+          <MoveItemUid>8c7dc804-ee44-4dfc-baec-0232609b99c7</MoveItemUid>
+          <AfterItem>38a82144-c5c1-4bf9-b944-aa7069126427</AfterItem>
+        </ViewItemTransformation>
+        <ViewItemTransformation xsi:type="ViewItemTransformationAdd">
+          <Uid>bf6e8266-403d-4559-b136-a62e3256fa4d</Uid>
+          <Item xsi:type="TabViewItem">
+            <Name>Tab1</Name>
+            <Uid>80b8d21b-7a84-43b2-98e1-5807aadbf085</Uid>
+            <Caption>История переписки</Caption>
+          </Item>
+          <BeforeItem>92d255c1-3006-43be-81d3-e174a9366987</BeforeItem>
+          <AfterItem>4d8e2d2d-854f-434d-8b1f-d4229cc475f1</AfterItem>
+        </ViewItemTransformation>
+        <ViewItemTransformation xsi:type="ViewItemTransformationAdd">
+          <Uid>80b8d21b-7a84-43b2-98e1-5807aadbf085</Uid>
+          <Item xsi:type="ExtensionZoneViewItem">
+            <Name>ExtensionZone2</Name>
+            <Uid>8ac59bf8-40b8-406d-a7fb-f6c55dbebaa5</Uid>
+            <ZoneId>Contractor.EmailMessages</ZoneId>
+          </Item>
+        </ViewItemTransformation>
+      </Items>
+    </FormViewItemTransformation>
+  </FormTransformations>
   <TableViews>
     <TableView>
       <Uid>e7c98776-cd21-43f9-9290-b27741b61630</Uid>

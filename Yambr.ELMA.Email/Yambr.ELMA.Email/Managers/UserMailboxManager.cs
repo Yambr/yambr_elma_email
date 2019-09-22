@@ -83,6 +83,9 @@ namespace Yambr.ELMA.Email.Managers
         {
             var size = 100;
             var index = 0;
+            var filter = InterfaceActivator.Create<IUserMailboxFilter>();
+            filter.DisableAutoFilter = true;
+            filter.DisableSecurity = true;
             var mailboxes = Find(new FetchOptions()
             {
                 FirstResult = index,

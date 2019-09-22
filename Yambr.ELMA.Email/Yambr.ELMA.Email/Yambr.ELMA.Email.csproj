@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.0.9999.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EleWise.ELMA.CRM">
       <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\EleWise.ELMA.CRM.dll</HintPath>
     </Reference>
@@ -60,6 +64,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
   </ItemGroup>
@@ -192,6 +197,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ContractorExt.md</DependentUpon>
     </Compile>
+    <Compile Include="DTO\Models\EmailMonthStatDto.cs" />
     <Compile Include="Models\EmailMessage.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -255,16 +261,29 @@
     <Compile Include="Services\Impl\RabbitMQListenerService.cs" />
     <Compile Include="Services\IRabbitMQListenerService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Models\ContractorExt.Form.Display.xml">
+      <DependentUpon>ContractorExt.md</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Db\EmailDbStructure.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
+	<Copy SourceFiles="$(TargetPath)" DestinationFolder="C:\ELMA3-Enterprise\Web\bin" ContinueOnError="false" />
   </Target>
   -->
 </Project>

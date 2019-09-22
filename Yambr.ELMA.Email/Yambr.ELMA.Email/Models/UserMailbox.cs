@@ -22,7 +22,9 @@ namespace Yambr.ELMA.Email.Models
     [global::EleWise.ELMA.Model.Attributes.IdType("d90a59af-7e47-48c5-8c4c-dad04834e6e3")]
     [global::EleWise.ELMA.Model.Attributes.ShowInCatalogList(true)]
     [global::EleWise.ELMA.Model.Attributes.EntityMetadataType(global::EleWise.ELMA.Model.Metadata.EntityMetadataType.Interface)]
+    [global::EleWise.ELMA.Model.Attributes.Filterable()]
     [global::EleWise.ELMA.Model.Attributes.ImplementationUid("ca2f3a69-b8d4-427f-9c32-d99985594dac")]
+    [global::EleWise.ELMA.Model.Attributes.FilterType(typeof(IUserMailboxFilter))]
     public partial interface IUserMailbox : global::EleWise.ELMA.Model.Entities.IEntity<long>
     {
         
@@ -391,6 +393,68 @@ namespace Yambr.ELMA.Email.Models
             {
                 return global::EleWise.ELMA.SR.T("алиасы через запятую: example@mail.ru, example2@mail.ru");
             }
+        }
+    }
+    
+    /// <summary>
+    /// Фильтр для объекта "UserMailbox"
+    /// </summary>
+    [global::EleWise.ELMA.Model.Attributes.FilterFor(typeof(IUserMailbox))]
+    public interface IUserMailboxFilter : global::EleWise.ELMA.Model.Common.IEntityFilter
+    {
+        
+        /// <summary>
+        /// Фильтр для свойства "Дата создания"
+        /// </summary>
+        EleWise.ELMA.Model.Ranges.DateTimeRange CreationDate
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Автор создания"
+        /// </summary>
+        EleWise.ELMA.Security.Models.IUser CreationAuthor
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Дата изменения"
+        /// </summary>
+        EleWise.ELMA.Model.Ranges.DateTimeRange ChangeDate
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Автор изменения"
+        /// </summary>
+        EleWise.ELMA.Security.Models.IUser ChangeAuthor
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Почтовый логин"
+        /// </summary>
+        string EmailLogin
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Время последнего сбора писем"
+        /// </summary>
+        EleWise.ELMA.Model.Ranges.DateTimeRange LastMailUpdate
+        {
+            get;
+            set;
         }
     }
 }

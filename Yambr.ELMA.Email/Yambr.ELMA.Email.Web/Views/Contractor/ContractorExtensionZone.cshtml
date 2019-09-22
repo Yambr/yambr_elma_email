@@ -1,0 +1,31 @@
+﻿@using EleWise.ELMA.CRM.Web.Extensions
+@using EleWise.ELMA.CRM.Models
+@using EleWise.ELMA.Model.Entities
+@using Yambr.ELMA.Email.Models
+@using Yambr.ELMA.Email.Web
+@model IContractorBaseModel
+@{
+    var contractor = Model.Contractor as IContractorExt;
+    Html.RegisterCssSrc(RouteProvider.Content + "email.css");
+    Html.RegisterScriptSrc(RouteProvider.Scripts + "vue.js");
+    Html.RegisterScriptSrc(RouteProvider.Scripts + "highstock.js");
+    Html.RegisterScriptSrc(RouteProvider.Scripts + "modules/data.js");
+    Html.RegisterScriptSrc(RouteProvider.Scripts + "email.js");
+}
+
+
+
+@if (contractor != null)
+{
+    var chartId = string.Format("mail_stat_{0}", contractor.Id);
+
+    // TODO определять есть ли письма за сегодня
+    <div id="@chartId" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    Html.RenderInZone("Scripts", @<text>
+                                     <script type="text/javascript">
+                                         $(document).ready(function() {
+                                             yambremail.contractorStat("#@chartId", @contractor.Id, "Статистика переписки");
+                                         });
+                                     </script>
+                                  </text>);
+}

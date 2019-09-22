@@ -14,6 +14,8 @@ namespace Yambr.ELMA.Email.Models
     [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IContractorExt), "DisplayName")]
     [global::EleWise.ELMA.Model.Attributes.BaseClass("38096146-0c73-4809-94f5-e18b2d525531")]
     [global::EleWise.ELMA.Model.Attributes.DisplayFormat(null)]
+    [global::EleWise.ELMA.Model.Attributes.ClassFormsScheme(global::EleWise.ELMA.Model.Metadata.ClassFormsScheme.FormConstructor)]
+    [global::EleWise.ELMA.Model.Attributes.FormTransformation(typeof(IContractorExt), "Yambr.ELMA.Email.Models.ContractorExt.Form.Display.xml")]
     [global::EleWise.ELMA.Model.Attributes.TableView("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<TableView xmlns:xsi=\"http://www.w3.org/2" +
         "001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <Uid>e7" +
         "c98776-cd21-43f9-9290-b27741b61630</Uid>\r\n  <ViewType>List</ViewType>\r\n</TableVi" +
@@ -76,6 +78,14 @@ namespace Yambr.ELMA.Email.Models
             {
                 return global::EleWise.ELMA.SR.T("письма с этих доменов автоматически создадут новые контакты и прикрепят к ним нов" +
                         "ые письма");
+            }
+        }
+        
+        private static string @__AllFormsResources
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("История переписки");
             }
         }
     }

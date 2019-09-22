@@ -9,6 +9,10 @@ namespace Yambr.ELMA.Email.Web
     {
         public const string AreaName = "Yambr.ELMA.Email.Web";
 
+        public static readonly string Content = $"/Modules/{AreaName}/Content/";
+
+        public static readonly string Scripts = $"/Modules/{AreaName}/Scripts/";
+
         public void GetRoutes(ICollection<RouteDescriptor> routes)
         {
             foreach (var routeDescriptor in GetRoutes())

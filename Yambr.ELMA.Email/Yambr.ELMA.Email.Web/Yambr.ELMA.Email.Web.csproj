@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,6 +53,9 @@
     <Reference Include="EleWise.ELMA.CRM">
       <HintPath>..\..\Assemblies\EleWise.ELMA.CRM.dll</HintPath>
     </Reference>
+    <Reference Include="EleWise.ELMA.CRM.Web">
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\Modules\EleWise.ELMA.CRM.Web\bin\EleWise.ELMA.CRM.Web.dll</HintPath>
+    </Reference>
     <Reference Include="EleWise.ELMA.SDK">
       <HintPath>..\..\Assemblies\EleWise.ELMA.SDK.dll</HintPath>
     </Reference>
@@ -63,6 +67,10 @@
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\Assemblies\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\..\Assemblies\NHibernate.dll</HintPath>
@@ -93,19 +101,21 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ContractorEmailMessagesZone.cs" />
     <Compile Include="Components\YambrEmailSettingsModuleController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\EmailStatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\YambrEmailSettingsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\email.css" />
     <Content Include="Module.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +126,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\email.js" />
+    <Content Include="Scripts\highstock.js" />
+    <Content Include="Scripts\modules\data.js" />
+    <Content Include="Scripts\vue.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +141,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\YambrEmailSettings\Edit.cshtml" />
     <Content Include="Views\YambrEmailSettings\View.cshtml" />
+    <Content Include="Views\Contractor\ContractorExtensionZone.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
