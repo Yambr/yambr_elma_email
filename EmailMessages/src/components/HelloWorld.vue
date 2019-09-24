@@ -2,13 +2,15 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
-
+    <Timeline contractor_id="1167"/>
   </div>
 </template>
 
 <script>
+    import Timeline from "./Timeline";
     export default {
         name: 'HelloWorld',
+        components: {Timeline},
         data() {
             return {
                 msg: 'Welcome to Your Vue.js App'

@@ -13,7 +13,7 @@ namespace Yambr.ELMA.Email.Web.Controllers
         {
             _emailMessageManager = emailMessageManager;
         }
-
+        [OutputCache(Duration = 3600, VaryByParam = "id", VaryByCustom = "TimeZone")]
         public ActionResult Contractor(long id)
         {
             return Json(_emailMessageManager.MonthStatContractor(id));
