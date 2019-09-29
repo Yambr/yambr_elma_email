@@ -1,13 +1,21 @@
 <template>
   <div>
-    <TimelineHeader :count="count" :call-left="callLeft" :call-right="callRight" v-model="showChart"/>
+    <TimelineHeader :count="count" :call-left="callLeft" :call-right="callRight" :show-chart="showChartClick"
+                    v-bind:message="msg" :search="search" v-bind:searchtext="searchtext"/>
     <transition name="fade">
       <div v-show="!chartEnabled">
-        <MessagesTimeline :chart-enabled="chartEnabled" :messages="messages"/>
+        <MessagesTimeline :chart-enabled="chartEnabled" v-bind:messages="renderedMesages"/>
       </div>
     </transition>
     <highcharts :constructor-type="'stockChart'" :options="chartOptions" v-show="chartEnabled"></highcharts>
-
+    <infinite-loading @infinite="infiniteHandler" :identifier="from" v-show="hasInSelectedMonth">
+      <div slot="no-more">
+        <font-awesome-icon icon="check" class="success" size="2x"></font-awesome-icon>
+      </div>
+      <div slot="no-results">
+        <font-awesome-icon icon="check" class="success" size="2x"></font-awesome-icon>
+      </div>
+    </infinite-loading>
   </div>
 </template>
 
@@ -19,107 +27,47 @@
     import emailMessageApi from "./api/emailMessageApi";
     import MessagesTimeline from "./MessagesTimeline";
     import TimelineHeader from "./TimelineHeader";
+    import InfiniteLoading from 'vue-infinite-loading';
 
     stockInit(Highcharts)
-
+    const lang = {
+        loading: "Loading...",
+        months: "Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь".split(","),
+        shortMonths: "Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек".split(","),
+        weekdays: "Воскресенье,Понедельник,Вторник,Среда,Четверг,Пятница,Суббота".split(","),
+        decimalPoint: ".",
+        numericSymbols: " т.р., млн.р., млрд.р., трлд.р., трлл.р.,E".split(","),
+        resetZoom: "Сбросить масштаб",
+        resetZoomTitle: "Сбросить масштаб 1:1",
+        thousandsSep: " "
+    };
     Highcharts.setOptions({
-        lang: {
-            loading: "Loading...",
-            months: "Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь".split(","),
-            shortMonths: "Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек".split(","),
-            weekdays: "Воскресенье,Понедельник,Вторник,Среда,Четверг,Пятница,Суббота".split(","),
-            decimalPoint: ".",
-            numericSymbols: " т.р., млн.р., млрд.р., трлд.р., трлл.р.,E".split(","),
-            resetZoom: "Сбросить масштаб",
-            resetZoomTitle: "Сбросить масштаб 1:1",
-            thousandsSep: " "
-        }
+        lang: lang
     });
 
 
-    function openColumn(x) {
-        console.warn(x);
-    }
-
-    function defaultChartOptions() {
-        return {
-            chart: {
-                type: 'column',
-                style: {"fontFamily": "Tahoma, Arial, Helvetica, sans-serif"},
-                alignTicks: false
-            },
-            navigator: {
-                enabled: false
-            },
-            scrollbar: {
-                enabled: false
-            },
-            rangeSelector: {
-                enabled: false
-            },
-            title: {
-                text: "Статистика переписки"
-            },
-            plotOptions: {
-                series: {
-                    dataLabels: {
-                        enabled: true,
-                        format: '<span style="font-weight: 500"><b>{point.y}<b/></span>',
-                        style: {
-                            fontWeight: 500
-                        }
-                    },
-                    point: {
-                        events: {
-                            click: function () {
-                                openColumn(this.x);
-                            }
-                        }
-                    }
-                }
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{point.color}">{point.money}</span><b>{point.y}</b>'
-            },
-            series: null
-        }
-    }
-
-    function hasInCurrentMonth(value) {
-        let currentDate = new Date();
-        let currYear = currentDate.getFullYear();
-        let currMonth = currentDate.getFullYear();
-        for (let i = 0; i < value.length; i++) {
-            let date = new Date(value[i][0]);
-            let year = currentDate.getFullYear();
-            let month = currentDate.getFullYear();
-            if (year == currYear && month == currMonth) {
-                this.hasInCurrentMonth = true;
-                break;
-            }
-        }
-    }
-
     export default {
-        props: ["contractor_id"],
+        props: ["entity_id", "from_date", "to_date"],
         name: "Timeline",
         components: {
             TimelineHeader,
             MessagesTimeline,
-            highcharts: Chart
+            highcharts: Chart,
+            InfiniteLoading
         },
         data() {
             return {
-                msg: 'Welcome to Your Vue.js App',
-                chartOptions: defaultChartOptions(),
+                chartOptions: this.defaultChartOptions(),
                 showChart: null,
                 messages: [],
-                from: null,
-                to: null,
+                searchtext: '',
+                filterCache: {},
+                filteredMessages: [],
+                from: this.from_date,
+                to: this.to_date,
                 skip: 0,
                 size: 10,
-                count: 0,
-                hasInCurrentMonth: false,
+                count: 0
             }
         },
         computed: {
@@ -127,40 +75,183 @@
                 if (this.showChart != null) {
                     return this.showChart;
                 }
-                if (hasInCurrentMonth) {
+                if (this.count > 0) {
                     return false;
                 }
                 let b = !!(this.chartOptions.series);
                 return b;
+            },
+            hasInSelectedMonth: function () {
+                if (this.showChart) {
+                    return false;
+                }
+                return this.count > 0;
+            },
+            msg: function () {
+                let selectedDate = new Date(this.from);
+                return lang.months[selectedDate.getMonth()] + " " + selectedDate.getFullYear();
+            },
+            renderedMesages: function () {
+                if (!!this.searchtext && this.searchtext.length > 2) {
+                    return this.filteredMessages;
+                } else {
+                    return this.messages;
+                }
             }
         },
         mounted() {
-            emailStatApi.contractorStat(this.contractor_id).then(value => {
-                let newChartOptions = defaultChartOptions();
+            emailStatApi.contractorStat(this.entity_id).then(value => {
+                let newChartOptions = this.defaultChartOptions();
                 newChartOptions.series = {
                     data: value
                 };
                 this.chartOptions = newChartOptions;
-                hasInCurrentMonth.call(this, value);
+            }).catch(reason => {
+                console.warn(reason);
             });
-            emailMessageApi.contractorEmail(this.contractor_id).then(value => {
+            emailMessageApi.contractorEmail(
+                this.entity_id,
+                new Date(this.from),
+                new Date(this.to),
+                this.skip,
+                this.size,
+            ).then(value => {
                 this.messages = value.messages;
-                this.from = value.from;
-                this.to = value.to;
+                this.from = +(new Date(value.from));
+                this.to = +(new Date(value.to));
                 this.skip = value.skip;
-                this.size = value.size;
                 this.count = value.count;
+            }).catch(reason => {
+                console.warn(reason);
             });
-        },
-        methods:{
-            callLeft: function () {
-                console.log("left")
-                this.msg = "left";
+        }
+        ,
+        methods: {
+            search: function (e) {
+                let searchText = e.target.value.trim().toLowerCase();
+                this.searchtext = searchText;
+                console.log(searchText);
+                if (searchText && searchText.length > 2) {
+                    if (this.filterCache[searchText]) {
+                        this.filteredMessages = this.filterCache[searchText];
+                    } else {
+                        let filtered = this.messages.filter(message => {
+                            return (message.subject && message.subject.toLowerCase().indexOf(searchText) > 0) ||
+                                (message.mainHeader && message.mainHeader.toLowerCase().indexOf(searchText) > 0)
+                        });
+                        this.filterCache[searchText] = filtered;
+                        this.filteredMessages = filtered;
+                    }
+                } else {
+                    this.filteredMessages = [];
+                }
             },
-            callRight: function () {
-                console.log("right")
-                this.msg = "right";
+            infiniteHandler: function ($state) {
+                this.move(this.from, this.to, this.skip + this.size, $state);
+            },
+            showChartClick: function () {
+                this.showChart = !this.chartEnabled;
+            },
+            openColumn: function (clickEvent) {
+                let from = clickEvent.point.x
+                let fromAsDate = new Date(from);
+                let to = +(fromAsDate.setMonth(fromAsDate.getMonth() + 1));
+                this.move(from, to, 0);
             }
+            ,
+            callLeft: function () {
+                let fromAsDate = new Date(this.from);
+                let toAsDate = new Date(this.to);
+                let from = +(fromAsDate.setMonth(fromAsDate.getMonth() - 1));
+                let to = +(toAsDate.setMonth(toAsDate.getMonth() - 1));
+                this.move(from, to, 0);
+            }
+            ,
+            callRight: function () {
+                let fromAsDate = new Date(this.from);
+                let toAsDate = new Date(this.to);
+                let from = +(fromAsDate.setMonth(fromAsDate.getMonth() + 1));
+                let to = +(toAsDate.setMonth(toAsDate.getMonth() + 1));
+                this.move(from, to, 0);
+            }
+            ,
+            move: function (from, to, skip, $state) {
+                this.filterCache = {}
+                this.searchtext = '';
+                this.filteredMessages = [];
+                emailMessageApi.contractorEmail(
+                    this.entity_id,
+                    new Date(from),
+                    new Date(to),
+                    skip,
+                    this.size,
+                ).then(value => {
+                    if (skip > 0) {
+                        this.messages = this.messages.concat(value.messages);
+                    } else {
+                        this.messages = value.messages;
+                    }
+                    this.from = +(new Date(value.from));
+                    this.to = +(new Date(value.to));
+                    this.skip = value.skip;
+                    this.count = value.count;
+                    this.showChart = null;
+                    if ($state) {
+                        if ((this.skip + this.size) < this.count) {
+                            $state.loaded();
+
+                        } else {
+                            $state.complete();
+                        }
+                    }
+                }).catch(reason => {
+                    console.warn(reason);
+                });
+
+            }
+            ,
+            defaultChartOptions: function () {
+                return {
+                    chart: {
+                        type: 'column',
+                        style: {"fontFamily": "Tahoma, Arial, Helvetica, sans-serif"},
+                        alignTicks: false
+                    },
+                    navigator: {
+                        enabled: false
+                    },
+                    scrollbar: {
+                        enabled: false
+                    },
+                    rangeSelector: {
+                        enabled: false
+                    },
+                    title: {
+                        text: "Статистика переписки"
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '<span style="font-weight: 500"><b>{point.y}<b/></span>',
+                                style: {
+                                    fontWeight: 500
+                                }
+                            },
+                            point: {
+                                events: {
+                                    click: this.openColumn
+                                }
+                            }
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '<span style="color:{point.color}">{point.money}</span><b>{point.y}</b>'
+                    },
+                    series: null
+                }
+            }
+
         }
     }
 </script>
@@ -175,4 +266,11 @@
     opacity: 0;
   }
 
+  .small {
+    font-size: 80%;
+  }
+
+  .success {
+    color: #3f903f !important;
+  }
 </style>

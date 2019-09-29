@@ -18,5 +18,5 @@ SET fullVersion=%baseVersion%.%Build%
 
 echo full %fullVersion%
 
-"C:\ELMA3-Enterprise\PackageManager\EleWise.ELMA.Packaging.Console.exe" packSln %~dp0Yambr.ELMA.Email.sln -v %fullVersion%  -out "C:\ELMA3-Enterprise\Packages"
+"C:\ELMA3-Enterprise\PackageManager\EleWise.ELMA.Packaging.Console.exe" packSln %~dp0Yambr.ELMA.Email.sln -v %fullVersion%  -out "C:\ELMA3-Enterprise\Packages" -NoSelfUpdate
 

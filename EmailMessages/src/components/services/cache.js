@@ -1,6 +1,7 @@
+import Vue from 'vue'
 function isLocalStorageEnabled() {
   try {
-    return ('localStorage' in window && window['localStorage'] !== null && localStorage);
+    return ('localStorage' in window && window['localStorage'] !== null && localStorage) && Vue.config.productionTip;
   } catch (e) {
     return false;
   }

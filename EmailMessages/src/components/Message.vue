@@ -11,15 +11,32 @@
       </div>
     </template>
     <div class="timeline-panel">
-      <MessageHeading :message="message"/>
+      <MessageHeading v-bind:message="message" v-bind:date="date"/>
       <div class="timeline-body">
-        <p>{{message.mainHeader}}</p>
+        <table style="width: 100%">
+          <tr>
+            <td class="msg-desc" style="vertical-align: top" v-on:click="swithMessage()">
+              <font-awesome-icon icon="chevron-down" class="switcher"
+                                 :transform="{ rotate: iconRotate }"></font-awesome-icon>
+            </td>
+            <td>
+              <div v-show="!this.opened" class="fade msg-header" v-html="message.mainHeader"></div>
+              <div v-if="this.opened&&fullMessage" v-html="fullMessage.body" class="msg-body"></div>
+            </td>
+          </tr>
+          <tr v-show="this.opened">
+            <td class="msg-desc" v-on:click="swithMessage()">
+              <font-awesome-icon icon="chevron-up" class="switcher"></font-awesome-icon>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </li>
 </template>
-<script>
+<script scoped>
     import MessageHeading from "./MessageHeading";
+    import emailMessageApi from "./api/emailMessageApi";
 
     export default {
         name: 'Message',
@@ -29,12 +46,49 @@
         },
         data() {
             return {
-                incoming: this.message.direction === 'Incoming'
+                opened: false,
+                fullMessage: null,
+            }
+        },
+        methods: {
+            swithMessage: function () {
+                this.opened = !this.opened;
+                if (this.opened && !this.fullMessage) {
+                    emailMessageApi.loadEmail(this.message.id).then(value => {
+                        this.fullMessage = value;
+                    }).catch(reason => {
+                        console.warn(reason);
+                    });
+                    ;
+                }
+            }
+        },
+        computed: {
+            incoming: function () {
+                return this.message.direction === 'Incoming';
+            },
+            date: function () {
+                return new Date(this.message.date);
+            },
+            iconRotate: function () {
+                return this.opened ? 0 : 270;
             }
         }
     }
 </script>
 <style scoped>
+  .msg-header{
+    color: #2c3e50;
+  }
+  .msg-desc {
+    color: #A3A3A3;
+    width: 10%;
+  }
+
+  .switcher {
+    cursor: pointer;
+  }
+
   .text-muted {
     color: #6c757d !important;
   }
@@ -116,6 +170,7 @@
     content: " ";
   }
 
+
   .timeline > li > .timeline-badge {
     color: #fff;
     width: 50px;
@@ -173,6 +228,11 @@
     background-color: #5bc0de !important;
   }
 
+  .timeline-body {
+    margin-top: 5px;
+    padding-top: 5px;
+  }
+
   .timeline-body > p,
   .timeline-body > ul {
     margin-bottom: 0;
@@ -180,5 +240,10 @@
 
   .timeline-body > p + p {
     margin-top: 5px;
+  }
+
+
+  .b-message-head__email {
+    color: #A3A3A3;
   }
 </style>

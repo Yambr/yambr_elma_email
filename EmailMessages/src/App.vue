@@ -1,21 +1,34 @@
 <template>
   <div id="app">
-    <HelloWorld/>
+    <Timeline :entity_id="entity_id"  :from_date="from" :to_date="to"  />
   </div>
 </template>
 
 <script>
-    import HelloWorld from './components/HelloWorld'
+    import Timeline from "./components/Timeline";
 
     export default {
         name: 'App',
         components: {
-            HelloWorld
+            Timeline
+        },
+        props:[
+            'entity_id'
+        ],
+        data() {
+            let fromAsDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+            let from = +(fromAsDate);
+            let to = +(fromAsDate.setMonth(fromAsDate.getMonth() + 1));
+            return {
+                msg: 'Welcome to Your Vue.js App',
+                from: from,
+                to: to
+            }
         }
     }
 </script>
 
-<style>
+<style scoped>
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

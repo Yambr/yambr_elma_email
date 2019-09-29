@@ -1,109 +1,41 @@
-import cache from "../services/cache";
 import Vue from 'vue'
+import axios from 'axios'
+
 const baseContractorEmailUri = "/Yambr.ELMA.Email.Web/EmailMessage/Contractor/";
-const contractorEmailRegion = "contractor_email:";
+const baseEmailUri = "/Yambr.ELMA.Email.Web/EmailMessage/Load/";
 
-function emailKey(key) {
-  return contractorEmailRegion + key;
-}
-
-async function fetchContractorEmail(id, from, to, skip, size, key) {
+async function contractorEmail(id, from, to, skip, size) {
+  let fromString = from.toISOString();
+  let toString = to.toISOString();
   let url = baseContractorEmailUri + id +
-    '?from=' + from +
-    '&to=' + to +
+    '?from=' + fromString +
+    '&to=' + toString +
     '&skip=' + skip +
     '&size=' + size;
   let data = null;
-  if(Vue.config.productionTip){
-    const response = await fetch(url);
-    if (response.ok) {
-      const json = await response.json();
-      data = json;
-    }
+  if (!Vue.config.productionTip) {
+    url = "http://localhost:888" + url;
   }
-  else{
-    data = demoContractorEmail;
+  let response = await axios.get(url);
+  data = response.data;
+
+  return data;
+
+}
+
+async function loadEmail(id) {
+  let data = null;
+  let url = baseEmailUri + id;
+  if (!Vue.config.productionTip) {
+    url = "http://localhost:888" + url;
   }
-  cache.localStorageSet(key, data, 15);
+  let response = await axios.get(url);
+  data = response.data;
   return data;
 }
 
-async function contractorEmail(id, from, to, skip, size) {
-  let key = emailKey(id + from + to + skip + size);
-  let cachedResult = cache.localStorageGet(key);
-  if (cachedResult) {
-    return cachedResult;
-  } else {
-    return await fetchContractorEmail(id, from, to, skip, size, key);
-  }
-}
-
 export default {
-  contractorEmail
+  contractorEmail,
+  loadEmail
 }
 
-const demoContractorEmail = {
-  messages: [
-    {
-      from: [
-        {
-          name: "dadata",
-          email: "factor@dadata.ru",
-          contact: 1,
-          user: null
-        }
-      ],
-      to: [
-        {
-          name: "Ямброськин Н.Г.",
-          email: "i@yambr.ru",
-          contact: null,
-          user: 1
-        }
-      ],
-      date: "2019-09-24T09:20:18.090Z",
-      direction: "Incoming",
-      mainHeader: "Георгиевич. Мы продолжаем разыгрывать 4 200 000 ₽. Выбрали 10 новых счастливчиков - каждому подарим от 30 000 до 300 000 ₽.",
-      subjectWithoutTags: "Разыгрываем 4 200 000 ₽. Этап 2",
-      subject: "[Тинькофф] Разыгрываем 4 200 000 ₽. Этап 2",
-      owners: [{
-        name: "Ямброськин Н.Г.",
-        email: "i@yambr.ru",
-        user: 1
-      }]
-    },
-    {
-      from: [
-        {
-          name: "Ямброськин Н.Г.",
-          email: "elma@yambr.ru",
-          contact: null,
-          user: 1
-        }
-      ],
-      to: [
-        {
-          name: "dadata",
-          email: "factor@dadata.ru",
-          contact: 1,
-          user: null
-        },
-      ],
-      date: "2019-09-24T09:20:18.090Z",
-      direction: "Outcoming",
-      mainHeader: "С разделами базы знаний я уже разобрался. Спасибо. Очень нужная информация.",
-      subjectWithoutTags: "Re: Предложение о сотрудничестве",
-      subject: "Re: Предложение о сотрудничестве",
-      owners: [{
-        name: "Ямброськин Н.Г.",
-        email: "i@yambr.ru",
-        user: 1
-      }]
-    }
-  ],
-  from: 1569316459936,
-  to: 1571908459936,
-  skip: 0,
-  size: 100,
-  count: 3
-};
