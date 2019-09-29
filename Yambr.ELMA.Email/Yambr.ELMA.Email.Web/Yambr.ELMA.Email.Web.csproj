@@ -104,13 +104,17 @@
     <Compile Include="Components\ContractorEmailMessagesZone.cs" />
     <Compile Include="Components\YambrEmailSettingsModuleController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\EmailMessageController.cs" />
     <Compile Include="Controllers\EmailStatsController.cs" />
+    <Compile Include="Controllers\FullTextSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\YambrEmailSettingsController.cs" />
+    <Compile Include="FullTextSearch\Components\CRMFullTextSearchModeuleSettingsRender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\app.css" />
     <Content Include="Content\email.css" />
     <Content Include="Module.txt" />
   </ItemGroup>
@@ -126,22 +130,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\email.js" />
-    <Content Include="Scripts\highstock.js" />
-    <Content Include="Scripts\modules\data.js" />
-    <Content Include="Scripts\vue.js" />
-    <Content Include="Scripts\vue.min.js" />
+    <Content Include="Scripts\js\app.js" />
+    <Content Include="Scripts\js\manifest.js" />
+    <Content Include="Scripts\js\vendor.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\app.css.map" />
     <None Include="Properties\Yambr.ELMA.Email.Web.nuspec" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\YambrEmailSettings\Edit.cshtml" />
     <Content Include="Views\YambrEmailSettings\View.cshtml" />
     <Content Include="Views\Contractor\ContractorExtensionZone.cshtml" />
+    <Content Include="Scripts\js\app.js.map" />
+    <Content Include="Scripts\js\manifest.js.map" />
+    <Content Include="Scripts\js\vendor.js.map" />
+    <Content Include="Views\FullTextSearch\Settings\FullTextSearchEmailSettingsEditForm.cshtml" />
+    <Content Include="Views\FullTextSearch\Settings\FullTextSearchEmailSettingsViewForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

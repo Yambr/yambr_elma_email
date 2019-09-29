@@ -3,6 +3,7 @@
   <methods>
     <method ExecuteTime="OnIndexesCreated" AlwaysExecute="true" name="TrimEmailCreateIndex" />
     <method ExecuteTime="OnIndexesCreated" AlwaysExecute="true" name="EmailMessageParticipantCreateIndex" />
+    <method ExecuteTime="OnIndexesCreated" AlwaysExecute="true" name="EmailMessageCreateIndex" />
     <method ExecuteTime="OnIndexesCreated" name="UpdatePublicDomains" />
   </methods>
 </root>

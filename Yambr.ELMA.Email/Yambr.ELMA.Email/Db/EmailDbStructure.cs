@@ -40,7 +40,7 @@ namespace Yambr.ELMA.Email.Db
         }
 
         /// <summary>
-        /// Создать индекс для поля Уникальный идентификатор по ЕГРЮЛ
+        /// Создать индекс 
         /// </summary>
         public void EmailMessageParticipantCreateIndex()
         {
@@ -54,6 +54,32 @@ namespace Yambr.ELMA.Email.Db
                 }
             });
 
+        }
+
+        /// <summary>
+        /// Создать индекс 
+        /// </summary>
+        public void EmailMessageCreateIndex()
+        {
+            Transformation.AddIndex(new Index
+            {
+                Name = "IX_EmailMessage_DateUtc",
+                TableName = "EmailMessage",
+                Columns = new List<string>
+                {
+                    nameof(IEmailMessage.DateUtc),
+                }
+            });
+
+            Transformation.AddIndex(new Index
+            {
+                Name = "IX_EmailMessage_IsDeleted",
+                TableName = "EmailMessage",
+                Columns = new List<string>
+                {
+                    nameof(IEmailMessage.IsDeleted),
+                }
+            });
         }
 
         public void UpdatePublicDomains()

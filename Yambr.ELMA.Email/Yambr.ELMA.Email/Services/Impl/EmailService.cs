@@ -48,7 +48,7 @@ namespace Yambr.ELMA.Email.Services.Impl
 
         private static HtmlString ConvertHeader(string emailHeader)
         {
-            return new HtmlString($"<i>{emailHeader}</i>");
+            return new HtmlString($"{emailHeader}");
         }
 
         private static HtmlString ConvertBody(string emailMessageBody)

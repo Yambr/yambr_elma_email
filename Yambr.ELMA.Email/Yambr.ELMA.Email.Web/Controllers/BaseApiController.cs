@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EleWise.ELMA.Web.Mvc.Controllers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Yambr.ELMA.Email.Web.Controllers
 {
-    public class BaseApiController : BaseController
+    public class BaseApiController : Controller
     {
         //
         // GET: /BaseApi/
@@ -30,8 +32,20 @@ namespace Yambr.ELMA.Email.Web.Controllers
             public override void ExecuteResult(ControllerContext context)
             {
                 context.HttpContext.Response.ContentType = "application/json";
-                context.HttpContext.Response.Write(JsonConvert.SerializeObject(Data));
+                context.HttpContext.Response.Write(JsonConvert.SerializeObject(Data, Converter.Settings));
             }
+        }
+        internal static class Converter
+        {
+            public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+            {
+                MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+                DateParseHandling = DateParseHandling.None,
+                Converters =
+                {
+                    new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                },
+            };
         }
     }
 }

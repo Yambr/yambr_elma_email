@@ -1,0 +1,43 @@
+﻿@using EleWise.ELMA
+@using EleWise.ELMA.ComponentModel
+@using Yambr.ELMA.Email.Web
+
+
+@model Yambr.ELMA.Email.FullTextSearch.EmailFullTextSearchSettings
+
+@if (Model.IndexingEmail == true)
+{
+    using (Html.ELMAForm("IndexingEmailOff", "FullTextSearch", new { area = RouteProvider.AreaName }, FormMethod.Post, new { id = "IndexingEmailOffForm" }))
+    {
+    }
+
+    @Html.PopupWindow("IndexingEmailOffPopup", SR.T("Отключить индексирование контрагентов"), @<text>
+
+        @SR.T("Внимание!")
+        <br />
+        <br />
+        @SR.T("Индексирование писем будет остановленно.")
+
+        <div class="popup-buttons">
+            <input type="submit" value="@SR.T("Продолжить")" class="confirm" onclick="elma.openPleaseWait(true); $('#IndexingEmailOffForm').submit();" />
+            <input type="button" value="@SR.T("Отмена")" onclick="@Html.ClosePopup()" />
+        </div>
+
+    </text>)
+}
+
+@using (Html.TableForm(v => v.Attributes(a => a.@class = "settings_table")))
+{
+    <tr>
+        <td class="captionCell">
+            @Html.Caption(m => m.IndexingEmail)
+        </td>
+        <td>
+            @Html.Display(m => m.IndexingEmail)
+            @if (Model.IndexingEmail == true)
+            {
+                <input type="submit" value="@SR.T("Выключить")" class="red" style="margin-left: 20px; padding: 1px;" onclick="@(Html.OpenPopup("IndexingEmailOffPopup"))" />
+            }
+        </td>
+    </tr>
+}

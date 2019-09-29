@@ -7,6 +7,7 @@ using EleWise.ELMA.Model.Managers;
 using EleWise.ELMA.Model.Services;
 using EleWise.ELMA.Runtime.Db.Migrator.Framework;
 using EleWise.ELMA.Runtime.NH;
+using EleWise.ELMA.Security;
 using EleWise.ELMA.Services;
 using Yambr.ELMA.Email.Common.Enums;
 using Yambr.ELMA.Email.Common.Models;
@@ -81,29 +82,35 @@ namespace Yambr.ELMA.Email.Managers
         //TODO сделать лицензирование
         public void SendToUpdate()
         {
-            var size = 100;
-            var index = 0;
-            var filter = InterfaceActivator.Create<IUserMailboxFilter>();
-            filter.DisableAutoFilter = true;
-            filter.DisableSecurity = true;
-            var mailboxes = Find(new FetchOptions()
-            {
-                FirstResult = index,
-                MaxResults = size
-            });
-            while (mailboxes.Any())
-            {
-                index += size;
-                foreach (var userMailbox in mailboxes)
+            var securityService = Locator.GetService<ISecurityService>();
+            securityService.RunByUser(
+                EleWise.ELMA.Security.Managers.UserManager.Instance.Load(SecurityConstants.AdminUserUid),
+                () =>
                 {
-                    SendToUpdate(userMailbox);
-                }
+                    var size = 100;
+                    var index = 0;
+                    var filter = InterfaceActivator.Create<IUserMailboxFilter>();
+                    filter.DisableAutoFilter = true;
+                    filter.DisableSecurity = true;
+                    var mailboxes = Find(new FetchOptions()
+                    {
+                        FirstResult = index,
+                        MaxResults = size
+                    });
+                    while (mailboxes.Any())
+                    {
+                        index += size;
+                        foreach (var userMailbox in mailboxes)
+                        {
+                            SendToUpdate(userMailbox);
+                        }
 
-                if (mailboxes.Count < size)
-                {
-                    break;
-                }
-            }
+                        if (mailboxes.Count < size)
+                        {
+                            break;
+                        }
+                    }
+                });
         }
 
         //TODO сделать без обращения в бд

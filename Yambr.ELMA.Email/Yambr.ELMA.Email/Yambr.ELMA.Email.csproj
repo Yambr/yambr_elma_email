@@ -44,6 +44,10 @@
     <Reference Include="EleWise.ELMA.Security">
       <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\EleWise.ELMA.Security.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\bin\Iesi.Collections.dll</HintPath>
@@ -121,6 +125,8 @@
     <None Include="Properties\Yambr.ELMA.Email.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Models\EmailMessage.cs" />
+    <Compile Include="API\Models\EmailMessages.cs" />
     <Compile Include="AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -182,6 +188,12 @@
     <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="EmailLogger.cs" />
+    <Compile Include="FullTextSearch\Components\ContractorFullTextSearchExtension.cs" />
+    <Compile Include="FullTextSearch\Components\FullTextSearchEmailHandlerExtension.cs" />
+    <Compile Include="FullTextSearch\EmailFullTextSearchSettings.cs" />
+    <Compile Include="FullTextSearch\EmailFullTextSearchSettingsModule.cs" />
+    <Compile Include="FullTextSearch\Model\EmailMessageFullTextSearchResultModel.cs" />
+    <Compile Include="FullTextSearch\Model\IEmailMessageFullTextSearchObject.cs" />
     <Compile Include="Managers\EmailMessageParticipantContactManager.cs" />
     <Compile Include="Managers\EmailMessageParticipantUserManager.cs" />
     <Compile Include="Managers\PublicDomainManager.cs" />

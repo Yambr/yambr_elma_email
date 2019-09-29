@@ -1,0 +1,8 @@
+﻿@model Yambr.ELMA.Email.FullTextSearch.EmailFullTextSearchSettings
+
+
+@using (Html.TableForm(v => v.Attributes(a => a.@class = "settings_table")))
+{
+    @Html.EditableProperty(m => m.IndexingEmail)
+}
+        
