@@ -188,12 +188,6 @@
     <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="EmailLogger.cs" />
-    <Compile Include="FullTextSearch\Components\ContractorFullTextSearchExtension.cs" />
-    <Compile Include="FullTextSearch\Components\FullTextSearchEmailHandlerExtension.cs" />
-    <Compile Include="FullTextSearch\EmailFullTextSearchSettings.cs" />
-    <Compile Include="FullTextSearch\EmailFullTextSearchSettingsModule.cs" />
-    <Compile Include="FullTextSearch\Model\EmailMessageFullTextSearchResultModel.cs" />
-    <Compile Include="FullTextSearch\Model\IEmailMessageFullTextSearchObject.cs" />
     <Compile Include="Managers\EmailMessageParticipantContactManager.cs" />
     <Compile Include="Managers\EmailMessageParticipantUserManager.cs" />
     <Compile Include="Managers\PublicDomainManager.cs" />
@@ -280,6 +274,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Db\EmailDbStructure.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\EmailMessage.Form.Form.xml">
+      <DependentUpon>EmailMessage.md</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

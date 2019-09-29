@@ -491,7 +491,103 @@
       </ViewSettings>
       <Order>14</Order>
     </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>f4e9a5e6-7a5a-4682-af9f-9fd5df22ecdc</Uid>
+      <Name>IsDeleted</Name>
+      <DisplayName>IsDeleted</DisplayName>
+      <TypeUid>9cd56a40-6192-4d8a-840c-c4bd4dfb88eb</TypeUid>
+      <Settings xsi:type="BoolSettings">
+        <FieldName>IsDeleted</FieldName>
+      </Settings>
+      <Nullable>false</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>15</Order>
+    </PropertyMetadata>
   </Properties>
+  <FormsScheme>FormConstructor</FormsScheme>
+  <DefaultForms>
+    <CreateUid>574d8ce1-42d1-4fd7-9741-78ffcbeaa440</CreateUid>
+    <EditUid>574d8ce1-42d1-4fd7-9741-78ffcbeaa440</EditUid>
+    <DisplayUid>574d8ce1-42d1-4fd7-9741-78ffcbeaa440</DisplayUid>
+  </DefaultForms>
+  <Forms>
+    <FormViewItem>
+      <Name>Form</Name>
+      <Uid>574d8ce1-42d1-4fd7-9741-78ffcbeaa440</Uid>
+      <Items>
+        <RootViewItem xsi:type="ColumnsLayoutViewItem">
+          <Name>ColumnsLayout1</Name>
+          <Uid>3b216296-0e7e-42cc-aa0a-42fef5fdab8c</Uid>
+          <Items>
+            <RootViewItem xsi:type="ColumnViewItem">
+              <Name>Column1</Name>
+              <Uid>b835c1a4-e908-4506-958c-6f8b5a3f2bcc</Uid>
+              <Items>
+                <RootViewItem xsi:type="PropertyViewItem">
+                  <Name>Property1</Name>
+                  <Uid>2aa29de1-21c1-4552-ba35-0f3cfd89b40c</Uid>
+                  <Property>6bb71d88-ab64-4fe3-813b-d7cae7677827</Property>
+                  <Attributes />
+                </RootViewItem>
+                <RootViewItem xsi:type="PropertyViewItem">
+                  <Name>Property2</Name>
+                  <Uid>65be8da8-502a-4f1e-8b5e-e4be440e408c</Uid>
+                  <Property>813fc69c-8716-40af-846c-4437552f50b5</Property>
+                  <Attributes />
+                </RootViewItem>
+                <RootViewItem xsi:type="PropertyViewItem">
+                  <Name>Property3</Name>
+                  <Uid>65ea5768-1807-49a6-970b-95edb10b2d7e</Uid>
+                  <Property>eeeb8ddd-eb36-4903-ad28-2f467dffd44e</Property>
+                  <Attributes />
+                </RootViewItem>
+                <RootViewItem xsi:type="PropertyViewItem">
+                  <Name>Property4</Name>
+                  <Uid>531b6d8a-3883-4977-b16b-40ac7b723059</Uid>
+                  <Property>f2cfb4df-fb46-4a2b-aa20-3165cc08af79</Property>
+                  <Attributes />
+                </RootViewItem>
+                <RootViewItem xsi:type="PropertyViewItem">
+                  <Name>Property5</Name>
+                  <Uid>f1020472-42e0-4595-8ff7-6fcedca67d29</Uid>
+                  <Property>a68aa038-1344-43fb-863f-6966eea402c1</Property>
+                  <Attributes />
+                </RootViewItem>
+                <RootViewItem xsi:type="PropertyViewItem">
+                  <Name>Property6</Name>
+                  <Uid>bf6a8e60-b425-48a5-8e5e-79c2cf608143</Uid>
+                  <Property>71fc1c0c-d424-4fbc-aa0c-0edff6352ce1</Property>
+                  <Attributes />
+                </RootViewItem>
+              </Items>
+            </RootViewItem>
+          </Items>
+        </RootViewItem>
+      </Items>
+      <DisplayName>Просмотр</DisplayName>
+      <ReadOnly>true</ReadOnly>
+    </FormViewItem>
+  </Forms>
   <TableViews>
     <TableView>
       <Uid>4a482dc8-e1c7-44b9-a57b-cefcc44424a7</Uid>

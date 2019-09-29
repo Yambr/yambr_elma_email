@@ -78,6 +78,7 @@ namespace Yambr.ELMA.Email.Managers
                                     "left join em.To emto\r\n" +
                                     "left join em.From emfrom\r\n" +
                                     "where  \r\n" +
+                                    "em.IsDeleted <> 1 AND " +
                                     "emto.Id in (select empcto.Id from EmailMessageParticipantContact as empcto \r\n" +
                                     $"left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = {id})\r\n" +
                                     "OR \r\n" +
@@ -113,186 +114,54 @@ namespace Yambr.ELMA.Email.Managers
                 size = 1000;
             }
 
-            var filter = InterfaceActivator.Create<IEmailMessageFilter>();
-            filter.SearchString = searchString;
-            var count = CountByIndex(filter);
-            ICollection<IEmailMessage> messages = null;
-            if (count > 0)
+            if (size > 1000)
             {
-                messages = FindByIndex(filter, new FetchOptions(skip, size));
+                size = 1000;
             }
 
-            return new EmailMessagesPage()
+            var session = _sessionProvider.GetSession("");
+            var count = ContractorCount(id, searchString);
+            if (skip < count)
             {
-                Messages = messages != null ? messages.Select(Simplify).ToArray() : new Message[0],
-                Size = size,
-                Skip = skip,
-                Count = count ?? 0
-            };
-        }
+                var hqlQuery =
+                    session.CreateQuery(
+                        "select em " +
+                        "from  EmailMessage as em " +
+                        "left join em.To emto " +
+                        "left join em.From emfrom " +
+                        "where " +
+                        "em.IsDeleted <> 1 AND " +
+                        "(em.Subject LIKE :searchString OR " +
+                        "em.Body LIKE :searchString ) AND" +
+                        "(emto.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id) OR  " +
+                        "emfrom.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id)) " +
+                        "ORDER BY em.DateUtc DESC");
+                hqlQuery.SetParameter("id", id);
+                hqlQuery.SetParameter("searchString", $"%{searchString}%");
+                hqlQuery.SetFirstResult(skip);
+                hqlQuery.SetMaxResults(size);
+                var emailMessages = hqlQuery.List<IEmailMessage>();
 
-        private ICollection<IEmailMessage> FindByIndex(IEntityFilter filter, FetchOptions fetchOptions)
-        {
-            try
-            {
-                if (filter != null && fetchOptions != null)
+
+                return new EmailMessagesPage()
                 {
-                    var extensionByFilter = FullTextSearchCardService.GetExtensionByFilter(filter);
-                    if (extensionByFilter != null && !IndexQueueManager.ContainIndexingVisualData())
-                    {
-                        var cardTypeByFilter = FullTextSearchCardService.GetCardTypeByFilter(filter);
-                        if (cardTypeByFilter != null && FullTextSearchService.IndexingIsWorking() && !IndexQueueManager.HasIndexAllQueue())
-                        {
-                            var useProjections = fetchOptions.UseProjections && fetchOptions.SelectColumns != null;
-                            var dontUseProjections = !fetchOptions.UseProjections;
-                            if (useProjections || dontUseProjections)
-                            {
-                                var typeForFastSearch = GetTypeForFastSearch(filter);
-                                var entityMetadata = (EntityMetadata)MetadataLoader.LoadMetadata(typeForFastSearch);
-                                if (typeForFastSearch == null || entityMetadata != null)
-                                {
-                                    var fullTextSearchResultModel = extensionByFilter.CreateResultModelByFilter(filter);
-                                    if (fullTextSearchResultModel != null)
-                                    {
-                                        var serializableFilter = UniversalFilterSaver.Pack(filter) as SerializableFilter;
-                                        if (serializableFilter != null)
-                                        {
-                                            List<Guid> list = null;
-                                            if (useProjections)
-                                            {
-                                                foreach (var selectColumn in fetchOptions.SelectColumns)
-                                                {
-                                                    var array = selectColumn.Split(':');
-                                                    if (array.Count() == 3)
-                                                    {
-                                                        GetRealProjection(array, typeForFastSearch, out var _, out var _, out var _, out var realPropertyMetadata, out var _);
-                                                        if (realPropertyMetadata != null)
-                                                        {
-                                                            if (list == null)
-                                                            {
-                                                                list = new List<Guid>();
-                                                            }
-                                                            list.Add(realPropertyMetadata.Uid);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if (dontUseProjections)
-                                            {
-                                                list = new List<Guid>();
-                                            }
-                                            if (list != null)
-                                            {
-                                                var fullTextSearchResultModel2 = FullTextSearchService.Find(cardTypeByFilter, fullTextSearchResultModel, filter, serializableFilter, list, fetchOptions.FirstResult, fetchOptions.MaxResults, fetchOptions.SortExpression, fetchOptions.SortDirection);
-                                                if (fullTextSearchResultModel2 != null)
-                                                {
-                                                    if (useProjections)
-                                                    {
-                                                        var list2 = FullTextSearchCardService.ReconstructEntities(cardTypeByFilter, fullTextSearchResultModel2);
-                                                        if (list2 != null)
-                                                        {
-                                                            return new Collection<IEmailMessage>(list2.Cast<IEmailMessage>().ToList());
-                                                        }
-                                                    }
-                                                    if (dontUseProjections)
-                                                    {
-                                                        var idArray = FullTextSearchCardService.GetIdArray(fullTextSearchResultModel2.Items);
-                                                        if (idArray != null)
-                                                        {
-                                                            return FindByIdArray(idArray.Cast<long>().ToArray());
-                                                        }
-                                                    }
-                                                    EmailLogger.Logger.Error(
-                                                        $"Ошибка {(useProjections ? "useProjections" : "without useProjections")}");
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                    Messages = emailMessages.Select(Simplify).ToArray(),
+                    Size = size,
+                    Skip = skip,
+                    Count = count
+                };
             }
-            catch (FullTextFilterException ex)
+            else
             {
-                EmailLogger.Logger.Warn($"FindByIndex - FullTextFilterException: {ex.Message}", ex);
-            }
-            catch (Exception ex2)
-            {
-                EmailLogger.Logger.Error($"FindByIndex - Exception: {ex2.Message}", ex2);
-            }
-            return null;
-        }
 
-        private long? CountByIndex(IEntityFilter filter)
-        {
-            try
-            {
-                if (filter != null)
+                return new EmailMessagesPage()
                 {
-                    var extensionByFilter = FullTextSearchCardService.GetExtensionByFilter(filter);
-                    if (extensionByFilter != null && !IndexQueueManager.ContainIndexingVisualData())
-                    {
-                        var cardTypeByFilter = FullTextSearchCardService.GetCardTypeByFilter(filter);
-                        if (cardTypeByFilter != null && FullTextSearchService.IndexingIsWorking() && !IndexQueueManager.HasIndexAllQueue())
-                        {
-                            var typeForFastSearch = GetTypeForFastSearch(filter);
-                            var entityMetadata = (EntityMetadata)MetadataLoader.LoadMetadata(typeForFastSearch);
-                            if (typeForFastSearch == null || entityMetadata != null)
-                            {
-                                var fullTextSearchResultModel = extensionByFilter.CreateResultModelByFilter(filter);
-                                if (fullTextSearchResultModel != null)
-                                {
-                                    var serializableFilter = UniversalFilterSaver.Pack(filter) as SerializableFilter;
-                                    if (serializableFilter != null)
-                                    {
-                                        var fullTextSearchResultModel2 = FullTextSearchService.Count(cardTypeByFilter, fullTextSearchResultModel, filter, serializableFilter);
-                                        if (fullTextSearchResultModel2 != null)
-                                        {
-                                            return fullTextSearchResultModel2.CountAllResult;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                    Skip = skip,
+                    Size = size,
+                    Count = count,
+                    Messages = new Message[0]
+                };
             }
-            catch (FullTextFilterException ex)
-            {
-                EmailLogger.Logger.Warn($"CountByIndex - FullTextFilterException: {ex.Message}", ex);
-            }
-            catch (Exception ex2)
-            {
-                EmailLogger.Logger.Error($"CountByIndex - Exception: {ex2.Message}", ex2);
-            }
-            return null;
-        }
-
-        private static void GetRealProjection(string[] names, Type entityType, out CustomPropertyProjection customProj, out string alias, out EntityMetadata realMetadata, out EntityPropertyMetadata realPropertyMetadata, out string propertyName)
-        {
-            GetRealProjection(names[2], names[0], entityType, out customProj, out alias, out realMetadata, out realPropertyMetadata, out propertyName);
-        }
-
-        private static void GetRealProjection(string columnName, string entityName, Type entityType, out CustomPropertyProjection customProj, out string alias, out EntityMetadata realMetadata, out EntityPropertyMetadata realPropertyMetadata, out string propertyName)
-        {
-            propertyName = columnName;
-            alias = CustomPropertyProjection.GetStringFromExpression(columnName, entityName);
-            customProj = NHQueryExtensions.PropertyProjection(entityType, entityName, columnName, false, out var realProperty, out realMetadata, out realPropertyMetadata);
-            if (customProj == null)
-            {
-                return;
-            }
-            if (string.IsNullOrEmpty(realProperty))
-            {
-                return;
-            }
-            if (columnName.Equals(realProperty, StringComparison.OrdinalIgnoreCase))
-            {
-                return;
-            }
-            alias = CustomPropertyProjection.GetStringFromExpression(realProperty, entityName);
         }
 
         public EmailMessagesPage Contractor(long id, DateTime @from, DateTime to, int skip, int size)
@@ -397,6 +266,25 @@ namespace Yambr.ELMA.Email.Managers
                 User = participant.Owner.Id
 
             };
+        }
+
+        private long ContractorCount(long id, string searchString)
+        {
+            var session = _sessionProvider.GetSession("");
+            var hqlQuery =
+                session.CreateQuery(
+                    "select COUNT(em.Id) " +
+                    "from  EmailMessage as em " +
+                    "left join em.To emto " +
+                    "left join em.From emfrom " +
+                    "where " +
+                    "(em.Subject LIKE :searchString OR " +
+                    "em.Body LIKE :searchString ) AND" +
+                    "(emto.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id) OR  " +
+                    "emfrom.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id))");
+            hqlQuery.SetParameter("id", id);
+            hqlQuery.SetParameter("searchString", $"%{searchString}%");
+            return hqlQuery.List<long>().FirstOrDefault();
         }
 
         private long ContractorCount(long id, DateTime @from, DateTime to)

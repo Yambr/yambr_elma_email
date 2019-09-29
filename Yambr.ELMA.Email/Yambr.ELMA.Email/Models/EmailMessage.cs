@@ -14,6 +14,11 @@ namespace Yambr.ELMA.Email.Models
     [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "DisplayName")]
     [global::EleWise.ELMA.Model.Attributes.DisplayFormat(null)]
     [global::EleWise.ELMA.Model.Attributes.TitleProperty("408d066b-f103-4c0f-825f-a37909f64a2a")]
+    [global::EleWise.ELMA.Model.Attributes.ClassFormsScheme(global::EleWise.ELMA.Model.Metadata.ClassFormsScheme.FormConstructor)]
+    [global::EleWise.ELMA.Model.Attributes.DefaultForm(global::EleWise.ELMA.Model.Views.ViewType.Create, "00000000-0000-0000-0000-000000000000", "574d8ce1-42d1-4fd7-9741-78ffcbeaa440", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", false)]
+    [global::EleWise.ELMA.Model.Attributes.DefaultForm(global::EleWise.ELMA.Model.Views.ViewType.Edit, "00000000-0000-0000-0000-000000000000", "574d8ce1-42d1-4fd7-9741-78ffcbeaa440", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", false)]
+    [global::EleWise.ELMA.Model.Attributes.DefaultForm(global::EleWise.ELMA.Model.Views.ViewType.Display, "00000000-0000-0000-0000-000000000000", "574d8ce1-42d1-4fd7-9741-78ffcbeaa440", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", false)]
+    [global::EleWise.ELMA.Model.Attributes.Form(typeof(IEmailMessage), "Yambr.ELMA.Email.Models.EmailMessage.Form.Form.xml")]
     [global::EleWise.ELMA.Model.Attributes.TableView("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<TableView xmlns:xsi=\"http://www.w3.org/2" +
         "001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <Uid>4a" +
         "482dc8-e1c7-44b9-a57b-cefcc44424a7</Uid>\r\n  <ViewType>List</ViewType>\r\n</TableVi" +
@@ -332,6 +337,27 @@ namespace Yambr.ELMA.Email.Models
             get;
             set;
         }
+        
+        /// <summary>
+        /// IsDeleted
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("f4e9a5e6-7a5a-4682-af9f-9fd5df22ecdc")]
+        [global::EleWise.ELMA.Model.Attributes.Order(15)]
+        [global::EleWise.ELMA.ComponentModel.NotNull()]
+        [global::EleWise.ELMA.Model.Attributes.Property("9cd56a40-6192-4d8a-840c-c4bd4dfb88eb")]
+        [global::EleWise.ELMA.Model.Types.Settings.BoolSettings(FieldName="IsDeleted")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_IsDeleted_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        bool IsDeleted
+        {
+            get;
+            set;
+        }
     }
     
     internal class @__Resources_IEmailMessage
@@ -470,6 +496,22 @@ namespace Yambr.ELMA.Email.Models
             get
             {
                 return global::EleWise.ELMA.SR.T("Владельцы письма");
+            }
+        }
+        
+        public static string P_IsDeleted_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("IsDeleted");
+            }
+        }
+        
+        private static string @__AllFormsResources
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Просмотр");
             }
         }
     }
