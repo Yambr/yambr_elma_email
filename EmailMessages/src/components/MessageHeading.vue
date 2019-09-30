@@ -36,6 +36,9 @@
         <td class="msg-desc">Тема:</td>
         <td>
           <b class="timeline-title">{{this.message.subject}}</b>
+          <a v-on:click="hideMessage()" class="hide-message" title="Скрыть сообщение">
+            <font-awesome-icon icon="eye-slash" size="xs"></font-awesome-icon>
+          </a>
         </td>
         <td>
           <a v-bind:href="replyHref" class="b-message-head__email fa-pull-right" title="Ответить">
@@ -48,6 +51,7 @@
 </template>
 <script>
     import ParticipantHeading from "./ParticipantHeading";
+    import emailMessageApi from "./api/emailMessageApi";
 
     function dimension(time, type) { // Определяем склонение единицы измерения
         const dimension = {
@@ -75,6 +79,7 @@
         components: {ParticipantHeading},
         props: {
             message: {},
+            hideMessage: {}
         },
         computed: {
             from: function () {
@@ -117,6 +122,14 @@
     }
 </script>
 <style scoped>
+  .hide-message {
+    color: #cccccc;
+  }
+
+  .hide-message :hover {
+    color: #A3A3A3;
+  }
+
   .divider {
     display: block;
     width: 100%;

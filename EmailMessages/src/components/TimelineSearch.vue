@@ -1,13 +1,13 @@
 <template>
   <div class="search-wrapper">
-    <input type="text" v-model="searchstring" v-on:input="search" placeholder="Поиск в истории переписки"/>
-    <label>Поиск в истории переписки:</label>
+    <input type="text" v-model="searchstring" v-on:input="search" @keyup.enter="searchInHistory" placeholder="Поиск в переписке"/>
+    <label>Нажмите ввод (enter) для поиска в истории:</label>
   </div>
 </template>
 <script>
     export default {
         name: 'TimelineSearch',
-        props: ['search', 'searchtext'],
+        props: ['search', 'searchtext', 'searchInHistory'],
         data: function () {
             return {
                 searchstring: ''

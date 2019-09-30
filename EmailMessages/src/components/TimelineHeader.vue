@@ -3,7 +3,7 @@
     <table style="width: 100%;">
       <tr>
         <td>
-          <TimelineSearch :search="search" :searchtext="searchtext"/>
+          <TimelineSearch :search="search" :searchtext="searchtext" :search-in-history="searchInHistory"/>
         </td>
         <td>
           <div class="fa-pull-right nav-calendar">
@@ -27,8 +27,11 @@
         </td>
         <td>
           <div class="fa-pull-right nav-calendar">
-            <h3>
+            <h3 v-if="!searchInHistoryMode">
               {{message}}
+            </h3>
+            <h3 v-if="searchInHistoryMode">
+              Результаты поиска по: <i>"{{searchtext}}"</i>
             </h3>
           </div>
         </td>
@@ -38,6 +41,7 @@
 </template>
 <script>
     import TimelineSearch from "./TimelineSearch";
+
     export default {
         name: 'TimelineHeader',
         components: {TimelineSearch},
@@ -48,8 +52,10 @@
             callRight: {},
             showChart: {},
             message: {},
-            search:{},
-            searchtext:''
+            search: {},
+            searchInHistory: {},
+            searchInHistoryMode: false,
+            searchtext: ''
         }
     }
 </script>
@@ -75,7 +81,8 @@
     cursor: pointer;
 
   }
-  .nav-calendar{
+
+  .nav-calendar {
     color: #2c3e50;
   }
 

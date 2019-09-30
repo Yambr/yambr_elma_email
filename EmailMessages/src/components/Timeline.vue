@@ -1,7 +1,8 @@
 <template>
   <div>
     <TimelineHeader :count="count" :call-left="callLeft" :call-right="callRight" :show-chart="showChartClick"
-                    v-bind:message="msg" :search="search" v-bind:searchtext="searchtext"/>
+                    v-bind:message="msg" :search="search" v-bind:searchtext="searchtext"
+                    :search-in-history="searchInHistory" :search-in-history-mode="searchInHistoryMode" />
     <transition name="fade">
       <div v-show="!chartEnabled">
         <MessagesTimeline :chart-enabled="chartEnabled" v-bind:messages="renderedMesages"/>
@@ -61,11 +62,13 @@
                 showChart: null,
                 messages: [],
                 searchtext: '',
+                searchInHistoryMode: false,
                 filterCache: {},
                 filteredMessages: [],
                 from: this.from_date,
                 to: this.to_date,
                 skip: 0,
+                skipSearch:0,
                 size: 10,
                 count: 0
             }
@@ -127,10 +130,28 @@
         }
         ,
         methods: {
+            resetSearch: function () {
+                this.filterCache = {}
+                this.searchtext = '';
+                this.filteredMessages = [];
+                this.searchInHistoryMode = false;
+                console.log(this.searchInHistoryMode);
+            },
+            searchInHistory: function (e) {
+                this.resetSearch();
+                this.searchInHistoryMode = true;
+                console.log(this.searchInHistoryMode);
+                let searchText = e.target.value.trim().toLowerCase();
+                this.searchtext = searchText;
+                if (searchText && searchText.length > 2) {
+                    this.searchMove(searchText, 0);
+                } else {
+                    this.resetSearch();
+                }
+            },
             search: function (e) {
                 let searchText = e.target.value.trim().toLowerCase();
                 this.searchtext = searchText;
-                console.log(searchText);
                 if (searchText && searchText.length > 2) {
                     if (this.filterCache[searchText]) {
                         this.filteredMessages = this.filterCache[searchText];
@@ -143,16 +164,23 @@
                         this.filteredMessages = filtered;
                     }
                 } else {
-                    this.filteredMessages = [];
+                    this.resetSearch();
                 }
             },
             infiniteHandler: function ($state) {
-                this.move(this.from, this.to, this.skip + this.size, $state);
+                if(this.searchInHistoryMode) {
+                    this.searchMove(this.searchtext, this.skipSearch + this.size, $state);
+                }
+                else{
+                    this.move(this.from, this.to, this.skip + this.size, $state);
+                }
             },
             showChartClick: function () {
+                this.resetSearch();
                 this.showChart = !this.chartEnabled;
             },
             openColumn: function (clickEvent) {
+                this.resetSearch();
                 let from = clickEvent.point.x
                 let fromAsDate = new Date(from);
                 let to = +(fromAsDate.setMonth(fromAsDate.getMonth() + 1));
@@ -175,10 +203,37 @@
                 this.move(from, to, 0);
             }
             ,
+            searchMove: function (searchString, skip, $state) {
+
+                emailMessageApi.contractorEmailSearch(
+                    this.entity_id,
+                    searchString,
+                    skip,
+                    this.size,
+                ).then(value => {
+                    if (skip > 0) {
+                        this.filteredMessages = this.messages.concat(value.messages);
+                    } else {
+                        this.filteredMessages = value.messages;
+                    }
+                    this.skipSearch = value.skip;
+                    this.count = value.count;
+                    this.showChart = null;
+                    if ($state) {
+                        if ((this.skipSearch + this.size) < this.count) {
+                            $state.loaded();
+
+                        } else {
+                            $state.complete();
+                        }
+                    }
+                }).catch(reason => {
+                    console.warn(reason);
+                });
+
+            },
             move: function (from, to, skip, $state) {
-                this.filterCache = {}
-                this.searchtext = '';
-                this.filteredMessages = [];
+                this.resetSearch();
                 emailMessageApi.contractorEmail(
                     this.entity_id,
                     new Date(from),

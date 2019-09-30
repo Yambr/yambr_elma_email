@@ -11,8 +11,8 @@
       </div>
     </template>
     <div class="timeline-panel">
-      <MessageHeading v-bind:message="message" v-bind:date="date"/>
-      <div class="timeline-body">
+      <MessageHeading v-bind:message="message" v-bind:date="date" :hide-message="hideMessage" v-if="!isDeleted"/>
+      <div class="timeline-body" v-if="!isDeleted">
         <table style="width: 100%">
           <tr>
             <td class="msg-desc" style="vertical-align: top" v-on:click="swithMessage()">
@@ -31,6 +31,7 @@
           </tr>
         </table>
       </div>
+      <h4 v-if="isDeleted">Сообщение будет удалено в течение 15 минут</h4>
     </div>
   </li>
 </template>
@@ -48,6 +49,7 @@
             return {
                 opened: false,
                 fullMessage: null,
+                isDeleted:false
             }
         },
         methods: {
@@ -61,6 +63,10 @@
                     });
                     ;
                 }
+            },
+            hideMessage: function () {
+                emailMessageApi.deleteEmail(this.message.id);
+                this.isDeleted = true;
             }
         },
         computed: {

@@ -125,7 +125,7 @@ namespace Yambr.ELMA.Email.Services.Impl
 
         private static void InitTopology(IModel model)
         {
-            model.ExchangeDeclare(QueueConstants.ExchangeMailBox, ExchangeType.Fanout, false, false, null);
+            model.ExchangeDeclare(QueueConstants.ExchangeMailBox, ExchangeType.Fanout, true, false, null);
 
             model.QueueDeclare(QueueConstants.QueueMailboxDownload, true, false, false, null);
             model.QueueDeclare(QueueConstants.QueueNewEmail, true, false, false, null);
