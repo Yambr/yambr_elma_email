@@ -42,31 +42,50 @@ namespace Yambr.ELMA.Email.Services.Impl
             _contextBoundVariableService = contextBoundVariableService;
             _cacheService = cacheService;
             _map = new ConcurrentDictionary<string, IEnumerable<IRabbitMessageHandler>>();
+            Connections = new List<IModel>();
         }
         /// <summary>
         /// Активное подключение
         /// </summary>
-        public IModel Connection { get; private set; }
+        public ICollection<IModel> Connections { get; private set; }
 
         /// <summary>
         /// Закрыть подключения
         /// </summary>
         public void DisposeConnection()
         {
-            DisposeConnection(Connection);
-            Connection = null;
+            DisposeConnection(Connections);
+            Connections = null;
         }
 
-        private static void DisposeConnection(IModel connection)
+        /// <summary>
+        /// Закрыть подключения
+        /// </summary>
+        public void HealthCheck()
         {
-            if (connection == null) return;
-            if (connection.IsOpen)
-            {
-                connection.Close();
-            }
 
-            connection.Dispose();
-            Logger.Debug($"Connection #{connection.ChannelNumber} closed.");
+            if (Connections.Any(c => !c.IsOpen || c.IsClosed) || !Connections.Any())
+            {
+                Init();
+            }
+        }
+
+
+
+        private static void DisposeConnection(ICollection<IModel> connections)
+        {
+            if (connections == null) return;
+            foreach (var connection in connections)
+            {
+                if (connection.IsOpen)
+                {
+                    connection.Close();
+                    Logger.Debug($"Connection #{connection.ChannelNumber} closed.");
+                }
+                connection.Dispose();
+            }
+            connections.Clear();
+
         }
 
         public string GetModelFromMessage(BasicDeliverEventArgs eventArgs, string message)
@@ -106,15 +125,8 @@ namespace Yambr.ELMA.Email.Services.Impl
                     TopologyRecoveryEnabled = false
                 };
 
-                var connection = connectionFactory.CreateConnection();
-                var model = connection.CreateModel();
-                InitTopology(model);
-                //Читаем по одному сообщению по умолчанию
-                model.BasicQos(0, 1, true);
-                Logger.Debug($"Waiting for messages {QueueConstants.QueueNewEmail}.");
-                var consumer = new EventingBasicConsumer(model);
-                consumer.Received += (sender, args) => { OnReceived(sender, args, model); };
-                model.BasicConsume(QueueConstants.QueueNewEmail, false, consumer);
+                ListenQueue(connectionFactory, QueueConstants.QueueNewEmail);
+                ListenQueue(connectionFactory, QueueConstants.QueueMailboxEvents);
             }
             catch (Exception ex)
             {
@@ -123,12 +135,29 @@ namespace Yambr.ELMA.Email.Services.Impl
             }
         }
 
+        private void ListenQueue(ConnectionFactory connectionFactory, string emailCreatedQueue)
+        {
+            var connection = connectionFactory.CreateConnection();
+            var model = connection.CreateModel();
+            InitTopology(model);
+            //Читаем по одному сообщению по умолчанию
+            model.BasicQos(0, 1, true);
+
+            Logger.Debug($"Waiting for messages {emailCreatedQueue}.");
+            var consumer = new EventingBasicConsumer(model);
+            consumer.Received += (sender, args) => { OnReceived(sender, args, model); };
+            model.BasicConsume(emailCreatedQueue, false, consumer);
+            Connections.Add(model);
+        }
+
         private static void InitTopology(IModel model)
         {
             model.ExchangeDeclare(QueueConstants.ExchangeMailBox, ExchangeType.Fanout, true, false, null);
 
             model.QueueDeclare(QueueConstants.QueueMailboxDownload, true, false, false, null);
             model.QueueDeclare(QueueConstants.QueueNewEmail, true, false, false, null);
+            model.QueueDeclare(QueueConstants.QueueMailboxEvents, true, false, false, null);
+            ;
             
             model.QueueBind(QueueConstants.QueueMailboxDownload, QueueConstants.ExchangeMailBox, QueueConstants.RoutingKeyMailBoxCmdDownload);
         }

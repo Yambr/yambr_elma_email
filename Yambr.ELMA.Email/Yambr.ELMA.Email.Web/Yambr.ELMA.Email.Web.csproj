@@ -101,6 +101,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ContactEmailMessagesZone.cs" />
     <Compile Include="Components\ContractorEmailMessagesZone.cs" />
     <Compile Include="Components\YambrEmailSettingsModuleController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
@@ -146,6 +147,7 @@
     <Content Include="Scripts\js\app.js.map" />
     <Content Include="Scripts\js\manifest.js.map" />
     <Content Include="Scripts\js\vendor.js.map" />
+    <Content Include="Views\Contact\ContactExtensionZone.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

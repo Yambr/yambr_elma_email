@@ -22,16 +22,17 @@ library.add(faArrowLeft, faArrowRight, faCalendar, faShareAlt, faEyeSlash, faPap
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
-window.emailMessagesInit = function (entityId) {
+window.emailMessagesInit = function (entityId, type) {
   /* eslint-disable no-new */
   return new Vue({
     el: '#app',
     components: {App},
-    template: '<App v-bind:entity_id="entityId"/>',
+    template: '<App v-bind:entity_id="entityId" :type="type"/>',
     data: {
-      entityId: entityId
+      entityId: entityId,
+      type:type
     }
   })
 }

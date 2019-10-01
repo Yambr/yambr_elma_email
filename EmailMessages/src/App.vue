@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Timeline :entity_id="entity_id"  :from_date="from" :to_date="to"  />
+    <Timeline :entity_id="entity_id"  :from_date="from" :to_date="to" :type="type" />
   </div>
 </template>
 
@@ -13,7 +13,8 @@
             Timeline
         },
         props:[
-            'entity_id'
+            'entity_id',
+            'type'
         ],
         data() {
             let fromAsDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);

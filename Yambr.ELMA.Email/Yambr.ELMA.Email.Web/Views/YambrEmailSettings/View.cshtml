@@ -3,10 +3,11 @@
 @model Yambr.ELMA.Email.YambrEmailSettings
 @using (Html.TableForm(f => f.ViewType(EleWise.ELMA.Model.Views.ViewType.Display).Attributes(a => a.AddClass("settings_table"))))
 {
-        @Html.Property(m => m.HostName)
-        @Html.Property(m => m.VirtualHost)
-        @Html.Property(m => m.Port)
-        @Html.Property(m => m.UserName)
-        @Html.Property(m => m.Password)
-        @Html.Property(m => m.PublicDomainUrl)
+    @Html.Property(m => m.HostName)
+    @Html.Property(m => m.VirtualHost)
+    @Html.Property(m => m.Port)
+    @Html.Property(m => m.UserName)
+    @Html.Property(m => m.Password)
+    @Html.Property(m => m.PublicDomainUrl)
+    @Html.Property(m => m.AutoCreateContractors)
 }

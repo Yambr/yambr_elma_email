@@ -2,7 +2,7 @@
 <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Uid>8786ded0-8825-482d-9446-e9a6eaf6caa0</Uid>
   <Name>UserMailServer</Name>
-  <DisplayName>UserMailServer</DisplayName>
+  <DisplayName>Почтовый сервер</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">

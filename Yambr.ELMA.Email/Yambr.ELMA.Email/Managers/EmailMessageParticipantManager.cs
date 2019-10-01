@@ -158,17 +158,20 @@ namespace Yambr.ELMA.Email.Managers
                     }
                 }
 
-            //TODO не создавать контрагентов в настройках
-            if (notExistingContactSummaries.Any())
+            var settings = Locator.GetServiceNotNull<YambrEmailSettingsModule>().Settings;
+            if (settings.AutoCreateContractors)
             {
-               
-                var contractorsToCreate = notExistingContactSummaries
-                     .GroupBy(s => Domain(s.Email));
-
-                foreach (var groupedByDomain in contractorsToCreate)
+                if (notExistingContactSummaries.Any())
                 {
-                    var contacts = CreateContacts(groupedByDomain.Key, groupedByDomain.ToList());
-                    newContacts.AddRange(contacts);
+
+                    var contractorsToCreate = notExistingContactSummaries
+                        .GroupBy(s => Domain(s.Email));
+
+                    foreach (var groupedByDomain in contractorsToCreate)
+                    {
+                        var contacts = CreateContacts(groupedByDomain.Key, groupedByDomain.ToList());
+                        newContacts.AddRange(contacts);
+                    }
                 }
             }
 

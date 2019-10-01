@@ -1,0 +1,27 @@
+﻿@using EleWise.ELMA.CRM.Web.Extensions
+@using EleWise.ELMA.CRM.Models
+@using EleWise.ELMA.Model.Entities
+@using Yambr.ELMA.Email.Models
+@using Yambr.ELMA.Email.Web
+@model EntityModel<IContact>
+    @{
+        var contact = Model.Entity as IContactExt;
+        //  Html.RegisterCssSrc(RouteProvider.Content + "css/app.css");
+        Html.RegisterScriptSrc(RouteProvider.Scripts + "js/manifest.js");
+        Html.RegisterScriptSrc(RouteProvider.Scripts + "js/vendor.js");
+        Html.RegisterScriptSrc(RouteProvider.Scripts + "js/app.js");
+    }
+    <link href="@(RouteProvider.Content + "css/app.css")" rel="stylesheet">
+
+
+    @if (contact != null)
+    {
+        <div id="app"></div>
+        Html.RenderInZone("Scripts", @<text>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            window.emailMessagesInit(@contact.Id, "Contact");
+        });
+    </script>
+        </text>);
+}

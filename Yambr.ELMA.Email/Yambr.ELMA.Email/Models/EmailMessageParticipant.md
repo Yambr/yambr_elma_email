@@ -2,7 +2,7 @@
 <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Uid>2474afc5-cfb2-4c63-aa91-12c4087819d9</Uid>
   <Name>EmailMessageParticipant</Name>
-  <DisplayName>EmailMessageParticipant</DisplayName>
+  <DisplayName>Участник письма</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
   <AllowCreateHeirs>true</AllowCreateHeirs>
   <Properties>

@@ -18,6 +18,7 @@ namespace Yambr.ELMA.Email.Services
         /// </summary>
         void DisposeConnection();
 
+        void HealthCheck();
         /// <summary>
         /// Получить модель сообщения (тип сообщения)
         /// </summary>

@@ -58,12 +58,14 @@ namespace Yambr.ELMA.Email
 
         [DisplayName(typeof(@__Resources_MessageQueueRMQSettings), nameof(@__Resources_MessageQueueRMQSettings.Password_P))]
         public string Password { get; set; }
-
+        [DisplayName(typeof(@__Resources_MessageQueueRMQSettings), nameof(@__Resources_MessageQueueRMQSettings.AutoCreateContractors_P))]
+        public bool AutoCreateContractors { get; set; }
     }
     // ReSharper disable once InconsistentNaming
     internal class @__Resources_MessageQueueRMQSettings
     {
-        
+        public static string AutoCreateContractors_P =>
+            SR.T("Автоматически создавать контрагентов на из писем");
         public static string PublicDomainUrl_P =>
             SR.T("Ежедневное обновление публичных доменов (по ним не создаются контрагенты)");
         public static string HostName_P =>

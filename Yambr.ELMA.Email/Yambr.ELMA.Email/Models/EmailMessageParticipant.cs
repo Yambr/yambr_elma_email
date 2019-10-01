@@ -7,7 +7,7 @@ namespace Yambr.ELMA.Email.Models
     
     
     /// <summary>
-    /// EmailMessageParticipant
+    /// Участник письма
     /// </summary>
     [global::EleWise.ELMA.Model.Attributes.MetadataType(typeof(global::EleWise.ELMA.Model.Metadata.EntityMetadata))]
     [global::EleWise.ELMA.Model.Attributes.Uid("2474afc5-cfb2-4c63-aa91-12c4087819d9")]
@@ -99,7 +99,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("EmailMessageParticipant");
+                return global::EleWise.ELMA.SR.T("Участник письма");
             }
         }
         
@@ -129,7 +129,7 @@ namespace Yambr.ELMA.Email.Models
     }
     
     /// <summary>
-    /// Фильтр для объекта "EmailMessageParticipant"
+    /// Фильтр для объекта "Участник письма"
     /// </summary>
     [global::EleWise.ELMA.Model.Attributes.FilterFor(typeof(IEmailMessageParticipant))]
     public interface IEmailMessageParticipantFilter : global::EleWise.ELMA.Model.Common.IEntityFilter

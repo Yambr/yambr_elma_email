@@ -48,7 +48,7 @@
 
 
     export default {
-        props: ["entity_id", "from_date", "to_date"],
+        props: ["entity_id", "from_date", "to_date", "type"],
         name: "Timeline",
         components: {
             TimelineHeader,
@@ -103,7 +103,7 @@
             }
         },
         mounted() {
-            emailStatApi.contractorStat(this.entity_id).then(value => {
+            emailStatApi.emailStat(this.entity_id, this.type).then(value => {
                 let newChartOptions = this.defaultChartOptions();
                 newChartOptions.series = {
                     data: value
@@ -112,7 +112,8 @@
             }).catch(reason => {
                 console.warn(reason);
             });
-            emailMessageApi.contractorEmail(
+            emailMessageApi.email(
+                this.type,
                 this.entity_id,
                 new Date(this.from),
                 new Date(this.to),
@@ -205,7 +206,8 @@
             ,
             searchMove: function (searchString, skip, $state) {
 
-                emailMessageApi.contractorEmailSearch(
+                emailMessageApi.emailSearch(
+                    this.type,
                     this.entity_id,
                     searchString,
                     skip,
@@ -234,7 +236,8 @@
             },
             move: function (from, to, skip, $state) {
                 this.resetSearch();
-                emailMessageApi.contractorEmail(
+                emailMessageApi.email(
+                    this.type,
                     this.entity_id,
                     new Date(from),
                     new Date(to),

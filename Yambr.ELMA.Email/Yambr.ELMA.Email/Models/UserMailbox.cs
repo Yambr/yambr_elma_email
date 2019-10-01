@@ -7,7 +7,7 @@ namespace Yambr.ELMA.Email.Models
     
     
     /// <summary>
-    /// UserMailbox
+    /// Пользователький почтовый ящик
     /// </summary>
     [global::EleWise.ELMA.Model.Attributes.MetadataType(typeof(global::EleWise.ELMA.Model.Metadata.EntityMetadata))]
     [global::EleWise.ELMA.Model.Attributes.Uid("06aeb963-e379-4fff-9951-de6bf6cb508f")]
@@ -203,8 +203,8 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_EmailPassword_DisplayName")]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.ForceHidden, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         string EmailPassword
@@ -278,6 +278,67 @@ namespace Yambr.ELMA.Email.Models
             get;
             set;
         }
+        
+        /// <summary>
+        /// Статус
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("d03fcad9-6a86-4fa2-a43d-9f170a5f39f6")]
+        [global::EleWise.ELMA.Model.Attributes.Order(12)]
+        [global::EleWise.ELMA.ComponentModel.CanBeNull()]
+        [global::EleWise.ELMA.Model.Attributes.Property("849c1ac9-4d46-4194-8cbb-43f84adf9c17", "c2eb5adb-5d14-47ad-a304-58adb8d5432f")]
+        [global::EleWise.ELMA.Model.Types.Settings.EnumSettings(DefaultValueStr="d680397a-e681-41c5-91c7-115d7bb1dc36", FieldName="Status")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_Status_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        System.Nullable<Yambr.ELMA.Email.Enums.EmailLoadingStatus> Status
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Описание ошибки
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("62b54065-2e37-464e-8673-d1b24d8bb901")]
+        [global::EleWise.ELMA.Model.Attributes.Order(13)]
+        [global::EleWise.ELMA.Model.Attributes.Property("317e3d72-9c47-4b68-926d-ba77a2579bc2")]
+        [global::EleWise.ELMA.Model.Types.Settings.TextSettings(FieldName="Error")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_Error_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        string Error
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Пароль зашифрованый
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("e106dc79-9b3e-46c7-b15a-c108ee9f40bd")]
+        [global::EleWise.ELMA.Model.Attributes.Order(14)]
+        [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
+        [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="PasswordEncoded")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_PasswordEncoded_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        string PasswordEncoded
+        {
+            get;
+            set;
+        }
     }
     
     internal class @__Resources_IUserMailbox
@@ -287,7 +348,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("UserMailbox");
+                return global::EleWise.ELMA.SR.T("Пользователький почтовый ящик");
             }
         }
         
@@ -394,10 +455,34 @@ namespace Yambr.ELMA.Email.Models
                 return global::EleWise.ELMA.SR.T("алиасы через запятую: example@mail.ru, example2@mail.ru");
             }
         }
+        
+        public static string P_Status_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Статус");
+            }
+        }
+        
+        public static string P_Error_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Описание ошибки");
+            }
+        }
+        
+        public static string P_PasswordEncoded_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Пароль зашифрованый");
+            }
+        }
     }
     
     /// <summary>
-    /// Фильтр для объекта "UserMailbox"
+    /// Фильтр для объекта "Пользователький почтовый ящик"
     /// </summary>
     [global::EleWise.ELMA.Model.Attributes.FilterFor(typeof(IUserMailbox))]
     public interface IUserMailboxFilter : global::EleWise.ELMA.Model.Common.IEntityFilter

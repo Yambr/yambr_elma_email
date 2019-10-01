@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using EleWise.ELMA.Extensions;
+using EleWise.ELMA.Helpers;
 using EleWise.ELMA.Model.Common;
 using EleWise.ELMA.Model.Managers;
 using EleWise.ELMA.Model.Services;
@@ -13,6 +14,7 @@ using Yambr.ELMA.Email.Common.Enums;
 using Yambr.ELMA.Email.Common.Models;
 using Yambr.ELMA.Email.Models;
 using Yambr.ELMA.Email.Services;
+using LogLevel = EleWise.ELMA.Logging.LogLevel;
 
 namespace Yambr.ELMA.Email.Managers
 {
@@ -20,6 +22,42 @@ namespace Yambr.ELMA.Email.Managers
     {
         private readonly ISessionProvider _sessionProvider;
         private readonly IRabbitMQService _rabbitMqService;
+
+        private const string DefaultPassword = "{password}";
+
+        internal void UpdateEvent(MailBox mailBox)
+        {
+            var id = Convert.ToInt64(mailBox.Id);
+            if (id <= 0) return;
+            var tp = Locator.GetServiceNotNull<ITransformationProvider>();
+            try
+            {
+
+                if (mailBox.Status == EmailLoadingStatus.Error)
+                {
+                    EmailLogger.Logger.Log(LogLevel.Error, new Exception(mailBox.Error), $"Ошибка загрузки писем из ящика {mailBox.Login}");
+                    tp.Update("UserMailbox",
+                        new[] { nameof(IUserMailbox.Status), nameof(IUserMailbox.Error), nameof(IUserMailbox.LastMailUpdate) },
+                        new object[] { (int)mailBox.Status, mailBox.Error, mailBox.LastStartTimeUtc },
+                        $"{tp.Dialect.QuoteIfNeeded(nameof(IUserMailbox.Id))} = {id}");
+                    
+                }
+                else
+                {
+                    EmailLogger.Debug($"Успешная загрузка писем из ящика {mailBox.Login} до {mailBox.LastStartTimeUtc}");
+                    tp.Update("UserMailbox",
+                        new[] { nameof(IUserMailbox.Status), nameof(IUserMailbox.Error) },
+                        new object[] { (int)mailBox.Status, null },
+                        $"{tp.Dialect.QuoteIfNeeded(nameof(IUserMailbox.Id))} = {id}");
+                }
+
+            }
+            catch
+            {
+                tp.RollbackTransaction();
+            }
+
+        }
 
         public UserMailboxManager(ISessionProvider sessionProvider, IRabbitMQService rabbitMqService)
         {
@@ -59,6 +97,12 @@ namespace Yambr.ELMA.Email.Managers
                     obj.EmailParticipant.EmailString = obj.EmailLogin;
                     obj.Save();
                 }
+            }
+
+            if (obj.EmailPassword != DefaultPassword){
+                
+                obj.PasswordEncoded = EncryptionHelper.EncryptPwd(obj.EmailPassword);
+                obj.EmailPassword = DefaultPassword;
             }
             base.Save(obj);
         }
@@ -137,19 +181,23 @@ namespace Yambr.ELMA.Email.Managers
             };
             var mailBox = new MailBox(server, localUser)
             {
+                Id = userMailbox.Id,
                 LastStartTimeUtc = userMailbox.LastMailUpdate.ToUniversalTime(),
                 Login = userMailbox.EmailLogin,
-                Password = userMailbox.EmailPassword
+                Password = 
+                    userMailbox.EmailPassword == DefaultPassword ? 
+                        EncryptionHelper.DecryptPwd(userMailbox.PasswordEncoded):
+                        userMailbox.EmailPassword
             };
-
-            //TODO сделать отбрасывание времени чтения писем если ящик не удалость прочитать 
-            UpdateLastMailUpdate(userMailbox);
 
             _rabbitMqService.SendMessage(
                 new JsonQueueObject<MailBox>(
                     mailBox,
                     "Mailbox",
                     QueueConstants.RoutingKeyMailBoxCmdDownload));
+            // если не удалось отправить сообщение - не обновляем время чтения писем
+
+            UpdateLastMailUpdate(userMailbox);
         }
 
         private static void UpdateLastMailUpdate(IUserMailbox userMailbox)

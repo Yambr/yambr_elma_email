@@ -7,7 +7,7 @@ namespace Yambr.ELMA.Email.Models
     
     
     /// <summary>
-    /// EmailMessageParticipantUser
+    /// Участник письма - Пользователь ELMA
     /// </summary>
     [global::EleWise.ELMA.Model.Attributes.MetadataType(typeof(global::EleWise.ELMA.Model.Metadata.EntityMetadata))]
     [global::EleWise.ELMA.Model.Attributes.Uid("71e11768-05e2-4788-b93e-7440e72b32b5")]
@@ -73,7 +73,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("EmailMessageParticipantUser");
+                return global::EleWise.ELMA.SR.T("Участник письма - Пользователь ELMA");
             }
         }
         

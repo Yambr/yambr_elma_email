@@ -2,7 +2,7 @@
 <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Uid>06aeb963-e379-4fff-9951-de6bf6cb508f</Uid>
   <Name>UserMailbox</Name>
-  <DisplayName>UserMailbox</DisplayName>
+  <DisplayName>Пользователький почтовый ящик</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
@@ -297,10 +297,12 @@
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Display</ViewType>
+            <Visibility>Hidden</Visibility>
             <ReadOnly>true</ReadOnly>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>List</ViewType>
+            <Visibility>ForceHidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -410,6 +412,109 @@
         </Attributes>
       </ViewSettings>
       <Order>11</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>d03fcad9-6a86-4fa2-a43d-9f170a5f39f6</Uid>
+      <Name>Status</Name>
+      <DisplayName>Статус</DisplayName>
+      <TypeUid>849c1ac9-4d46-4194-8cbb-43f84adf9c17</TypeUid>
+      <SubTypeUid>c2eb5adb-5d14-47ad-a304-58adb8d5432f</SubTypeUid>
+      <Settings xsi:type="EnumSettings">
+        <FieldName>Status</FieldName>
+        <DefaultValue>d680397a-e681-41c5-91c7-115d7bb1dc36</DefaultValue>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>12</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>62b54065-2e37-464e-8673-d1b24d8bb901</Uid>
+      <Name>Error</Name>
+      <DisplayName>Описание ошибки</DisplayName>
+      <TypeUid>317e3d72-9c47-4b68-926d-ba77a2579bc2</TypeUid>
+      <Settings xsi:type="TextSettings">
+        <FieldName>Error</FieldName>
+        <MultiLine>true</MultiLine>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>13</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>e106dc79-9b3e-46c7-b15a-c108ee9f40bd</Uid>
+      <Name>PasswordEncoded</Name>
+      <DisplayName>Пароль зашифрованый</DisplayName>
+      <TypeUid>9b9aac17-22bb-425c-aa93-9c02c5146965</TypeUid>
+      <Settings xsi:type="StringSettings">
+        <FieldName>PasswordEncoded</FieldName>
+      </Settings>
+      <Nullable>false</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <Visibility>Hidden</Visibility>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>14</Order>
     </PropertyMetadata>
   </Properties>
   <TableViews>

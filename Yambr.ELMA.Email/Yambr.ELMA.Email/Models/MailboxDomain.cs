@@ -7,7 +7,7 @@ namespace Yambr.ELMA.Email.Models
     
     
     /// <summary>
-    /// MailboxDomain
+    /// Домен почтовый
     /// </summary>
     [global::EleWise.ELMA.Model.Attributes.MetadataType(typeof(global::EleWise.ELMA.Model.Metadata.EntityMetadata))]
     [global::EleWise.ELMA.Model.Attributes.Uid("9634d99b-edd4-45fe-9b2e-0dc68465bcc0")]
@@ -95,7 +95,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("MailboxDomain");
+                return global::EleWise.ELMA.SR.T("Домен почтовый");
             }
         }
         

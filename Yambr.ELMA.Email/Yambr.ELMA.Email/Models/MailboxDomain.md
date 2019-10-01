@@ -2,7 +2,7 @@
 <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Uid>9634d99b-edd4-45fe-9b2e-0dc68465bcc0</Uid>
   <Name>MailboxDomain</Name>
-  <DisplayName>MailboxDomain</DisplayName>
+  <DisplayName>Домен почтовый</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">

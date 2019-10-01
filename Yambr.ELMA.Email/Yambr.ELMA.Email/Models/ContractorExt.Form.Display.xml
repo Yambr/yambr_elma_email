@@ -35,7 +35,7 @@
     <ViewItemTransformation xsi:type="ViewItemTransformationAdd">
       <Uid>bf6e8266-403d-4559-b136-a62e3256fa4d</Uid>
       <Item xsi:type="TabViewItem">
-        <Name>Tab1</Name>
+        <Name>EmailMesagesTab</Name>
         <Uid>80b8d21b-7a84-43b2-98e1-5807aadbf085</Uid>
         <Caption>История переписки</Caption>
       </Item>

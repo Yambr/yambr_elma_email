@@ -7,6 +7,7 @@ using EleWise.ELMA.Scheduling;
 using EleWise.ELMA.Scheduling.Triggers;
 using EleWise.ELMA.Services;
 using Yambr.ELMA.Email.Managers;
+using Yambr.ELMA.Email.Services;
 
 namespace Yambr.ELMA.Email.Scheduler
 {
@@ -65,7 +66,8 @@ namespace Yambr.ELMA.Email.Scheduler
                 {
                     try
                     {
-
+                        var rabbitMqService = Locator.GetServiceNotNull<IRabbitMQService>();
+                        rabbitMqService.HealthCheck();
                         UserMailboxManager.Instance.SendToUpdate();
                     }
                     catch (Exception ex)

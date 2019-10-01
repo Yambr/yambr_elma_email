@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import axios from 'axios'
 
-const baseContractorStatUri = "/Yambr.ELMA.Email.Web/EmailStats/Contractor/";
+const baseStatUri = "/Yambr.ELMA.Email.Web/EmailStats/";
+function statUri(type){
+  return baseStatUri + type+"/";
+}
 
-async function contractorStat(id) {
-  let url = baseContractorStatUri + id;
+async function emailStat(id, type) {
+  let url = statUri(type) + id;
   let data = null;
   if (!Vue.config.productionTip) {
     url = "http://localhost:888" + url;
@@ -23,6 +26,6 @@ async function contractorStat(id) {
 }
 
 export default {
-  contractorStat
+  emailStat
 }
 

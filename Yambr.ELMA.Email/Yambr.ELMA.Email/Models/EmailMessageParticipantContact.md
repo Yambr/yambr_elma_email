@@ -2,7 +2,7 @@
 <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Uid>a8ee5fd8-6f4e-4fe3-bd0b-063fe92694ab</Uid>
   <Name>EmailMessageParticipantContact</Name>
-  <DisplayName>EmailMessageParticipantContact</DisplayName>
+  <DisplayName>Участник письма - Контакт</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
   <BaseClassUid>2474afc5-cfb2-4c63-aa91-12c4087819d9</BaseClassUid>
   <Properties>

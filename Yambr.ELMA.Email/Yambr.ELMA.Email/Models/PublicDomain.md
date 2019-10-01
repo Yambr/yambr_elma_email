@@ -2,7 +2,7 @@
 <Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Uid>140ab035-1887-479f-a866-644791fa5075</Uid>
   <Name>PublicDomain</Name>
-  <DisplayName>PublicDomain</DisplayName>
+  <DisplayName>Публичный домен</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">

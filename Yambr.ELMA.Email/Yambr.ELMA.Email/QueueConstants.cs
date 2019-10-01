@@ -24,6 +24,10 @@
         /// Очередь для чтения
         /// </summary>
         public const string QueueNewEmail = "email-created-queue";
-    
+        /// <summary>
+        /// Очередь с событиями ящиков
+        /// </summary>
+        public const string QueueMailboxEvents = "mailbox-events-queue";
+
     }
 }

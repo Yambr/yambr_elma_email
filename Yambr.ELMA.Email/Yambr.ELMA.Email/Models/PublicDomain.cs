@@ -7,7 +7,7 @@ namespace Yambr.ELMA.Email.Models
     
     
     /// <summary>
-    /// PublicDomain
+    /// Публичный домен
     /// </summary>
     [global::EleWise.ELMA.Model.Attributes.MetadataType(typeof(global::EleWise.ELMA.Model.Metadata.EntityMetadata))]
     [global::EleWise.ELMA.Model.Attributes.Uid("140ab035-1887-479f-a866-644791fa5075")]
@@ -74,7 +74,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("PublicDomain");
+                return global::EleWise.ELMA.SR.T("Публичный домен");
             }
         }
         

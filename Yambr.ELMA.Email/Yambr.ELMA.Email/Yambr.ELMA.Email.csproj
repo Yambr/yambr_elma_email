@@ -66,6 +66,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -80,6 +81,14 @@
     <None Include="Enums\EmailDirection.md">
       <Generator>MDCodeGenerator</Generator>
       <LastGenOutput>EmailDirection.cs</LastGenOutput>
+    </None>
+    <None Include="Enums\EmailLoadingStatus.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>EmailLoadingStatus.cs</LastGenOutput>
+    </None>
+    <None Include="Models\ContactExt.md">
+      <Generator>MDCodeGenerator</Generator>
+      <LastGenOutput>ContactExt.cs</LastGenOutput>
     </None>
     <None Include="Models\ContractorExt.md">
       <Generator>MDCodeGenerator</Generator>
@@ -125,6 +134,7 @@
     <None Include="Properties\Yambr.ELMA.Email.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Queue\MailBoxHandler.cs" />
     <Compile Include="DTO\Models\EmailMessage.cs" />
     <Compile Include="API\Models\EmailMessages.cs" />
     <Compile Include="AssemblyInfo.cs">
@@ -184,6 +194,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmailDirection.md</DependentUpon>
     </Compile>
+    <Compile Include="Enums\EmailLoadingStatus.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailLoadingStatus.md</DependentUpon>
+    </Compile>
     <Compile Include="Exceptions\RabbitException.cs" />
     <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
@@ -195,6 +210,14 @@
     <Compile Include="Managers\UserMailboxManager.cs" />
     <Compile Include="Managers\EmailMessageParticipantManager.cs" />
     <Compile Include="Managers\EmailMessageManager.cs" />
+    <Compile Include="Models\ContactExt.Actions.cs">
+      <DependentUpon>ContactExt.md</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContactExt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactExt.md</DependentUpon>
+    </Compile>
     <Compile Include="Models\ContractorExt.Actions.cs">
       <DependentUpon>ContractorExt.md</DependentUpon>
     </Compile>
@@ -278,6 +301,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Models\EmailMessage.Form.Form.xml">
       <DependentUpon>EmailMessage.md</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\ContactExt.Form.Display.xml">
+      <DependentUpon>ContactExt.md</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

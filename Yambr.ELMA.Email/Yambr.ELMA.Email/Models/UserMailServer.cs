@@ -7,7 +7,7 @@ namespace Yambr.ELMA.Email.Models
     
     
     /// <summary>
-    /// UserMailServer
+    /// Почтовый сервер
     /// </summary>
     [global::EleWise.ELMA.Model.Attributes.MetadataType(typeof(global::EleWise.ELMA.Model.Metadata.EntityMetadata))]
     [global::EleWise.ELMA.Model.Attributes.Uid("8786ded0-8825-482d-9446-e9a6eaf6caa0")]
@@ -226,7 +226,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("UserMailServer");
+                return global::EleWise.ELMA.SR.T("Почтовый сервер");
             }
         }
         

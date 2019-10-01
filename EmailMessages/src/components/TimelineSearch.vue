@@ -1,6 +1,6 @@
 <template>
   <div class="search-wrapper">
-    <input type="text" v-model="searchstring" v-on:input="search" @keyup.enter="searchInHistory" placeholder="Поиск в переписке"/>
+    <input type="text" v-model="searchstring" v-on:input="search" v-on:keydown.enter.prevent="searchInHistory" placeholder="Поиск в переписке"/>
     <label>Нажмите ввод (enter) для поиска в истории:</label>
   </div>
 </template>
