@@ -21,7 +21,7 @@
             </td>
             <td>
               <div v-show="!this.opened" class="fade msg-header" v-html="message.mainHeader"></div>
-              <div v-if="this.opened&&fullMessage" v-html="fullMessage.body" class="msg-body"></div>
+              <div v-if="this.opened&&fullMessage" v-html="fullMessage" class="msg-body"></div>
             </td>
           </tr>
           <tr v-show="this.opened">
@@ -55,13 +55,13 @@
         methods: {
             swithMessage: function () {
                 this.opened = !this.opened;
-                if (this.opened && !this.fullMessage) {
+                this.fullMessage = null;
+                if (this.opened) {
                     emailMessageApi.loadEmail(this.message.id).then(value => {
-                        this.fullMessage = value;
+                        this.fullMessage = value.body;
                     }).catch(reason => {
                         console.warn(reason);
                     });
-                    ;
                 }
             },
             hideMessage: function () {

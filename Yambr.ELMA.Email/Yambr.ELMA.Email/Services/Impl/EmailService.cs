@@ -7,6 +7,7 @@ using Yambr.ELMA.Email.Enums;
 using Yambr.ELMA.Email.Managers;
 using Yambr.ELMA.Email.Models;
 using System.Web;
+using EleWise.ELMA.Extensions;
 using EleWise.ELMA.Logging;
 using EleWise.ELMA.Security;
 using EleWise.ELMA.Services;
@@ -95,6 +96,23 @@ namespace Yambr.ELMA.Email.Services.Impl
                         emailMessage.From.Any(e => e.Email == c.EmailString)).ToList();
 
             message.From.AddAll(fromParticipants);
+
+            var existContactParticipants = participants
+                .Where(c => c.TypeUid == InterfaceActivator.UID<IEmailMessageParticipantContact>())
+                .Select(c => c.CastAsRealType() is IEmailMessageParticipantContact participantContact
+                    ? participantContact
+                    : null)
+                .Where(c => c != null).ToList();
+
+            var contacts =
+                existContactParticipants.Select(c => c.Contact)
+                    .Where(c => c != null).ToList();
+            var contractors =
+                contacts.Select(c => c.Contractor)
+                    .Where(c => c != null).ToList();
+
+            message.Contacts.AddAll(contacts);
+            message.Contractors.AddAll(contractors);
         }
 
         private static List<IEmailMessageParticipant> EmailMessageParticipants(IUserMailbox userMailbox, IMessagePart emailMessage)
@@ -105,7 +123,7 @@ namespace Yambr.ELMA.Email.Services.Impl
 
             var emailMessageParticipantManager = EmailMessageParticipantManager.Instance;
             var participants = emailMessageParticipantManager.GetParticipants(emailList).ToList();
-
+            
             var notExistingParticipants =
                 contactSummaries
                     .Where(c =>
@@ -120,8 +138,17 @@ namespace Yambr.ELMA.Email.Services.Impl
                      participants.AddRange(newParticipants);
                  });
             }
+            var existContactParticipants = participants
+                .Where(c => c.TypeUid == InterfaceActivator.UID<IEmailMessageParticipantContact>())
+                .Select(c => c.CastAsRealType() is IEmailMessageParticipantContact participantContact
+                    ? participantContact
+                    : null)
+                .Where(c => c != null).ToList();
+            emailMessageParticipantManager.UpdateParticipants(existContactParticipants, contactSummaries);
 
             return participants;
         }
+
+      
     }
 }

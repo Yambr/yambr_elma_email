@@ -10,6 +10,7 @@ using EleWise.ELMA.Runtime.Db.Migrator.Framework;
 using EleWise.ELMA.Runtime.NH;
 using EleWise.ELMA.Security;
 using EleWise.ELMA.Services;
+using Yambr.ELMA.Email.Common.EncryptionHelper;
 using Yambr.ELMA.Email.Common.Enums;
 using Yambr.ELMA.Email.Common.Models;
 using Yambr.ELMA.Email.Models;
@@ -23,7 +24,7 @@ namespace Yambr.ELMA.Email.Managers
         private readonly ISessionProvider _sessionProvider;
         private readonly IRabbitMQService _rabbitMqService;
 
-        private const string DefaultPassword = "{password}";
+        private const string DefaultPassword = "****************";
 
         internal void UpdateEvent(MailBox mailBox)
         {
@@ -38,13 +39,13 @@ namespace Yambr.ELMA.Email.Managers
                     EmailLogger.Logger.Log(LogLevel.Error, new Exception(mailBox.Error), $"Ошибка загрузки писем из ящика {mailBox.Login}");
                     tp.Update("UserMailbox",
                         new[] { nameof(IUserMailbox.Status), nameof(IUserMailbox.Error), nameof(IUserMailbox.LastMailUpdate) },
-                        new object[] { (int)mailBox.Status, mailBox.Error, mailBox.LastStartTimeUtc },
+                        new object[] { (int)mailBox.Status, mailBox.Error, mailBox.LastStartTimeUtc.ToLocalTime() },
                         $"{tp.Dialect.QuoteIfNeeded(nameof(IUserMailbox.Id))} = {id}");
                     
                 }
                 else
                 {
-                    EmailLogger.Debug($"Успешная загрузка писем из ящика {mailBox.Login} до {mailBox.LastStartTimeUtc}");
+                    EmailLogger.Debug($"Успешная загрузка писем из ящика {mailBox.Login} до {mailBox.LastStartTimeUtc.ToLocalTime()}");
                     tp.Update("UserMailbox",
                         new[] { nameof(IUserMailbox.Status), nameof(IUserMailbox.Error) },
                         new object[] { (int)mailBox.Status, null },
@@ -179,15 +180,18 @@ namespace Yambr.ELMA.Email.Managers
                 Port = (int)userMailbox.Server.ImapPort,
                 UseSsl = userMailbox.Server.RequaredSSL
             };
+           
+            var userMailboxEmailPassword =
+                userMailbox.EmailPassword == DefaultPassword ? 
+                    EncryptionHelper.DecryptPwd(userMailbox.PasswordEncoded):
+                    userMailbox.EmailPassword;
             var mailBox = new MailBox(server, localUser)
             {
                 Id = userMailbox.Id,
                 LastStartTimeUtc = userMailbox.LastMailUpdate.ToUniversalTime(),
                 Login = userMailbox.EmailLogin,
-                Password = 
-                    userMailbox.EmailPassword == DefaultPassword ? 
-                        EncryptionHelper.DecryptPwd(userMailbox.PasswordEncoded):
-                        userMailbox.EmailPassword
+                Password =
+                    StringCipher.Encrypt(userMailboxEmailPassword, userMailbox.EmailLogin)
             };
 
             _rabbitMqService.SendMessage(

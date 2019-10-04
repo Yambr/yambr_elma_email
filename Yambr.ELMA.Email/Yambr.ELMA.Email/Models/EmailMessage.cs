@@ -12,6 +12,7 @@ namespace Yambr.ELMA.Email.Models
     [global::EleWise.ELMA.Model.Attributes.MetadataType(typeof(global::EleWise.ELMA.Model.Metadata.EntityMetadata))]
     [global::EleWise.ELMA.Model.Attributes.Uid("79626ca2-5121-485b-85c3-c4eb017726f8")]
     [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "DisplayName")]
+    [global::EleWise.ELMA.Model.Attributes.AllowCreateHeirs(true)]
     [global::EleWise.ELMA.Model.Attributes.DisplayFormat(null)]
     [global::EleWise.ELMA.Model.Attributes.TitleProperty("408d066b-f103-4c0f-825f-a37909f64a2a")]
     [global::EleWise.ELMA.Model.Attributes.ClassFormsScheme(global::EleWise.ELMA.Model.Metadata.ClassFormsScheme.FormConstructor)]
@@ -27,8 +28,10 @@ namespace Yambr.ELMA.Email.Models
     [global::EleWise.ELMA.Model.Attributes.IdType("d90a59af-7e47-48c5-8c4c-dad04834e6e3")]
     [global::EleWise.ELMA.Model.Attributes.ShowInCatalogList(true)]
     [global::EleWise.ELMA.Model.Attributes.EntityMetadataType(global::EleWise.ELMA.Model.Metadata.EntityMetadataType.Interface)]
+    [global::EleWise.ELMA.Model.Attributes.Filterable()]
     [global::EleWise.ELMA.Model.Attributes.ImplementationUid("59760e6a-3a97-4e9f-a608-d5d402150c2f")]
-    public partial interface IEmailMessage : global::EleWise.ELMA.Model.Entities.IEntity<long>
+    [global::EleWise.ELMA.Model.Attributes.FilterType(typeof(IEmailMessageFilter))]
+    public partial interface IEmailMessage : global::EleWise.ELMA.Model.Entities.IEntity<long>, global::EleWise.ELMA.Model.Entities.IInheritable
     {
         
         /// <summary>
@@ -85,6 +88,7 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         System.Nullable<System.DateTime> DateUtc
         {
@@ -124,7 +128,8 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         System.Web.HtmlString MainHeader
         {
@@ -144,7 +149,7 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         System.Web.HtmlString CommonHeaders
         {
@@ -164,7 +169,8 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         System.Web.HtmlString Body
         {
@@ -207,6 +213,7 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         Yambr.ELMA.Email.Enums.EmailDirection Direction
         {
@@ -227,6 +234,7 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         Iesi.Collections.Generic.ISet<Yambr.ELMA.Email.Models.IEmailMessageParticipant> From
         {
@@ -247,6 +255,7 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         Iesi.Collections.Generic.ISet<Yambr.ELMA.Email.Models.IEmailMessageParticipant> To
         {
@@ -267,6 +276,7 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.FastSearch(true)]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         string Subject
         {
@@ -331,6 +341,7 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         Iesi.Collections.Generic.ISet<Yambr.ELMA.Email.Models.IUserMailbox> Owners
         {
@@ -354,6 +365,48 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         bool IsDeleted
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Контакты
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("f303976b-d9e1-43d3-b945-6f91e09ed452")]
+        [global::EleWise.ELMA.Model.Attributes.Order(16)]
+        [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "a9b1bc6a-3286-4264-81aa-02f6df73c080")]
+        [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_Contacts", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Contacts_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        Iesi.Collections.Generic.ISet<EleWise.ELMA.CRM.Models.IContact> Contacts
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Контрагенты
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("c5e79fc2-303d-4146-935f-12ddfd906d1e")]
+        [global::EleWise.ELMA.Model.Attributes.Order(17)]
+        [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "38096146-0c73-4809-94f5-e18b2d525531")]
+        [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_Contractors", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Contractors_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        Iesi.Collections.Generic.ISet<EleWise.ELMA.CRM.Models.IContractor> Contractors
         {
             get;
             set;
@@ -507,12 +560,126 @@ namespace Yambr.ELMA.Email.Models
             }
         }
         
+        public static string P_Contacts_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Контакты");
+            }
+        }
+        
+        public static string P_Contractors_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Контрагенты");
+            }
+        }
+        
         private static string @__AllFormsResources
         {
             get
             {
                 return global::EleWise.ELMA.SR.T("Просмотр");
             }
+        }
+    }
+    
+    /// <summary>
+    /// Фильтр для объекта "Электронное письмо"
+    /// </summary>
+    [global::EleWise.ELMA.Model.Attributes.FilterFor(typeof(IEmailMessage))]
+    public interface IEmailMessageFilter : global::EleWise.ELMA.Model.Common.IEntityFilter
+    {
+        
+        /// <summary>
+        /// Фильтр для свойства "Наименование"
+        /// </summary>
+        string Name
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Дата письма"
+        /// </summary>
+        EleWise.ELMA.Model.Ranges.DateTimeRange DateUtc
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Основной заголовок"
+        /// </summary>
+        System.Web.HtmlString MainHeader
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Тело письма"
+        /// </summary>
+        System.Web.HtmlString Body
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Направление письма"
+        /// </summary>
+        System.Nullable<Yambr.ELMA.Email.Enums.EmailDirection> Direction
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "От"
+        /// </summary>
+        Iesi.Collections.Generic.ISet<Yambr.ELMA.Email.Models.IEmailMessageParticipant> From
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Кому"
+        /// </summary>
+        Iesi.Collections.Generic.ISet<Yambr.ELMA.Email.Models.IEmailMessageParticipant> To
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Владельцы письма"
+        /// </summary>
+        Iesi.Collections.Generic.ISet<Yambr.ELMA.Email.Models.IUserMailbox> Owners
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Контакты"
+        /// </summary>
+        Iesi.Collections.Generic.ISet<EleWise.ELMA.CRM.Models.IContact> Contacts
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Контрагенты"
+        /// </summary>
+        Iesi.Collections.Generic.ISet<EleWise.ELMA.CRM.Models.IContractor> Contractors
+        {
+            get;
+            set;
         }
     }
 }

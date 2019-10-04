@@ -43,7 +43,7 @@ namespace Yambr.ELMA.Email.FullTextSearch
         // ReSharper disable once InconsistentNaming
         internal class __Resources_EnailFullTextSearchSettings
         {
-            public static string IndexingEmail => SR.T("Индексировать контрагентов");
+            public static string IndexingEmail => SR.T("Индексировать письма");
 
         }
     }

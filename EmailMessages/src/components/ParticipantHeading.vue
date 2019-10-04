@@ -32,7 +32,7 @@
                 return "/CRM/Contact/Details/" + this.contact;
             },
             userUri: function () {
-                return "javascript:showUserInfo(" + this.user + ")'";
+                return "javascript:showUserInfo(" + this.user + ")";
             },
             mailToUri: function () {
                 return "mailto:" + this.email + "?subject=" + this.subject;

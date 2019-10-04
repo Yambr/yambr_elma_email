@@ -16,6 +16,7 @@ using Yambr.ELMA.Email.Common.Models;
 using Yambr.ELMA.Email.Models;
 using IContact = EleWise.ELMA.CRM.Models.IContact;
 using IContractor = EleWise.ELMA.CRM.Models.IContractor;
+using IPhone = EleWise.ELMA.CRM.Models.IPhone;
 
 namespace Yambr.ELMA.Email.Managers
 {
@@ -208,7 +209,14 @@ namespace Yambr.ELMA.Email.Managers
             contact.Email.Add(email);
 
             var fio = notExistingContactSummary.Fio;
-            if (fio != null)
+            var newContact = notExistingContactSummary.Contact;
+            if (newContact != null)
+            {
+                contact.Surname = newContact.LastName;
+                contact.Firstname = newContact.FirstName;
+                contact.Middlename = newContact.MiddleName;
+            }
+            else if (fio != null)
             {
                 var names = fio.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 switch (names.Length)
@@ -234,6 +242,9 @@ namespace Yambr.ELMA.Email.Managers
             {
                 contact.Firstname = notExistingContactSummary.Email;
             }
+
+           
+
             if (Logger.IsDebugEnabled())
             {
                 Logger.Log(LogLevel.Debug, $"Created Contact: {notExistingContactSummary.Email}");
@@ -242,27 +253,128 @@ namespace Yambr.ELMA.Email.Managers
 
             return contact;
         }
-       
+
+        /// <summary>
+        /// Обновить данные по контактам и контрагентам
+        /// </summary>
+        /// <param name="existContactParticipants"></param>
+        /// <param name="contactSummaries"></param>
+        public void UpdateParticipants(List<IEmailMessageParticipantContact> existContactParticipants, List<ContactSummary> contactSummaries)
+        {
+            foreach (var participantContact in existContactParticipants)
+            {
+                var summary = contactSummaries.FirstOrDefault(c => c.Email == participantContact.EmailString);
+                if (summary?.Contact != null && participantContact.Contact != null)
+                        UpdateByContact(participantContact.Contact, summary.Contact, participantContact.EmailString);
+            }
+        }
+        private static void UpdateByContact(IContact contact, Contact newContact, string email)
+        {
+            if (string.IsNullOrWhiteSpace(contact.Firstname) || contact.Firstname == email)
+                contact.Firstname = newContact.FirstName;
+            if (string.IsNullOrWhiteSpace(contact.Middlename) || contact.Middlename == email)
+                contact.Middlename = newContact.MiddleName;
+            if (string.IsNullOrWhiteSpace(contact.Surname) || contact.Surname == email)
+                contact.Surname = newContact.LastName;
+
+            if (string.IsNullOrWhiteSpace(contact.Position))
+                contact.Position = newContact.Position;
+
+            if (string.IsNullOrWhiteSpace(contact.Site))
+                contact.Site = newContact.Site;
+
+            //TODO переназвать
+            if (string.IsNullOrWhiteSpace(contact.Department))
+                contact.Department = newContact.Description;
+
+            var newPhones = 
+                newContact.Phones?.Where(
+                        p => contact.Phone.All(c => c.PhoneString != p.PhoneString)).ToList();
+            if (newPhones != null)
+            {
+                foreach (var newPhone in newPhones)
+                {
+                    var phone = InterfaceActivator.Create<IPhone>();
+                    phone.PhoneString = newPhone.PhoneString;
+                    contact.Phone.Add(phone);
+                }
+            }
+           
+
+            if (contact.Contractor != null && newContact.Contractor != null)
+            {
+                var domain = Domain(email);
+                UpdateByContractor(contact.Contractor, newContact.Contractor, domain);
+            }
+        }
+
+        private static void UpdateByContractor(IContractor contractor, Common.Models.IContractor newContractor, string domain)
+        {
+            if (!string.IsNullOrWhiteSpace(newContractor.Name) && IsBadName(contractor, domain))
+            {
+                contractor.Name = newContractor.Name;
+            }
+           
+
+            if (string.IsNullOrWhiteSpace(contractor.INN))
+                contractor.INN = newContractor.INN;
+
+            if (!string.IsNullOrWhiteSpace(newContractor.OGRN))
+            {
+                if (contractor.CastAsRealType() is IContractorLegal contractorLegal && 
+                    string.IsNullOrWhiteSpace(contractorLegal.OGRN))
+                    contractorLegal.OGRN = newContractor.OGRN;
+            }
+           
+            if (string.IsNullOrWhiteSpace(contractor.Site))
+                contractor.Site = newContractor.Site;
+
+            if (string.IsNullOrWhiteSpace(contractor.Description))
+                contractor.Description = newContractor.Description;
+        }
+
+        private static bool IsBadName(IContractor contractor, string domain)
+        {
+            var contractorName = contractor.Name;
+            if (string.IsNullOrWhiteSpace(contractorName))
+                return true;
+            if (contractorName == domain)
+                return true;
+            return !HasRussian(contractorName);
+        }
+
+        private static bool HasRussian(string name)
+        {
+            return name != null && 
+                   name.Any(c => (c >= 'А' && c <= 'я') || c == 'ё' || c == 'Ё');
+        }
 
         private static IContractorExt CreateContractor(IEnumerable<ContactSummary> notExistingContactSummaries, string domain)
         {
             //Теоретчиески у всез у кого домены - все юрики
-            var contractorLegal = (IContractorExt)InterfaceActivator.Create<IContractorLegal>();
+            var contractorLegal = InterfaceActivator.Create<IContractorLegal>();
          
             var mailboxDomain = InterfaceActivator.Create<IMailboxDomain>();
+            
             mailboxDomain.Name = domain;
             mailboxDomain.Contractor = contractorLegal;
             mailboxDomain.Save();
             contractorLegal.Name = domain;
-            contractorLegal.Responsible = UserManager.Instance.GetCurrentUser();
-            contractorLegal.Domains.Add(mailboxDomain);
-            ContractorManager.Instance.SaveWithCategoryRules(contractorLegal);
 
-            if (Logger.IsDebugEnabled())
+            contractorLegal.Responsible = UserManager.Instance.GetCurrentUser();
+            var contractorExt = (contractorLegal as IContractorExt);
+            if (contractorExt != null)
             {
-                Logger.Log(LogLevel.Debug, $"Created ContractorLegal: {domain}");
+                contractorExt.Domains.Add(mailboxDomain);
+                ContractorManager.Instance.SaveWithCategoryRules(contractorLegal);
+
+                if (Logger.IsDebugEnabled())
+                {
+                    Logger.Log(LogLevel.Debug, $"Created ContractorLegal: {domain}");
+                }
             }
-            return contractorLegal;
+
+            return contractorExt;
         }
 
         private static string Domain(string email)

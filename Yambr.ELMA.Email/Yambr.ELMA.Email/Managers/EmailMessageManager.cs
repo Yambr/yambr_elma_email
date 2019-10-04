@@ -1,22 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using EleWise.ELMA;
 using EleWise.ELMA.CRM.Managers;
-using EleWise.ELMA.CRM.Models;
-using EleWise.ELMA.Extensions;
-using EleWise.ELMA.FullTextSearch.Exceptions;
-using EleWise.ELMA.FullTextSearch.ExtensionPoints;
-using EleWise.ELMA.FullTextSearch.Model;
-using EleWise.ELMA.FullTextSearch.Services;
 using EleWise.ELMA.Logging;
 using EleWise.ELMA.Model.Common;
-using EleWise.ELMA.Model.Entities;
-using EleWise.ELMA.Model.Filters;
 using EleWise.ELMA.Model.Managers;
-using EleWise.ELMA.Model.Metadata;
 using EleWise.ELMA.Model.Services;
 using EleWise.ELMA.Runtime.NH;
 using EleWise.ELMA.Security.Models;
@@ -74,18 +62,35 @@ namespace Yambr.ELMA.Email.Managers
                 session.CreateQuery("select year(em.DateUtc) as Year, " +
                                     "month(em.DateUtc) as Month, " +
                                     "COUNT(em.Id) as CountInMonth " +
-                                    "from  EmailMessage as em\r\n" +
-                                    "left join em.To emto\r\n" +
-                                    "left join em.From emfrom\r\n" +
-                                    "where  \r\n" +
+                                    "from  EmailMessage as em " +
+                                    "left join em.Contractors contractor " +
+                                    "where " +
                                     "em.IsDeleted <> 1 AND " +
-                                    "emto.Id in (select empcto.Id from EmailMessageParticipantContact as empcto \r\n" +
-                                    $"left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = {id})\r\n" +
-                                    "OR \r\n" +
-                                    "emfrom.Id in (select empcto.Id from EmailMessageParticipantContact as empcto \r\n" +
-                                    $"left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = {id})\r\n" +
+                                    "contractor.Id = :id " +
                                     "GROUP BY year(em.DateUtc), month(em.DateUtc) " +
                                     "ORDER BY year(em.DateUtc), month(em.DateUtc)");
+            hqlQuery.SetParameter("id", id);
+            return
+                hqlQuery
+                    .SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean(typeof(EmailMonthStatDto)))
+                    .List<EmailMonthStatDto>().ToList();
+        }
+
+        public IEnumerable<EmailMonthStatDto> MonthStatContact(long id)
+        {
+            var session = _sessionProvider.GetSession("");
+            var hqlQuery =
+                session.CreateQuery("select year(em.DateUtc) as Year, " +
+                                    "month(em.DateUtc) as Month, " +
+                                    "COUNT(em.Id) as CountInMonth " +
+                                    "from  EmailMessage as em " +
+                                    "left join em.Contacts contact " +
+                                    "where  " +
+                                    "em.IsDeleted <> 1 AND " +
+                                    "contact.Id = :id " +
+                                    "GROUP BY year(em.DateUtc), month(em.DateUtc) " +
+                                    "ORDER BY year(em.DateUtc), month(em.DateUtc)");
+            hqlQuery.SetParameter("id", id);
             return
                 hqlQuery
                     .SetResultTransformer(NHibernate.Transform.Transformers.AliasToBean(typeof(EmailMonthStatDto)))
@@ -119,10 +124,16 @@ namespace Yambr.ELMA.Email.Managers
                 size = 1000;
             }
 
-            var session = _sessionProvider.GetSession("");
-            var count = ContractorCount(id, searchString);
+            //var session = _sessionProvider.GetSession("");
+            var filter = InterfaceActivator.Create<IEmailMessageFilter>();
+            var contractor = ContractorManager.Instance.Load(id);
+            filter.Contractors.Add(contractor);
+            filter.SearchString = searchString;
+            filter.DisableSecurity = true;
+            var count = Count(filter) ;// ContractorCount(id, searchString);
             if (skip < count)
             {
+                /*
                 var hqlQuery =
                     session.CreateQuery(
                         "select em " +
@@ -141,11 +152,74 @@ namespace Yambr.ELMA.Email.Managers
                 hqlQuery.SetFirstResult(skip);
                 hqlQuery.SetMaxResults(size);
                 var emailMessages = hqlQuery.List<IEmailMessage>();
-
+                */
 
                 return new EmailMessagesPage()
                 {
-                    Messages = emailMessages.Select(Simplify).ToArray(),
+                    Messages = Find(filter, new FetchOptions(skip, size)).Select(Simplify).ToArray(),
+                    Size = size,
+                    Skip = skip,
+                    Count = count
+                };
+            }
+            else
+            {
+
+                return new EmailMessagesPage()
+                {
+                    Skip = skip,
+                    Size = size,
+                    Count = count,
+                    Messages = new Message[0]
+                };
+            }
+        }
+
+        public EmailMessagesPage Contact(long id, string searchString, int skip, int size)
+        {
+            if (size > 1000)
+            {
+                size = 1000;
+            }
+
+            if (size > 1000)
+            {
+                size = 1000;
+            }
+            //TODO 
+            //var session = _sessionProvider.GetSession("");
+            var filter = InterfaceActivator.Create<IEmailMessageFilter>();
+            var contact = ContactManager.Instance.Load(id);
+            filter.Contacts.Add(contact);
+            filter.SearchString = searchString;
+            filter.DisableSecurity = true;
+            var count = Count(filter);// ContractorCount(id, searchString);
+            if (skip < count)
+            {
+                /*
+                var hqlQuery =
+                    session.CreateQuery(
+                        "select em " +
+                        "from  EmailMessage as em " +
+                        "left join em.To emto " +
+                        "left join em.From emfrom " +
+                        "where " +
+                        "em.IsDeleted <> 1 AND " +
+                        "(em.Subject LIKE :searchString OR " +
+                        "em.Body LIKE :searchString ) AND" +
+                        "(emto.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id) OR  " +
+                        "emfrom.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id)) " +
+                        "ORDER BY em.DateUtc DESC");
+                hqlQuery.SetParameter("id", id);
+                hqlQuery.SetParameter("searchString", $"%{searchString}%");
+                hqlQuery.SetFirstResult(skip);
+                hqlQuery.SetMaxResults(size);
+                var emailMessages = hqlQuery.List<IEmailMessage>();
+                */
+
+                return new EmailMessagesPage()
+                {
+                    Messages = Find(filter, new FetchOptions(skip, size)).Select(Simplify).ToArray(),
                     Size = size,
                     Skip = skip,
                     Count = count
@@ -179,14 +253,12 @@ namespace Yambr.ELMA.Email.Managers
                     session.CreateQuery(
                         "select em " +
                         "from  EmailMessage as em " +
-                        "left join em.To emto " +
-                        "left join em.From emfrom " +
+                        "left join em.Contractors contractor " +
                         "where " +
                         "em.IsDeleted <> 1 AND " +
                         "em.DateUtc >= :fromDate AND " +
                         "em.DateUtc < :toDate AND " +
-                        "(emto.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id) OR  " +
-                        "emfrom.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id)) " +
+                        "contractor.Id = :id " + 
                         "ORDER BY em.DateUtc DESC");
                 hqlQuery.SetParameter("id", id);
                 hqlQuery.SetParameter("fromDate", @from);
@@ -221,6 +293,60 @@ namespace Yambr.ELMA.Email.Managers
             }
         }
 
+        public EmailMessagesPage Contact(long id, DateTime @from, DateTime to, int skip, int size)
+        {
+            if (size > 1000)
+            {
+                size = 1000;
+            }
+
+            var session = _sessionProvider.GetSession("");
+            var count = ContactCount(id, from, to);
+            if (skip < count)
+            {
+                var hqlQuery =
+                    session.CreateQuery(
+                        "select em " +
+                        "from  EmailMessage as em " +
+                        "left join em.Contacts contact " +
+                        "where " +
+                        "em.IsDeleted <> 1 AND " +
+                        "em.DateUtc >= :fromDate AND " +
+                        "em.DateUtc < :toDate AND " +
+                        "contact.Id = :id " +
+                        "ORDER BY em.DateUtc DESC");
+                hqlQuery.SetParameter("id", id);
+                hqlQuery.SetParameter("fromDate", @from);
+                hqlQuery.SetParameter("toDate", to);
+                hqlQuery.SetFirstResult(skip);
+                hqlQuery.SetMaxResults(size);
+                var emailMessages = hqlQuery.List<IEmailMessage>();
+
+
+                return new EmailMessagesPage()
+                {
+                    Messages = emailMessages.Select(Simplify).ToArray(),
+                    From = @from,
+                    To = to,
+                    Size = size,
+                    Skip = skip,
+                    Count = count
+                };
+            }
+            else
+            {
+
+                return new EmailMessagesPage()
+                {
+                    From = @from,
+                    Skip = skip,
+                    To = to,
+                    Size = size,
+                    Count = count,
+                    Messages = new Message[0]
+                };
+            }
+        }
         private static Message Simplify(IEmailMessage emailMessage)
         {
             return new Message()
@@ -251,7 +377,7 @@ namespace Yambr.ELMA.Email.Managers
             }
             if (participant is IEmailMessageParticipantUser)
             {
-                simplify.Contact = ((IEmailMessageParticipantUser)participant).User.Id;
+                simplify.User = ((IEmailMessageParticipantUser)participant).User.Id;
             }
 
             return simplify;
@@ -280,6 +406,7 @@ namespace Yambr.ELMA.Email.Managers
                     "where " +
                     "(em.Subject LIKE :searchString OR " +
                     "em.Body LIKE :searchString ) AND" +
+                    "em.IsDeleted <> 1 AND " +
                     "(emto.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id) OR  " +
                     "emfrom.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id))");
             hqlQuery.SetParameter("id", id);
@@ -290,23 +417,40 @@ namespace Yambr.ELMA.Email.Managers
         private long ContractorCount(long id, DateTime @from, DateTime to)
         {
             var session = _sessionProvider.GetSession("");
+            
             var hqlQuery =
                 session.CreateQuery(
-                    "select COUNT(em.Id) " +
-                    "from  EmailMessage as em " +
-                    "left join em.To emto " +
-                    "left join em.From emfrom " +
+                    "select COUNT(em.Id) from  EmailMessage as em " +
+                    "left join em.Contractors contractor " +
                     "where " +
+                    "contractor.Id = :id AND " +
                     "em.DateUtc >= :fromDate AND " +
                     "em.DateUtc < :toDate AND " +
-                    "(emto.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id) OR  " +
-                    "emfrom.Id in (select empcto.Id from EmailMessageParticipantContact as empcto  left join  empcto.Contact contact left join contact.Contractor contractor where contractor.Id = :id))");
+                    "em.IsDeleted <> 1 ");
             hqlQuery.SetParameter("id", id);
             hqlQuery.SetParameter("fromDate", @from);
             hqlQuery.SetParameter("toDate", to);
             return hqlQuery.List<long>().FirstOrDefault();
         }
 
+        private long ContactCount(long id, DateTime @from, DateTime to)
+        {
+            var session = _sessionProvider.GetSession("");
+            var hqlQuery =
+                session.CreateQuery(
+                    "select COUNT(em.Id) " +
+                    "from  EmailMessage as em " +
+                    "left join em.Contacts contact " +
+                    "where " +
+                    "em.DateUtc >= :fromDate AND " +
+                    "em.DateUtc < :toDate AND " +
+                    "contact.Id = :id AND " +
+                    "em.IsDeleted <> 1 ");
+            hqlQuery.SetParameter("id", id);
+            hqlQuery.SetParameter("fromDate", @from);
+            hqlQuery.SetParameter("toDate", to);
+            return hqlQuery.List<long>().FirstOrDefault();
+        }
 
     }
 }

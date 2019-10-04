@@ -15,12 +15,16 @@ namespace Yambr.ELMA.Email.Web.Controllers
         {
             _emailMessageManager = emailMessageManager;
         }
-        [OutputCache(Duration = 3600, VaryByParam = "id", VaryByCustom = "TimeZone", Location = OutputCacheLocation.Client)]
+        [OutputCache(Duration = 7200, VaryByParam = "id", VaryByCustom = "TimeZone", Location = OutputCacheLocation.Client)]
         public ActionResult Contractor(long id)
         {
             return Json(_emailMessageManager.MonthStatContractor(id));
         }
 
-
+        [OutputCache(Duration = 7200, VaryByParam = "id", VaryByCustom = "TimeZone", Location = OutputCacheLocation.Client)]
+        public ActionResult Contact(long id)
+        {
+            return Json(_emailMessageManager.MonthStatContact(id));
+        }
     }
 }

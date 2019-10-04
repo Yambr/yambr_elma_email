@@ -134,6 +134,7 @@
     <None Include="Properties\Yambr.ELMA.Email.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\EncryptionHelper\StringCipher.cs" />
     <Compile Include="Components\Queue\MailBoxHandler.cs" />
     <Compile Include="DTO\Models\EmailMessage.cs" />
     <Compile Include="API\Models\EmailMessages.cs" />
@@ -203,6 +204,12 @@
     <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="EmailLogger.cs" />
+    <Compile Include="FullTextSearch\Components\ContractorFullTextSearchExtension.cs" />
+    <Compile Include="FullTextSearch\Components\FullTextSearchEmailHandlerExtension.cs" />
+    <Compile Include="FullTextSearch\EmailFullTextSearchSettings.cs" />
+    <Compile Include="FullTextSearch\EmailFullTextSearchSettingsModule.cs" />
+    <Compile Include="FullTextSearch\Model\EmailMessageFullTextSearchResultModel.cs" />
+    <Compile Include="FullTextSearch\Model\IEmailMessageFullTextSearchObject.cs" />
     <Compile Include="Managers\EmailMessageParticipantContactManager.cs" />
     <Compile Include="Managers\EmailMessageParticipantUserManager.cs" />
     <Compile Include="Managers\PublicDomainManager.cs" />
@@ -306,6 +313,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Models\ContactExt.Form.Display.xml">
       <DependentUpon>ContactExt.md</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\UserMailbox.Form.Form.xml">
+      <DependentUpon>UserMailbox.md</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\UserMailbox.Form.Form1.xml">
+      <DependentUpon>UserMailbox.md</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\UserMailbox.Form.Form2.xml">
+      <DependentUpon>UserMailbox.md</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FormViewItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Form</Name>
+  <Uid>f686dac5-1da5-43c6-abe7-e7f9034b594c</Uid>
+  <Items>
+    <RootViewItem xsi:type="ColumnsLayoutViewItem">
+      <Name>ColumnsLayout1</Name>
+      <Uid>348fc15f-7673-4ea6-a4c5-bbc3c501fe39</Uid>
+      <Items>
+        <RootViewItem xsi:type="ColumnViewItem">
+          <Name>Column1</Name>
+          <Uid>55af7340-3fa7-48fe-8ef9-a65d26075a3b</Uid>
+          <Items>
+            <RootViewItem xsi:type="PropertyViewItem">
+              <Name>Property2</Name>
+              <Uid>0fa4c3da-4c05-4677-b8bd-0828308cde84</Uid>
+              <Property>3535c6a8-360e-45ba-95b7-0e0efeff8d5d</Property>
+              <Attributes>
+                <Required>true</Required>
+              </Attributes>
+            </RootViewItem>
+            <RootViewItem xsi:type="PropertyViewItem">
+              <Name>Property5</Name>
+              <Uid>67d67528-5ac5-403a-ac6e-24e6fca9a296</Uid>
+              <Property>ab12b139-f183-414f-8043-529a1c0936f7</Property>
+              <Attributes>
+                <Required>true</Required>
+              </Attributes>
+            </RootViewItem>
+            <RootViewItem xsi:type="PropertyViewItem">
+              <Name>Property6</Name>
+              <Uid>92ef4126-bbe3-49e4-baa2-eff979e30d00</Uid>
+              <Property>a7295997-9533-4d16-9da5-d1cf9741eaea</Property>
+              <Attributes>
+                <Required>true</Required>
+              </Attributes>
+            </RootViewItem>
+            <RootViewItem xsi:type="PropertyViewItem">
+              <Name>Property3</Name>
+              <Uid>6e53f154-36d8-4a9c-80c1-37f4639e5ed0</Uid>
+              <Property>5ac0cb4a-57c1-4a9d-b72d-017fec7aeb52</Property>
+              <Attributes />
+            </RootViewItem>
+            <RootViewItem xsi:type="PropertyViewItem">
+              <Name>Property4</Name>
+              <Uid>6bc2bd08-fb30-4475-88dd-4d64aa578de2</Uid>
+              <Property>3c5b0672-8b44-403c-8f88-2e153a88fa82</Property>
+              <Attributes>
+                <Description>Новые письма будут загржены начиная с этой даты</Description>
+                <Required>true</Required>
+              </Attributes>
+            </RootViewItem>
+            <RootViewItem xsi:type="PropertyViewItem">
+              <Name>Property1</Name>
+              <Uid>b1b101ef-cf7f-4d75-a0e4-6abf17aa18b0</Uid>
+              <Property>e11d2fdd-fb0e-4449-822b-cd42d10104ea</Property>
+              <Attributes>
+                <Required>true</Required>
+              </Attributes>
+            </RootViewItem>
+          </Items>
+        </RootViewItem>
+      </Items>
+    </RootViewItem>
+  </Items>
+  <DisplayName>Создание/Редактирование</DisplayName>
+</FormViewItem>

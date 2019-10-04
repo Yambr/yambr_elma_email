@@ -10,16 +10,10 @@ namespace Yambr.ELMA.Email.Components.Queue
     [Component]
     public class MailBoxHandler : AbstractRabbitMessageHandler<MailBox, EmailLoadingStatus>
     {
-        private readonly UserMailboxManager _userMailboxManager;
-
-        public MailBoxHandler(UserMailboxManager userMailboxManager)
-        {
-            _userMailboxManager = userMailboxManager;
-        }
         public override string[] Model => new[] { "Mailbox" };
         public override EmailLoadingStatus Run(MailBox mailBox)
         {
-            _userMailboxManager.UpdateEvent(mailBox);
+            UserMailboxManager.Instance.UpdateEvent(mailBox);
             return mailBox.Status;
         }
     }

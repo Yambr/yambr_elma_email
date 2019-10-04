@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FormViewItemTransformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Uid>f686dac5-1da5-43c6-abe7-e7f9034b594c</Uid>
+  <FormName>Form</FormName>
+  <NewFormUid>4cbcd7d3-62e1-4791-a2a1-a0760fab4e0c</NewFormUid>
+  <NewFormName>Form</NewFormName>
+  <NewFormDisplayName>Редактирование</NewFormDisplayName>
+  <Items>
+    <ViewItemTransformation xsi:type="ViewItemTransformationChange" Type="EleWise.ELMA.Model.Views.PropertyViewItem, EleWise.ELMA.SDK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cb29d04eca9b031d">
+      <Uid>b1b101ef-cf7f-4d75-a0e4-6abf17aa18b0</Uid>
+      <PropertyName>Attributes.ReadOnly</PropertyName>
+      <Value xsi:type="xsd:boolean">true</Value>
+    </ViewItemTransformation>
+    <ViewItemTransformation xsi:type="ViewItemTransformationChange" Type="EleWise.ELMA.Model.Views.PropertyViewItem, EleWise.ELMA.SDK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cb29d04eca9b031d">
+      <Uid>b1b101ef-cf7f-4d75-a0e4-6abf17aa18b0</Uid>
+      <PropertyName>Attributes.Required</PropertyName>
+      <Value xsi:type="xsd:boolean">false</Value>
+    </ViewItemTransformation>
+  </Items>
+</FormViewItemTransformation>

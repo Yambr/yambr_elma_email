@@ -1,24 +1,32 @@
-﻿// EleWise.ELMA.Email.FullTextSearch.Components.EmailMessageFullTextSearchExtension
+﻿// EleWise.ELMA.EmailMessages.FullTextSearch.Components.EmailMessagesFullTextSearchExtension
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Web;
+using EleWise.ELMA;
 using EleWise.ELMA.Common.Models;
 using EleWise.ELMA.ComponentModel;
+using EleWise.ELMA.CRM.Models;
 using EleWise.ELMA.Extensions;
 using EleWise.ELMA.FullTextSearch.Components;
 using EleWise.ELMA.FullTextSearch.Enum;
+using EleWise.ELMA.FullTextSearch.Exceptions;
 using EleWise.ELMA.FullTextSearch.Model;
+using EleWise.ELMA.FullTextSearch.Services;
 using EleWise.ELMA.Model.Common;
 using EleWise.ELMA.Model.Entities;
 using EleWise.ELMA.Model.Filters;
 using EleWise.ELMA.Model.Metadata;
 using EleWise.ELMA.Model.Services;
+using EleWise.ELMA.Runtime.Db.Migrator.Framework;
+using EleWise.ELMA.Runtime.NH;
 using EleWise.ELMA.Runtime.Settings;
 using EleWise.ELMA.Security;
 using EleWise.ELMA.Services;
+using NHibernate;
+using NHibernate.Criterion;
 using Yambr.ELMA.Email.FullTextSearch.Model;
 using Yambr.ELMA.Email.Managers;
 using Yambr.ELMA.Email.Models;
@@ -26,27 +34,61 @@ using Yambr.ELMA.Email.Models;
 namespace Yambr.ELMA.Email.FullTextSearch.Components
 {
     /// <summary>
-    /// Реализация расширения работы с карточкой объекта для контрагента
+    /// Реализация расширения работы с карточкой объекта для модуля документов
     /// </summary>
     [Component]
-    internal class EmailMessageFullTextSearchExtension : ModuleFullTextSearchExtension
+    internal class EmailMessagesFullTextSearchExtension : ModuleFullTextSearchExtension
     {
+        
+
+        private EmailMessageManager _emailMessageManager;
+
+        private ISecurityService _securityService;
+
+        private ITransformationProvider _transformationProvider;
+
+        private ISessionProvider _sessionProvider;
+
+        private IFullTextSearchDescriptorService _fullTextSearchDescriptorService;
+
         /// <summary>
-        /// Uid карточки
+        /// Uid карточки документа
         /// </summary>
-        public static Guid EmailMessageCardUid = Guid.Parse("{5D774228-6BDD-44B1-BEB0-493B45EC9E55}");
-        public static Guid SearchStringFilterPropertyUid = Guid.Parse("{f11a7510-56c7-309c-dbf0-5b82ff71b669}");
+        public static Guid EmailMessageCardUid = Guid.Parse("{0FF46688-7697-4256-ABD4-9A48EF206BDF}");
+        
+        private EmailMessageManager EmailMessageManager => _emailMessageManager ?? (_emailMessageManager = Locator.GetServiceNotNull<EmailMessageManager>());
+
+        private ISecurityService SecurityService => _securityService ?? (_securityService = Locator.GetServiceNotNull<ISecurityService>());
+
+        private ITransformationProvider TransformationProvider => _transformationProvider ?? (_transformationProvider = Locator.GetServiceNotNull<ITransformationProvider>());
+
+        private ISessionProvider SessionProvider => _sessionProvider ?? (_sessionProvider = Locator.GetServiceNotNull<ISessionProvider>());
+
+        private IFullTextSearchDescriptorService FullTextSearchDescriptorService => _fullTextSearchDescriptorService ?? (_fullTextSearchDescriptorService = Locator.GetServiceNotNull<IFullTextSearchDescriptorService>());
 
         public override IGlobalSettingsModule SettingModule => Locator.GetService<EmailFullTextSearchSettingsModule>();
 
         public override Dictionary<string, string> GetReverseMapping(Type cardType)
         {
-            return new Dictionary<string, string>();
+            var dictionary = new Dictionary<string, string>();
+            if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType)
+            {
+                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name), SR.T("Название"));
+                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject), SR.T("Тема"));
+                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body), SR.T("Тело"));
+            }
+            return dictionary;
         }
 
         public override Dictionary<string, long> GetHighlightsOrder(Type cardType)
         {
-            return new Dictionary<string, long>();
+            var dictionary = new Dictionary<string, long>();
+            if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType)
+            {
+                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject), 100L);
+                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body), 200L);
+            }
+            return dictionary;
         }
 
         public override List<KeyValuePair<Type, Guid>> GetSupportedCardTypes(bool checkSettings = true)
@@ -74,11 +116,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
 
         public override Guid? GetSupportedCardType(Type cardType)
         {
-            if (cardType == typeof(IEmailMessageFullTextSearchObject))
-            {
-                return EmailMessageCardUid;
-            }
-            return null;
+            return cardType == typeof(IEmailMessageFullTextSearchObject) ? (Guid?) EmailMessageCardUid : null;
         }
 
         public override Type GetSupportedCardTypeByTypeUid(Guid objectTypeUid)
@@ -89,12 +127,12 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
                 return null;
             }
             var classMetadata = (ClassMetadata)MetadataLoader.LoadMetadata(objectTypeUid);
-            var uid = InterfaceActivator.UID<IEmailMessage>();
-            if (classMetadata != null && (classMetadata.Uid == uid || MetadataLoader.GetBaseClasses(classMetadata).Any(delegate (ClassMetadata m)
+            var emailUid = InterfaceActivator.UID<IEmailMessage>();
+            if (classMetadata != null && (classMetadata.Uid == emailUid || MetadataLoader.GetBaseClasses(classMetadata).Any(delegate (ClassMetadata m)
             {
                 if (m != null)
                 {
-                    return m.Uid == uid;
+                    return m.Uid == emailUid;
                 }
                 return false;
             })))
@@ -127,6 +165,13 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
 
         public override List<string> GetHighlightFields(Type cardType)
         {
+            if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType)
+            {
+                var list2 = new List<string>();
+                list2.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject));
+                list2.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body));
+                return list2;
+            }
             return new List<string>();
         }
 
@@ -136,184 +181,187 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             var fields = base.GetFields(cardType);
             fields.AddRange(new List<string>
             {
-                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject)
-            });
-            fields.AddRange(new List<string>
-            {
-                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.SearchString)
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.From),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.To),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Owners),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Contractors),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Contacts)
             });
             return fields;
         }
 
         public override List<string> GetSearchFields(Type cardType)
         {
-            return GetSearchFields(cardType, null);
+            if (cardType == null || typeof(IEmailMessageFullTextSearchObject) != cardType) return new List<string>();
+            var searchFields = base.GetSearchFields(cardType);
+
+            searchFields.AddRange(new List<string>
+            {
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body)
+            });
+
+            return searchFields;
         }
 
         public override List<string> GetSearchFields(Type cardType, IEntityFilter filter)
         {
             if (cardType == null || typeof(IEmailMessageFullTextSearchObject) != cardType) return new List<string>();
             var searchFields = base.GetSearchFields(cardType);
-            var serviceNotNull = Locator.GetServiceNotNull<EmailFullTextSearchSettingsModule>();
-            if (serviceNotNull.Settings != null ||
-                filter != null && !filter.FullTextInAttachments)
+            searchFields.AddRange(new List<string>
             {
-                searchFields.AddRange(new List<string>
-                {
-                    
-                    LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.SearchString),
-                    LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject),
-                    LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.From),
-                    LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.To),
-                    LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body),
-                    LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Owners)
-                });
-            }
-
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body)
+            });
+                
             return searchFields;
+        }
+
+        public override Dictionary<string, Weight> GetWeightSearchFields(Type cardType)
+        {
+            var dictionary = new Dictionary<string, Weight>();
+            if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType)
+            {
+                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject), Weight.High);
+            }
+            return dictionary;
         }
 
         public override FilterList GetFilterFields(Type cardType, FullTextSearchResultModel searchModel)
         {
             if (cardType == null || typeof(IEmailMessageFullTextSearchObject) != cardType) return new FilterList();
-            var filterList = new FilterList
+            var filterList = new FilterList();
+            var emailMessageFullTextSearchResultModel = searchModel as EmailMessageFullTextSearchResultModel;
+            if (emailMessageFullTextSearchResultModel != null && emailMessageFullTextSearchResultModel.TypeUid != Guid.Empty)
             {
-                new FilterListItem(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.IsDeleted),
-                    new List<object> {"false"}, FilterListItemType.Must, FullTextFieldType.String)
-            };
+                var classMetadata = MetadataLoader.LoadMetadata(emailMessageFullTextSearchResultModel.TypeUid) as ClassMetadata;
+                if (classMetadata != null)
+                {
+                    var list = (from c in MetadataLoader.GetChildClasses(classMetadata)
+                        where c != null
+                        select c).ToList();
+                    list.Add(classMetadata);
+                    var list2 = new List<object>();
+                    list2.AddRange(from c in list
+                        select c.Uid.ToString("n"));
+                    filterList.Add(new FilterListItem(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.TypeUid), list2, FilterListItemType.Must, FullTextFieldType.String));
+                }
+            }
+
+            var emailMessageFullTextSearchResultModel2 = searchModel as EmailMessageFullTextSearchResultModel;
+            if (emailMessageFullTextSearchResultModel2?.Contractor != null)
+            {
+               var contractorId = emailMessageFullTextSearchResultModel2.Contractor.Id;
+                filterList.Add(new FilterListItem(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Contractors), new List<object>()
+                {
+                    contractorId
+                }, FilterListItemType.Must, FullTextFieldType.Long));
+            }
+            if (emailMessageFullTextSearchResultModel2?.Contact != null)
+            {
+                var contactId = emailMessageFullTextSearchResultModel2.Contact.Id;
+                filterList.Add(new FilterListItem(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Contacts), new List<object>()
+                {
+                    contactId
+                }, FilterListItemType.Must, FullTextFieldType.Long));
+            }
+
+            filterList.Add(new FilterListItem(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.IsDeleted), new List<object>
+            {
+                "false"
+            }, FilterListItemType.Must, FullTextFieldType.String));
+
             return filterList;
         }
 
-
-        public override FieldList GetCustomSearchFields(Type cardType, FilterProperty filterProperty)
+        public override FilterList GetCustomFilterFields(Type cardType, FilterProperty filterProperty, FullTextSearchResultModel searchModel)
         {
-            var customSearchFields = base.GetCustomSearchFields(cardType, filterProperty);
-            if (customSearchFields != null)
+            var customFilterFields = base.GetCustomFilterFields(cardType, filterProperty, searchModel);
+            if (customFilterFields != null)
             {
-                return customSearchFields;
+                return customFilterFields;
             }
-
-            if (cardType == null || typeof(IEmailMessageFullTextSearchObject) != cardType ||
-                filterProperty == null) return null;
-
-            
-            if (SearchStringFilterPropertyUid == filterProperty.Uid)
+            if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType && filterProperty != null)
             {
-                if (filterProperty.Value == null)
+                if (InterfaceActivator.LoadPropertyMetadata((IEmailMessageFilter m) => m.Contractors).Uid == filterProperty.Uid)
                 {
-                    return new FieldList();
+                    var emailMessageFullTextSearchResultModel = searchModel as EmailMessageFullTextSearchResultModel;
+                    if (emailMessageFullTextSearchResultModel == null || !(filterProperty.Value is IContractor contractor)) return null;
+                    emailMessageFullTextSearchResultModel.Contractor = contractor;
+                    return new FilterList();
                 }
-                var value = filterProperty.Value.ToString();
-                if (string.IsNullOrWhiteSpace(value))
+                if (InterfaceActivator.LoadPropertyMetadata((IEmailMessageFilter m) => m.Contacts).Uid == filterProperty.Uid)
                 {
-                    return new FieldList();
-                }
-
-                var fieldList = new FieldList
-                {
-                    new FieldListItem(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.SearchString), value)
-                };
-                return fieldList;
-            }
-
-            if (InterfaceActivator.LoadPropertyMetadata((IEmailMessageFilter m) => m.From).Uid == filterProperty.Uid)
-            {
-                if (filterProperty.Value == null)
-                {
-                    return new FieldList();
-                }
-                var value = filterProperty.Value.ToString();
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    return new FieldList();
+                    var emailMessageFullTextSearchResultModel = searchModel as EmailMessageFullTextSearchResultModel;
+                    if (emailMessageFullTextSearchResultModel == null || !(filterProperty.Value is IContact contact)) return null;
+                    emailMessageFullTextSearchResultModel.Contact = contact;
+                    return new FilterList();
                 }
 
-                var fieldList = new FieldList
-                {
-                    new FieldListItem(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.From), value)
-                };
-                return fieldList;
-            }
-
-            if (InterfaceActivator.LoadPropertyMetadata((IEmailMessageFilter m) => m.To).Uid == filterProperty.Uid)
-            {
-                if (filterProperty.Value == null)
-                {
-                    return new FieldList();
-                }
-                var value = filterProperty.Value.ToString();
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    return new FieldList();
-                }
-
-                var fieldList = new FieldList
-                {
-                    new FieldListItem(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.To), value)
-                };
-                return fieldList;
-            }
-            if (InterfaceActivator.LoadPropertyMetadata((IEmailMessageFilter m) => m.Owners).Uid == filterProperty.Uid)
-            {
-                if (filterProperty.Value == null)
-                {
-                    return new FieldList();
-                }
-                var value = filterProperty.Value.ToString();
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    return new FieldList();
-                }
-
-                var fieldList = new FieldList
-                {
-                    new FieldListItem(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Owners), value)
-                };
-                return fieldList;
+                //TODO поиск по From и TO
             }
             return null;
         }
-        
+
+        public override FilterList GetAutoFilterFields(Type cardType, FilterProperty filterProperty, FullTextSearchResultModel searchModel)
+        {
+            return null;
+        }
+
         public override void FillObject(Type cardType, IFullTextSearchObject obj, IEntity entity)
         {
             if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType)
             {
-                Locator.GetServiceNotNull<ISecurityService>().RunBySystemUser(delegate
+                SecurityService.RunBySystemUser(delegate
                 {
-                    Locator.GetServiceNotNull<ISecurityService>().RunWithElevatedPrivilegies(delegate
+                    SecurityService.RunWithElevatedPrivilegies(delegate
                     {
                         var emailMessage = entity as IEmailMessage;
                         if (emailMessage != null)
                         {
-                            var emailMessageFullTextSearchObject = obj as IEmailMessageFullTextSearchObject;
-                            if (emailMessageFullTextSearchObject != null)
+                            var emailMessagesFullTextSearchObject = obj as IEmailMessageFullTextSearchObject;
+                            if (emailMessagesFullTextSearchObject != null)
                             {
-                                emailMessageFullTextSearchObject.IndexedObject = emailMessage;
-                                emailMessageFullTextSearchObject.Id = emailMessage.Id.ToString(CultureInfo.InvariantCulture);
-                                emailMessageFullTextSearchObject.Subject = emailMessage.Subject;
-                                emailMessageFullTextSearchObject.IsDeleted = emailMessage.IsDeleted;
-                                emailMessageFullTextSearchObject.Body = FullTextSearchEmailHandlerExtension.ConvertToPlainText(emailMessage.Body);
-                                emailMessageFullTextSearchObject.From = 
-                                    emailMessage.From != null ? 
-                                        emailMessage.From
-                                            .Where(e => !string.IsNullOrEmpty(e?.EmailString))
-                                            .Select(e => e.EmailString).ToArray() : 
-                                        new string[0];
-                                emailMessageFullTextSearchObject.To =
-                                    emailMessage.To != null ?
-                                        emailMessage.To
-                                            .Where(e => !string.IsNullOrEmpty(e?.EmailString))
-                                            .Select(e => e.EmailString).ToArray() :
-                                        new string[0];
-                                emailMessageFullTextSearchObject.Owners =
-                                    emailMessage.Owners != null ?
-                                        emailMessage.Owners
-                                            .Where(e => !string.IsNullOrEmpty(e?.EmailLogin))
-                                            .Select(e => e.EmailLogin).ToArray() :
-                                        new string[0];
-                                emailMessageFullTextSearchObject.SearchString = FullTextSearchEmailHandlerExtension.BuildSearchString(emailMessageFullTextSearchObject);
-
-                                ProcessingDynamicProperties(entity, emailMessageFullTextSearchObject);
+                                emailMessagesFullTextSearchObject.IndexedObject = emailMessage;
+                                emailMessagesFullTextSearchObject.Id = emailMessage.Id.ToString(CultureInfo.InvariantCulture);
+                                emailMessagesFullTextSearchObject.Name = emailMessage.Name;
+                                emailMessagesFullTextSearchObject.Subject = emailMessage.Subject;
+                                emailMessagesFullTextSearchObject.Body = emailMessage.Body?.ToString();
+                                var contractors = new List<long>();
+                                var contacts = new List<long>();
+                                emailMessagesFullTextSearchObject.From =
+                                    emailMessage.From.Select(c =>
+                                    {
+                                        ExtractParticipants(c, contacts, contractors);
+                                        return c.EmailString;
+                                    }).ToArray();
+                                emailMessagesFullTextSearchObject.To =
+                                    emailMessage.To.Select(c =>
+                                    {
+                                        ExtractParticipants(c, contacts, contractors);
+                                        return c.EmailString;
+                                    }).ToArray();
+                                emailMessagesFullTextSearchObject.Owners =
+                                    emailMessage.Owners.Select(c => c.EmailLogin).ToArray();
+                                emailMessagesFullTextSearchObject.Contacts = contacts.ToArray();
+                                emailMessagesFullTextSearchObject.Contractors = contractors.ToArray();
+                                emailMessagesFullTextSearchObject.DateUtc = emailMessage.DateUtc;
+                                emailMessagesFullTextSearchObject.TypeUid = emailMessage.TypeUid.ToString("n");
+                                emailMessagesFullTextSearchObject.IsDeleted = emailMessage.IsDeleted;
+                              /*  if (emailMessage.Permissions.Any())
+                                {
+                                    emailMessagesFullTextSearchObject.UserSecuritySetCacheId = (from p in (from a in emailMessage.Permissions
+                                            where a.PermissionId == EleWise.ELMA.EmailMessages.PermissionProvider.EmailMessageViewPermission.Id
+                                            select a).Distinct()
+                                        select p.UserSecuritySetCacheId.ToString()).ToArray();
+                                }
+                                */
+                                ProcessingDynamicProperties(entity, emailMessagesFullTextSearchObject);
                             }
                         }
                     });
@@ -321,7 +369,17 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             }
         }
 
-       
+        internal static void ExtractParticipants(IEmailMessageParticipant c, ICollection<long> contacts, ICollection<long> contractors)
+        {
+            if (!(c.CastAsRealType() is IEmailMessageParticipantContact participantContact)) return;
+            if (participantContact.Contact == null) return;
+            contacts.Add(participantContact.Contact.Id);
+            if (participantContact.Contact.Contractor != null)
+            {
+                contractors.Add(participantContact.Contact.Contractor.Id);
+            }
+        }
+
         public override List<IEntity> GetEntities(Type cardType, List<Guid> listUid)
         {
             var serviceNotNull = Locator.GetServiceNotNull<EmailFullTextSearchSettingsModule>();
@@ -332,16 +390,16 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
 
             if (cardType == null || typeof(IEmailMessageFullTextSearchObject) != cardType) return new List<IEntity>();
             var list = new List<IEntity>();
-            Locator.GetServiceNotNull<ISecurityService>().RunBySystemUser(delegate
+            SecurityService.RunBySystemUser(delegate
             {
-                Locator.GetServiceNotNull<ISecurityService>().RunWithElevatedPrivilegies(delegate
+                SecurityService.RunWithElevatedPrivilegies(delegate
                 {
                     foreach (var item in listUid)
                     {
-                        var contractor = EmailMessageManager.Instance.LoadOrNull(item);
-                        if (contractor != null)
+                        var emailMessage = EmailMessageManager.LoadOrNull(item);
+                        if (emailMessage != null)
                         {
-                            list.Add(contractor);
+                            list.Add(emailMessage);
                         }
                     }
                 });
@@ -359,16 +417,16 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
 
             if (cardType == null || typeof(IEmailMessageFullTextSearchObject) != cardType) return new List<IEntity>();
             var list = new List<IEntity>();
-            Locator.GetServiceNotNull<ISecurityService>().RunBySystemUser(delegate
+            SecurityService.RunBySystemUser(delegate
             {
-                Locator.GetServiceNotNull<ISecurityService>().RunWithElevatedPrivilegies(delegate
+                SecurityService.RunWithElevatedPrivilegies(delegate
                 {
                     foreach (var item in listId)
                     {
-                        var contractor = EmailMessageManager.Instance.LoadOrNull(item);
-                        if (contractor != null)
+                        var emailMessage = EmailMessageManager.LoadOrNull(item);
+                        if (emailMessage != null)
                         {
-                            list.Add(contractor);
+                            list.Add(emailMessage);
                         }
                     }
                 });
@@ -378,36 +436,20 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
 
         public override List<IEntity> LoadEntitiesByPage(Type cardType, int page, List<Guid> typeUidFilter = null)
         {
-            return LoadEntities(cardType, delegate
+            List<IEntity> result = null;
+            TransformationProvider.ExecuteWithTimeout(0, delegate
             {
-                var pageSize = GetPageSize();
-                var fetchOptions = new FetchOptions
-                {
-                    MaxResults = pageSize,
-                    FirstResult = page * pageSize,
-                    SortExpression = "Id"
-                };
-                return EmailMessageManager.Instance.Find(fetchOptions).Cast<IEntity>().ToList();
-            }, typeUidFilter);
+                result = LoadEntities(cardType, c => c.SetFirstResult(page * GetPageSize()), typeUidFilter);
+            });
+            return result;
         }
 
         public override List<IEntity> LoadEntities(Type cardType, long? lastId, List<Guid> typeUidFilter = null)
         {
-            return LoadEntities(cardType, delegate
-            {
-                var fetchOptions = new FetchOptions
-                {
-                    MaxResults = GetPageSize(),
-                    SortExpression = "Id"
-                };
-                return EmailMessageManager.Instance.Find(lastId.HasValue ? new Filter
-                {
-                    Query = "Id > " + lastId
-                } : null, fetchOptions).Cast<IEntity>().ToList();
-            }, typeUidFilter);
+            return LoadEntities(cardType, c => !lastId.HasValue ? c : c.Add(Restrictions.Gt("Id", lastId)), typeUidFilter);
         }
 
-        protected virtual List<IEntity> LoadEntities(Type cardType, Func<List<IEntity>> find, List<Guid> typeUidFilter)
+        protected virtual List<IEntity> LoadEntities(Type cardType, Func<ICriteria, ICriteria> criteriaAction, List<Guid> typeUidFilter)
         {
             var serviceNotNull = Locator.GetServiceNotNull<EmailFullTextSearchSettingsModule>();
             if (serviceNotNull.Settings == null || !serviceNotNull.Settings.IndexingEmail)
@@ -416,13 +458,16 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             }
 
             if (cardType == null || typeof(IEmailMessageFullTextSearchObject) != cardType) return new List<IEntity>();
-            var securityService = Locator.GetServiceNotNull<ISecurityService>();
-            List<IEntity> list = null;
-            securityService.RunBySystemUser(delegate
+            var list = new List<IEntity>();
+            SecurityService.RunBySystemUser(delegate
             {
-                securityService.RunWithElevatedPrivilegies(delegate
+                SecurityService.RunWithElevatedPrivilegies(delegate
                 {
-                    list = find();
+                    var session = SessionProvider.GetSession("");
+                    var source = criteriaAction(session.CreateCriteria(InterfaceActivator.TypeOf<IEmailMessage>()).AddOrder(Order.Asc("Id")).SetMaxResults(GetPageSize())).List().Cast<IEntity>();
+                    (from d in source
+                        where d != null
+                        select d).ForEach(list.Add);
                 });
             });
             return list;
@@ -430,51 +475,47 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
 
         public override FullTextSearchResultModel CreateResultModelByFilter(IEntityFilter filter)
         {
-            var contractorFullTextSearchResultModel = new EmailMessageFullTextSearchResultModel();
-            SetFilterTypeUid(contractorFullTextSearchResultModel, filter);
-            return contractorFullTextSearchResultModel;
+            var emailMessageFullTextSearchResultModel = new EmailMessageFullTextSearchResultModel();
+            SetFilterTypeUid(emailMessageFullTextSearchResultModel, filter);
+            return emailMessageFullTextSearchResultModel;
+        }
+
+        public override SortList GetDefaultSortExpression()
+        {
+            var propMd = InterfaceActivator.LoadPropertyMetadata((IEmailMessage m) => m.DateUtc) as EntityPropertyMetadata;
+            var sortField = FullTextSearchDescriptorService.GetSortField(propMd);
+            if (sortField == null)
+            {
+                throw new FullTextFilterException(SR.T("{1}: Поле \"{0}\" не поддерживает сортировку", "SortTypeId", "Dynamic Indexing Error"));
+            }
+            sortField.Direction = ListSortDirection.Descending;
+            var sortList = new SortList {sortField};
+            return sortList;
         }
 
         public override List<KeyValuePair<string, object>> CreateFromObject(Type cardType, IFullTextSearchObject obj)
         {
             if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType)
             {
-                var contractorFullTextSearchObject = obj as IEmailMessageFullTextSearchObject;
-                if (contractorFullTextSearchObject == null) return new List<KeyValuePair<string, object>>();
-                var list = WebData.CreateFromObject(obj).ToKeyValueList().ToList();
-                return list;
+                var emailMessagesFullTextSearchObject = obj as IEmailMessageFullTextSearchObject;
+                if (emailMessagesFullTextSearchObject != null)
+                {
+                    var list = WebData.CreateFromObject(obj).ToKeyValueList().ToList();
+                    return list;
+                }
             }
             return new List<KeyValuePair<string, object>>();
         }
 
-        public override Dictionary<string, Weight> GetWeightSearchFields(Type cardType)
-        {
-            var dictionary = new Dictionary<string, Weight>();
-            if (cardType != (Type)null && typeof(IEmailMessageFullTextSearchObject) == cardType)
-            {
-                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.SearchString), Weight.High);
-            }
-            return dictionary;
-        }
-
         public override void ReconstructEntity(Type cardType, IFullTextSearchResultItem resultItem, IEntity<long> fakeEntity)
         {
-            if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType && resultItem != null && resultItem.ResultData != null && fakeEntity != null)
+            if (cardType == null || typeof(IEmailMessageFullTextSearchObject) != cardType ||
+                resultItem?.ResultData == null || fakeEntity == null) return;
+            if (!(fakeEntity is IEmailMessage dmsObject)) return;
+            var webDataItem = resultItem.ResultData.Items.FirstOrDefault(i => i.Name == LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name));
+            if (webDataItem != null)
             {
-                var emailMessage = fakeEntity as IEmailMessage;
-                if (emailMessage != null)
-                {
-                    var webDataItem = resultItem.ResultData.Items.FirstOrDefault(i => i.Name == LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject));
-                    if (webDataItem != null)
-                    {
-                        emailMessage.Subject = webDataItem.Value;
-                    }
-                    var webDataItem2 = resultItem.ResultData.Items.FirstOrDefault(i => i.Name == LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body));
-                    if (webDataItem2 != null)
-                    {
-                        emailMessage.Body = webDataItem2.Value;
-                    }
-                }
+                dmsObject.Name = webDataItem.Value;
             }
         }
     }

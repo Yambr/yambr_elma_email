@@ -4,6 +4,7 @@
   <Name>EmailMessage</Name>
   <DisplayName>Электронное письмо</DisplayName>
   <Namespace>Yambr.ELMA.Email.Models</Namespace>
+  <AllowCreateHeirs>true</AllowCreateHeirs>
   <Properties>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>3b180cda-c266-4252-a43a-2d5093cf80d4</Uid>
@@ -87,6 +88,7 @@
         </Attributes>
       </ViewSettings>
       <Order>2</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>d80dee87-7099-4baa-8490-852c4ebbd939</Uid>
@@ -147,10 +149,12 @@
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
       <Order>4</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>98886b73-7ebf-4c06-860b-2863f32a0d4f</Uid>
@@ -179,6 +183,7 @@
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
@@ -211,10 +216,12 @@
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
+            <Visibility>Hidden</Visibility>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
       <Order>6</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>4b378993-25ae-457b-b8bb-3762cf7997a9</Uid>
@@ -281,6 +288,7 @@
         </Attributes>
       </ViewSettings>
       <Order>8</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>6bb71d88-ab64-4fe3-813b-d7cae7677827</Uid>
@@ -318,6 +326,7 @@
         </Attributes>
       </ViewSettings>
       <Order>9</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>813fc69c-8716-40af-846c-4437552f50b5</Uid>
@@ -355,6 +364,7 @@
         </Attributes>
       </ViewSettings>
       <Order>10</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>eeeb8ddd-eb36-4903-ad28-2f467dffd44e</Uid>
@@ -387,6 +397,7 @@
         </Attributes>
       </ViewSettings>
       <Order>11</Order>
+      <InFastSearch>true</InFastSearch>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>7c753539-013d-4137-8edb-78984be9012a</Uid>
@@ -490,6 +501,7 @@
         </Attributes>
       </ViewSettings>
       <Order>14</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>f4e9a5e6-7a5a-4682-af9f-9fd5df22ecdc</Uid>
@@ -522,6 +534,82 @@
         </Attributes>
       </ViewSettings>
       <Order>15</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>f303976b-d9e1-43d3-b945-6f91e09ed452</Uid>
+      <Name>Contacts</Name>
+      <DisplayName>Контакты</DisplayName>
+      <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
+      <SubTypeUid>a9b1bc6a-3286-4264-81aa-02f6df73c080</SubTypeUid>
+      <Settings xsi:type="EntitySettings">
+        <RelationType>ManyToMany</RelationType>
+        <RelationTableName>M_EmailMessage_Contacts</RelationTableName>
+        <ParentColumnName>Parent</ParentColumnName>
+        <ChildColumnName>Child</ChildColumnName>
+        <CascadeMode>SaveUpdate</CascadeMode>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>16</Order>
+      <Filterable>true</Filterable>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>c5e79fc2-303d-4146-935f-12ddfd906d1e</Uid>
+      <Name>Contractors</Name>
+      <DisplayName>Контрагенты</DisplayName>
+      <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
+      <SubTypeUid>38096146-0c73-4809-94f5-e18b2d525531</SubTypeUid>
+      <Settings xsi:type="EntitySettings">
+        <RelationType>ManyToMany</RelationType>
+        <RelationTableName>M_EmailMessage_Contractors</RelationTableName>
+        <ParentColumnName>Parent</ParentColumnName>
+        <ChildColumnName>Child</ChildColumnName>
+        <CascadeMode>SaveUpdate</CascadeMode>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>17</Order>
+      <Filterable>true</Filterable>
     </PropertyMetadata>
   </Properties>
   <FormsScheme>FormConstructor</FormsScheme>
@@ -601,5 +689,7 @@
   <TableName>EmailMessage</TableName>
   <IsSoftDeletable>true</IsSoftDeletable>
   <ShowInCatalogList>true</ShowInCatalogList>
+  <Filterable>true</Filterable>
+  <Filter />
   <Actions />
 </Entity>

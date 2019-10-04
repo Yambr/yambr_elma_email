@@ -55,7 +55,6 @@ namespace Yambr.ELMA.Email.Services.Impl
         public void DisposeConnection()
         {
             DisposeConnection(Connections);
-            Connections = null;
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace Yambr.ELMA.Email.Services.Impl
         public void HealthCheck()
         {
 
-            if (Connections.Any(c => !c.IsOpen || c.IsClosed) || !Connections.Any())
+            if (Connections == null || Connections.Any(c => !c.IsOpen || c.IsClosed) || !Connections.Any())
             {
                 Init();
             }
@@ -100,7 +99,7 @@ namespace Yambr.ELMA.Email.Services.Impl
             return Encoding.UTF8.GetString(header);
         }
 
-        
+
 
         /// <summary>
         /// Подключиться к Очереди
@@ -158,7 +157,7 @@ namespace Yambr.ELMA.Email.Services.Impl
             model.QueueDeclare(QueueConstants.QueueNewEmail, true, false, false, null);
             model.QueueDeclare(QueueConstants.QueueMailboxEvents, true, false, false, null);
             ;
-            
+
             model.QueueBind(QueueConstants.QueueMailboxDownload, QueueConstants.ExchangeMailBox, QueueConstants.RoutingKeyMailBoxCmdDownload);
         }
 
@@ -176,7 +175,7 @@ namespace Yambr.ELMA.Email.Services.Impl
             var dateTimeNow = DateTime.Now;
             try
             {
-                
+
                 var body = eventArgs.Body;
                 var message = Encoding.UTF8.GetString(body);
                 var securityService = Locator.GetServiceNotNull<ISecurityService>();
@@ -196,7 +195,7 @@ namespace Yambr.ELMA.Email.Services.Impl
                 var timePrepare = DateTime.Now - dateTimeNow;
                 Logger.Debug($"{model}: {timePrepare:g}");
             }
-          
+
         }
 
         /// <summary>
@@ -244,29 +243,29 @@ namespace Yambr.ELMA.Email.Services.Impl
 
         private void PrepareError(BasicDeliverEventArgs eventArgs, IModel connection, Exception ex)
         {
-                
-                var hash = GetHash(eventArgs.Body);
-                int attemptCount;
-                _cacheService.TryGetValue(hash, RabbitMqServiceRegion, out attemptCount);
-                if (attemptCount < 10)
-                {
-                    Logger.Error(
-                        $"Сообщение возвращено в очередь (попытка #{attemptCount})",
-                        ex);
-                    //Если в очередь ошибки мы не смогли сбросить то сообщение выплевывается обратно
-                    connection.BasicNack(eventArgs.DeliveryTag, false, true);
-                    attemptCount++;
-                    _cacheService.Insert(hash, attemptCount, RabbitMqServiceRegion);
-                }
-                else
-                {
-                    Logger.Error(
-                        $"Сообщение удалено из очереде после {attemptCount} попыток",
-                        ex);
-                    connection.BasicAck(eventArgs.DeliveryTag, false);
-                    _cacheService.Remove(hash, RabbitMqServiceRegion);
-                }
-            
+
+            var hash = GetHash(eventArgs.Body);
+            int attemptCount;
+            _cacheService.TryGetValue(hash, RabbitMqServiceRegion, out attemptCount);
+            if (attemptCount < 10)
+            {
+                Logger.Error(
+                    $"Сообщение возвращено в очередь (попытка #{attemptCount})",
+                    ex);
+                //Если в очередь ошибки мы не смогли сбросить то сообщение выплевывается обратно
+                connection.BasicNack(eventArgs.DeliveryTag, false, true);
+                attemptCount++;
+                _cacheService.Insert(hash, attemptCount, RabbitMqServiceRegion);
+            }
+            else
+            {
+                Logger.Error(
+                    $"Сообщение удалено из очереде после {attemptCount} попыток",
+                    ex);
+                connection.BasicAck(eventArgs.DeliveryTag, false);
+                _cacheService.Remove(hash, RabbitMqServiceRegion);
+            }
+
         }
 
         private static string GetHash(byte[] inputBytes)
@@ -285,7 +284,7 @@ namespace Yambr.ELMA.Email.Services.Impl
                 return sb.ToString();
             }
         }
-        
+
 
         #endregion
 
@@ -343,14 +342,14 @@ namespace Yambr.ELMA.Email.Services.Impl
         {
             try
             {
-                    var rMqSetting = Locator.GetServiceNotNull<YambrEmailSettingsModule>().Settings;
-                    if (rMqSetting == null) return;
-                    Logger.Debug(
-                        SR.T("Отправляется сообщение в очередь: {0}. Адрес подключения: {1}. Имя очереди: {2}.", 
-                            QueueConstants.ExchangeMailBox, 
-                            GetHost(rMqSetting),
-                            QueueConstants.RoutingKeyMailBoxCmdDownload));
-                    SendMessage(rMqSetting, message);
+                var rMqSetting = Locator.GetServiceNotNull<YambrEmailSettingsModule>().Settings;
+                if (rMqSetting == null) return;
+                Logger.Debug(
+                    SR.T("Отправляется сообщение в очередь: {0}. Адрес подключения: {1}. Имя очереди: {2}.",
+                        QueueConstants.ExchangeMailBox,
+                        GetHost(rMqSetting),
+                        QueueConstants.RoutingKeyMailBoxCmdDownload));
+                SendMessage(rMqSetting, message);
             }
             catch (Exception ex)
             {
@@ -360,14 +359,14 @@ namespace Yambr.ELMA.Email.Services.Impl
 
         public void SendMessageOnCommit(IQueueObject queueObject)
         {
-            var queueObjects = 
+            var queueObjects =
                 _contextBoundVariableService.GetOrAdd(
-                    QueueConstants.RabbitMqQueueKey, 
+                    QueueConstants.RabbitMqQueueKey,
                     () => new List<IQueueObject>());
             queueObjects.Add(queueObject);
         }
 
-       
+
         private static string GetHost(YambrEmailSettings setting)
         {
             return setting != null ? $"amqp://{setting.HostName}:{setting.Port}" : "";

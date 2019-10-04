@@ -9,13 +9,6 @@ module.exports = __webpack_require__("NHnr");
 
 /***/ }),
 
-/***/ "DKbu":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ "GXcu":
 /***/ (function(module, exports) {
 
@@ -31,6 +24,13 @@ module.exports = __webpack_require__("NHnr");
 /***/ }),
 
 /***/ "IFSn":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "IL3w":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -334,21 +334,21 @@ function emailUri(type) {
             return "/CRM/Contact/Details/" + this.contact;
         },
         userUri: function userUri() {
-            return "javascript:showUserInfo(" + this.user + ")'";
+            return "javascript:showUserInfo(" + this.user + ")";
         },
         mailToUri: function mailToUri() {
             return "mailto:" + this.email + "?subject=" + this.subject;
         }
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-71f36155","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/ParticipantHeading.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-3d80fcc0","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/ParticipantHeading.vue
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[((_vm.contact))?_c('a',{attrs:{"href":_vm.contactUri}},[_vm._v(_vm._s(_vm.name))]):_vm._e(),_vm._v(" "),((_vm.user))?_c('a',{attrs:{"href":_vm.userUri}},[_vm._v(_vm._s(_vm.name))]):_vm._e(),_vm._v(" "),_c('a',{staticClass:"b-message-head__email small",attrs:{"href":_vm.mailToUri}},[_vm._v("<"+_vm._s(_vm.email)+">")])])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ var components_ParticipantHeading = (esExports);
 // CONCATENATED MODULE: ./src/components/ParticipantHeading.vue
 function injectStyle (ssrContext) {
-  __webpack_require__("DKbu")
+  __webpack_require__("IL3w")
 }
 var normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -361,7 +361,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-71f36155"
+var __vue_scopeId__ = "data-v-3d80fcc0"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -587,13 +587,13 @@ var MessageHeading_Component = MessageHeading_normalizeComponent(
             var _this = this;
 
             this.opened = !this.opened;
-            if (this.opened && !this.fullMessage) {
+            this.fullMessage = null;
+            if (this.opened) {
                 emailMessageApi.loadEmail(this.message.id).then(function (value) {
-                    _this.fullMessage = value;
+                    _this.fullMessage = value.body;
                 }).catch(function (reason) {
                     console.warn(reason);
                 });
-                ;
             }
         },
         hideMessage: function hideMessage() {
@@ -613,14 +613,14 @@ var MessageHeading_Component = MessageHeading_normalizeComponent(
         }
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-7e6c9d56","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Message.vue
-var Message_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',{class:{'timeline-inverted': _vm.incoming}},[(!_vm.incoming)?[_c('div',{staticClass:"timeline-badge success"},[(!_vm.incoming)?_c('font-awesome-icon',{attrs:{"icon":"arrow-right"}}):_vm._e()],1)]:_vm._e(),_vm._v(" "),(_vm.incoming)?[_c('div',{staticClass:"timeline-badge danger"},[(_vm.incoming)?_c('font-awesome-icon',{attrs:{"icon":"arrow-left"}}):_vm._e()],1)]:_vm._e(),_vm._v(" "),_c('div',{staticClass:"timeline-panel"},[(!_vm.isDeleted)?_c('MessageHeading',{attrs:{"message":_vm.message,"date":_vm.date,"hide-message":_vm.hideMessage}}):_vm._e(),_vm._v(" "),(!_vm.isDeleted)?_c('div',{staticClass:"timeline-body"},[_c('table',{staticStyle:{"width":"100%"}},[_c('tr',[_c('td',{staticClass:"msg-desc",staticStyle:{"vertical-align":"top"},on:{"click":function($event){return _vm.swithMessage()}}},[_c('font-awesome-icon',{staticClass:"switcher",attrs:{"icon":"chevron-down","transform":{ rotate: _vm.iconRotate }}})],1),_vm._v(" "),_c('td',[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!this.opened),expression:"!this.opened"}],staticClass:"fade msg-header",domProps:{"innerHTML":_vm._s(_vm.message.mainHeader)}}),_vm._v(" "),(this.opened&&_vm.fullMessage)?_c('div',{staticClass:"msg-body",domProps:{"innerHTML":_vm._s(_vm.fullMessage.body)}}):_vm._e()])]),_vm._v(" "),_c('tr',{directives:[{name:"show",rawName:"v-show",value:(this.opened),expression:"this.opened"}]},[_c('td',{staticClass:"msg-desc",on:{"click":function($event){return _vm.swithMessage()}}},[_c('font-awesome-icon',{staticClass:"switcher",attrs:{"icon":"chevron-up"}})],1)])])]):_vm._e(),_vm._v(" "),(_vm.isDeleted)?_c('h4',[_vm._v("Сообщение будет удалено в течение 15 минут")]):_vm._e()],1)],2)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-22dc924c","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Message.vue
+var Message_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',{class:{'timeline-inverted': _vm.incoming}},[(!_vm.incoming)?[_c('div',{staticClass:"timeline-badge success"},[(!_vm.incoming)?_c('font-awesome-icon',{attrs:{"icon":"arrow-right"}}):_vm._e()],1)]:_vm._e(),_vm._v(" "),(_vm.incoming)?[_c('div',{staticClass:"timeline-badge danger"},[(_vm.incoming)?_c('font-awesome-icon',{attrs:{"icon":"arrow-left"}}):_vm._e()],1)]:_vm._e(),_vm._v(" "),_c('div',{staticClass:"timeline-panel"},[(!_vm.isDeleted)?_c('MessageHeading',{attrs:{"message":_vm.message,"date":_vm.date,"hide-message":_vm.hideMessage}}):_vm._e(),_vm._v(" "),(!_vm.isDeleted)?_c('div',{staticClass:"timeline-body"},[_c('table',{staticStyle:{"width":"100%"}},[_c('tr',[_c('td',{staticClass:"msg-desc",staticStyle:{"vertical-align":"top"},on:{"click":function($event){return _vm.swithMessage()}}},[_c('font-awesome-icon',{staticClass:"switcher",attrs:{"icon":"chevron-down","transform":{ rotate: _vm.iconRotate }}})],1),_vm._v(" "),_c('td',[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!this.opened),expression:"!this.opened"}],staticClass:"fade msg-header",domProps:{"innerHTML":_vm._s(_vm.message.mainHeader)}}),_vm._v(" "),(this.opened&&_vm.fullMessage)?_c('div',{staticClass:"msg-body",domProps:{"innerHTML":_vm._s(_vm.fullMessage)}}):_vm._e()])]),_vm._v(" "),_c('tr',{directives:[{name:"show",rawName:"v-show",value:(this.opened),expression:"this.opened"}]},[_c('td',{staticClass:"msg-desc",on:{"click":function($event){return _vm.swithMessage()}}},[_c('font-awesome-icon',{staticClass:"switcher",attrs:{"icon":"chevron-up"}})],1)])])]):_vm._e(),_vm._v(" "),(_vm.isDeleted)?_c('h4',[_vm._v("Сообщение будет удалено в течение 15 минут")]):_vm._e()],1)],2)}
 var Message_staticRenderFns = []
 var Message_esExports = { render: Message_render, staticRenderFns: Message_staticRenderFns }
 /* harmony default export */ var components_Message = (Message_esExports);
 // CONCATENATED MODULE: ./src/components/Message.vue
 function Message_injectStyle (ssrContext) {
-  __webpack_require__("x8Ug")
+  __webpack_require__("ww5y")
 }
 var Message_normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -633,7 +633,7 @@ var Message___vue_template_functional__ = false
 /* styles */
 var Message___vue_styles__ = Message_injectStyle
 /* scopeId */
-var Message___vue_scopeId__ = "data-v-7e6c9d56"
+var Message___vue_scopeId__ = "data-v-22dc924c"
 /* moduleIdentifier (server only) */
 var Message___vue_module_identifier__ = null
 var Message_Component = Message_normalizeComponent(
@@ -1390,14 +1390,14 @@ window.emailMessagesInit = function (entityId, type) {
 
 /***/ }),
 
-/***/ "wzdV":
+/***/ "ww5y":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "x8Ug":
+/***/ "wzdV":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

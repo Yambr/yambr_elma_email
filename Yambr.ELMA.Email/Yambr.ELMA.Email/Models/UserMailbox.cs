@@ -14,6 +14,13 @@ namespace Yambr.ELMA.Email.Models
     [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "DisplayName")]
     [global::EleWise.ELMA.Model.Attributes.DisplayFormat(null)]
     [global::EleWise.ELMA.Model.Attributes.TitleProperty("ab12b139-f183-414f-8043-529a1c0936f7")]
+    [global::EleWise.ELMA.Model.Attributes.ClassFormsScheme(global::EleWise.ELMA.Model.Metadata.ClassFormsScheme.FormConstructor)]
+    [global::EleWise.ELMA.Model.Attributes.DefaultForm(global::EleWise.ELMA.Model.Views.ViewType.Create, "00000000-0000-0000-0000-000000000000", "f686dac5-1da5-43c6-abe7-e7f9034b594c", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", false)]
+    [global::EleWise.ELMA.Model.Attributes.DefaultForm(global::EleWise.ELMA.Model.Views.ViewType.Edit, "00000000-0000-0000-0000-000000000000", "4cbcd7d3-62e1-4791-a2a1-a0760fab4e0c", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", false)]
+    [global::EleWise.ELMA.Model.Attributes.DefaultForm(global::EleWise.ELMA.Model.Views.ViewType.Display, "00000000-0000-0000-0000-000000000000", "df401dc3-706d-4cb1-9402-28f4a376e043", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", false)]
+    [global::EleWise.ELMA.Model.Attributes.Form(typeof(IUserMailbox), "Yambr.ELMA.Email.Models.UserMailbox.Form.Form.xml")]
+    [global::EleWise.ELMA.Model.Attributes.Form(typeof(IUserMailbox), "Yambr.ELMA.Email.Models.UserMailbox.Form.Form1.xml")]
+    [global::EleWise.ELMA.Model.Attributes.FormTransformation(typeof(IUserMailbox), "Yambr.ELMA.Email.Models.UserMailbox.Form.Form2.xml")]
     [global::EleWise.ELMA.Model.Attributes.TableView("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<TableView xmlns:xsi=\"http://www.w3.org/2" +
         "001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <Uid>2b" +
         "183cbc-bbcc-4b07-8eb6-16de28e59de3</Uid>\r\n  <ViewType>List</ViewType>\r\n</TableVi" +
@@ -220,7 +227,7 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.Order(9)]
         [global::EleWise.ELMA.ComponentModel.NotNull()]
         [global::EleWise.ELMA.Model.Attributes.Property("dac9211e-e02b-47cd-8868-89a3bfc0f749")]
-        [global::EleWise.ELMA.Model.Types.Settings.DateTimeSettings(FieldName="LastMailUpdate")]
+        [global::EleWise.ELMA.Model.Types.Settings.DateTimeSettings(SetCurrentDate=true, FieldName="LastMailUpdate")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_LastMailUpdate_DisplayName")]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
@@ -477,6 +484,16 @@ namespace Yambr.ELMA.Email.Models
             get
             {
                 return global::EleWise.ELMA.SR.T("Пароль зашифрованый");
+            }
+        }
+        
+        private static string @__AllFormsResources
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Просмотр");
+                return global::EleWise.ELMA.SR.T("Создание/Редактирование");
+                return global::EleWise.ELMA.SR.T("Новые письма будут загржены начиная с этой даты");
             }
         }
     }
