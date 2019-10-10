@@ -9,8 +9,7 @@ namespace Yambr.ELMA.Email.Common.Models
 
         public DataSource(string name)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
         public string Name { get; set; }

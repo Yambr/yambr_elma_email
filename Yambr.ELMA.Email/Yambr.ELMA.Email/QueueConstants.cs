@@ -5,10 +5,7 @@
     /// </summary>
     public static class QueueConstants
     {
-        /// <summary>
-        /// Ключ для очереди Rabbit
-        /// </summary>
-        public const string RabbitMqQueueKey = "Yambr.ELMA.Email.Events.ItemList";
+      
         public const string ModelHeaderKey = "model";
 
         /// <summary>

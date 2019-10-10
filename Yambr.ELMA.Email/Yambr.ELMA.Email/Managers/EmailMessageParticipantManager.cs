@@ -92,6 +92,26 @@ namespace Yambr.ELMA.Email.Managers
                     .All(
                         ec => ec.Email.All(
                             ecm => ecm.EmailString != c.Email))).ToList();
+
+            #region Избавляемся от дублей и тех кто сам себе письма пишет
+
+            foreach (var notExistingContactSummary in notExistingContactSummaries)
+            {
+                contactSummaries.Remove(notExistingContactSummary);
+            }
+            notExistingContactSummaries =
+                notExistingContactSummaries
+                    .GroupBy(c => c.Email)
+                    .Select(c =>
+                        c.FirstOrDefault(f => !string.IsNullOrWhiteSpace(f.Fio)) ?? 
+                        c.FirstOrDefault() ).ToList();
+            foreach (var notExistingContactSummary in notExistingContactSummaries)
+            {
+                contactSummaries.Add(notExistingContactSummary);
+            }
+
+            #endregion
+
             var newContacts = CreateContacts(session, notExistingContactSummaries);
             existContacts.AddRange(newContacts);
 
@@ -121,7 +141,7 @@ namespace Yambr.ELMA.Email.Managers
             return emailMessageParticipants;
         }
 
-        private IEmailMessageParticipant CreateParticipant(ContactSummary contactSummary, IContact currentContact)
+        internal static IEmailMessageParticipant CreateParticipant(ContactSummary contactSummary, IContact currentContact)
         {
             var emailMessageParticipant = InterfaceActivator.Create<IEmailMessageParticipantContact>();
             emailMessageParticipant.Contact = currentContact;
@@ -182,16 +202,15 @@ namespace Yambr.ELMA.Email.Managers
         private static IEnumerable<IContact> CreateContacts(string domain, ICollection<ContactSummary> notExistingContactSummaries)
         {
             IContractor contractor = null;
-            var publicDomains = PublicDomainManager.Instance.GetPublicDomains();
-            if (!string.IsNullOrWhiteSpace(domain) && !publicDomains.Contains(domain))
-            {
-                contractor = CreateContractor(notExistingContactSummaries, domain);
-            }
+            contractor = CreateContractor(domain);
+            
 
             return notExistingContactSummaries
                 .Select(notExistingContactSummary => CreateContact(notExistingContactSummary, contractor)).ToList();
         }
-        private static IContact CreateContact(ContactSummary notExistingContactSummary, IContractor contractor)
+
+       
+        internal static IContact CreateContact(ContactSummary notExistingContactSummary, IContractor contractor)
         {
             var contact = CreateContact(notExistingContactSummary);
             if (contractor != null)
@@ -200,15 +219,17 @@ namespace Yambr.ELMA.Email.Managers
             }
             return contact;
         }
-        private static IContact CreateContact(ContactSummary notExistingContactSummary)
+        internal static IContact CreateContact(ContactSummary notExistingContactSummary)
         {
             var contact = InterfaceActivator.Create<IContact>();
             contact.Name = notExistingContactSummary.Fio;
             var email = InterfaceActivator.Create<IEmail>();
             email.EmailString = notExistingContactSummary.Email;
+            contact.RegistrationAddress = InterfaceActivator.Create<IAddress>();
+            contact.ResidenceAddress = InterfaceActivator.Create<IAddress>();
             contact.Email.Add(email);
 
-            var fio = notExistingContactSummary.Fio;
+            var fio = RuleOrNull(notExistingContactSummary.Fio);
             var newContact = notExistingContactSummary.Contact;
             if (newContact != null)
             {
@@ -222,19 +243,19 @@ namespace Yambr.ELMA.Email.Managers
                 switch (names.Length)
                 {
                     case 1:
-                        contact.Firstname = fio;
+                        contact.Firstname = RuleOrNull(fio);
                         break;
                     case 2:
-                        contact.Firstname = names[0];
-                        contact.Surname = names[1];
+                        contact.Firstname = RuleOrNull(names[0]);
+                        contact.Surname = RuleOrNull(names[1]);
                         break;
                     case 3:
-                        contact.Surname = names[0];
-                        contact.Firstname = names[1];
-                        contact.Middlename = names[2];
+                        contact.Surname = RuleOrNull(names[0]);
+                        contact.Firstname = RuleOrNull(names[1]);
+                        contact.Middlename = RuleOrNull(names[2]);
                         break;
                     default:
-                        contact.Firstname = fio;
+                        contact.Firstname = RuleOrNull(fio);
                         break;
                 }
             }
@@ -254,105 +275,22 @@ namespace Yambr.ELMA.Email.Managers
             return contact;
         }
 
-        /// <summary>
-        /// Обновить данные по контактам и контрагентам
-        /// </summary>
-        /// <param name="existContactParticipants"></param>
-        /// <param name="contactSummaries"></param>
-        public void UpdateParticipants(List<IEmailMessageParticipantContact> existContactParticipants, List<ContactSummary> contactSummaries)
+        public static string RuleOrNull(string name)
         {
-            foreach (var participantContact in existContactParticipants)
-            {
-                var summary = contactSummaries.FirstOrDefault(c => c.Email == participantContact.EmailString);
-                if (summary?.Contact != null && participantContact.Contact != null)
-                        UpdateByContact(participantContact.Contact, summary.Contact, participantContact.EmailString);
-            }
-        }
-        private static void UpdateByContact(IContact contact, Contact newContact, string email)
-        {
-            if (string.IsNullOrWhiteSpace(contact.Firstname) || contact.Firstname == email)
-                contact.Firstname = newContact.FirstName;
-            if (string.IsNullOrWhiteSpace(contact.Middlename) || contact.Middlename == email)
-                contact.Middlename = newContact.MiddleName;
-            if (string.IsNullOrWhiteSpace(contact.Surname) || contact.Surname == email)
-                contact.Surname = newContact.LastName;
-
-            if (string.IsNullOrWhiteSpace(contact.Position))
-                contact.Position = newContact.Position;
-
-            if (string.IsNullOrWhiteSpace(contact.Site))
-                contact.Site = newContact.Site;
-
-            //TODO переназвать
-            if (string.IsNullOrWhiteSpace(contact.Department))
-                contact.Department = newContact.Description;
-
-            var newPhones = 
-                newContact.Phones?.Where(
-                        p => contact.Phone.All(c => c.PhoneString != p.PhoneString)).ToList();
-            if (newPhones != null)
-            {
-                foreach (var newPhone in newPhones)
-                {
-                    var phone = InterfaceActivator.Create<IPhone>();
-                    phone.PhoneString = newPhone.PhoneString;
-                    contact.Phone.Add(phone);
-                }
-            }
-           
-
-            if (contact.Contractor != null && newContact.Contractor != null)
-            {
-                var domain = Domain(email);
-                UpdateByContractor(contact.Contractor, newContact.Contractor, domain);
-            }
+            return name?.Length > 1 ? name:null;
         }
 
-        private static void UpdateByContractor(IContractor contractor, Common.Models.IContractor newContractor, string domain)
+        internal static IContractorExt CreateContractor(string domain)
         {
-            if (!string.IsNullOrWhiteSpace(newContractor.Name) && IsBadName(contractor, domain))
+
+            var publicDomains = PublicDomainManager.Instance.GetPublicDomains();
+            if (string.IsNullOrWhiteSpace(domain) || publicDomains.Contains(domain))
             {
-                contractor.Name = newContractor.Name;
+                return null;
             }
-           
 
-            if (string.IsNullOrWhiteSpace(contractor.INN))
-                contractor.INN = newContractor.INN;
-
-            if (!string.IsNullOrWhiteSpace(newContractor.OGRN))
-            {
-                if (contractor.CastAsRealType() is IContractorLegal contractorLegal && 
-                    string.IsNullOrWhiteSpace(contractorLegal.OGRN))
-                    contractorLegal.OGRN = newContractor.OGRN;
-            }
-           
-            if (string.IsNullOrWhiteSpace(contractor.Site))
-                contractor.Site = newContractor.Site;
-
-            if (string.IsNullOrWhiteSpace(contractor.Description))
-                contractor.Description = newContractor.Description;
-        }
-
-        private static bool IsBadName(IContractor contractor, string domain)
-        {
-            var contractorName = contractor.Name;
-            if (string.IsNullOrWhiteSpace(contractorName))
-                return true;
-            if (contractorName == domain)
-                return true;
-            return !HasRussian(contractorName);
-        }
-
-        private static bool HasRussian(string name)
-        {
-            return name != null && 
-                   name.Any(c => (c >= 'А' && c <= 'я') || c == 'ё' || c == 'Ё');
-        }
-
-        private static IContractorExt CreateContractor(IEnumerable<ContactSummary> notExistingContactSummaries, string domain)
-        {
             //Теоретчиески у всез у кого домены - все юрики
-            var contractorLegal = InterfaceActivator.Create<IContractorLegal>();
+                var contractorLegal = InterfaceActivator.Create<IContractorLegal>();
          
             var mailboxDomain = InterfaceActivator.Create<IMailboxDomain>();
             
@@ -360,7 +298,8 @@ namespace Yambr.ELMA.Email.Managers
             mailboxDomain.Contractor = contractorLegal;
             mailboxDomain.Save();
             contractorLegal.Name = domain;
-
+            contractorLegal.LegalAddress = InterfaceActivator.Create<IAddress>();
+            contractorLegal.PostalAddress = InterfaceActivator.Create<IAddress>();
             contractorLegal.Responsible = UserManager.Instance.GetCurrentUser();
             var contractorExt = (contractorLegal as IContractorExt);
             if (contractorExt != null)
@@ -377,19 +316,20 @@ namespace Yambr.ELMA.Email.Managers
             return contractorExt;
         }
 
-        private static string Domain(string email)
+        internal static string Domain(string email)
         {
             return email.Split(new[] { '@' }, StringSplitOptions.None)[1]?.ToLowerInvariant();
         }
 
-        private static IContact CreateContact(IContractor contractor, ContactSummary forCreateContactSummary)
+        internal static IContact CreateContact(IContractor contractor, ContactSummary forCreateContactSummary)
         {
             var contact = CreateContact(forCreateContactSummary);
-            contact.Contractor = contractor;
+            if (contractor != null)
+                contact.Contractor = contractor;
             return contact;
         }
 
-        private IEnumerable<IContractorExt> GetContractors(ISession session, List<ContactSummary> notExistingContactSummaries)
+        internal static IEnumerable<IContractorExt> GetContractors(ISession session, List<ContactSummary> notExistingContactSummaries)
         {
             if (notExistingContactSummaries == null)
                 throw new ArgumentNullException(nameof(notExistingContactSummaries));

@@ -2,7 +2,9 @@
 using EleWise.ELMA.Extensions;
 using EleWise.ELMA.Model.Managers;
 using EleWise.ELMA.Services;
+using Yambr.ELMA.Email.Common.Models;
 using Yambr.ELMA.Email.Models;
+using IContractor = EleWise.ELMA.CRM.Models.IContractor;
 
 namespace Yambr.ELMA.Email.Managers
 {
@@ -34,5 +36,8 @@ namespace Yambr.ELMA.Email.Managers
         {
             return $"{emailMessageParticipantContact.Contact} ({emailMessageParticipantContact.EmailString})";
         }
+
+
+       
     }
 }

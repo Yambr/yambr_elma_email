@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Yambr.ELMA.Email.Common.Models
 {
@@ -16,7 +17,7 @@ namespace Yambr.ELMA.Email.Common.Models
             Email = normalizedEmail;
             Fio = contact.Fio;
         }
-
+        [JsonIgnore]
         public Contact Contact { get; set; }
 
         public string Fio { get; set; }

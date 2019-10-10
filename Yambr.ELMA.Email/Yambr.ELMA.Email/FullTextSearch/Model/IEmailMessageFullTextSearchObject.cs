@@ -14,10 +14,6 @@ namespace Yambr.ELMA.Email.FullTextSearch.Model
     public interface IEmailMessageFullTextSearchObject : IFullTextSearchObject, IAutoImplement
     {
         /// <summary>
-        /// Название
-        /// </summary>
-        string Name { get; set; }
-        /// <summary>
         /// Тема
         /// </summary>
         string Subject { get; set; }
@@ -28,7 +24,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Model
         string[] To { get; set; }
 
         string[] Owners { get; set; }
-        string Body { get; set; }
+        string Text { get; set; }
 
         long[] Contractors { get; set; }
         long[] Contacts { get; set; }

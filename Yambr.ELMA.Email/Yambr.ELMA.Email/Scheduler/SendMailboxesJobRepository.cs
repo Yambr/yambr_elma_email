@@ -86,7 +86,8 @@ namespace Yambr.ELMA.Email.Scheduler
                     return new JobResult
                     {
                         Status = JobStatus.Success,
-                        Information = "Запуск прошел успшено"
+                        Information = "Запуск прошел успшено",
+                        NoSaveResult = true
                     };
                 }
             }

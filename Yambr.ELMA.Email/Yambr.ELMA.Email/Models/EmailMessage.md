@@ -27,37 +27,6 @@
       <Order>0</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
-      <Uid>408d066b-f103-4c0f-825f-a37909f64a2a</Uid>
-      <Name>Name</Name>
-      <DisplayName>Наименование</DisplayName>
-      <TypeUid>9b9aac17-22bb-425c-aa93-9c02c5146965</TypeUid>
-      <Settings xsi:type="StringSettings">
-        <FieldName>Name</FieldName>
-      </Settings>
-      <Nullable>false</Nullable>
-      <Required>true</Required>
-      <ViewSettings>
-        <Attributes>
-          <ViewAttribute>
-            <ViewType>Create</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Edit</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>List</ViewType>
-          </ViewAttribute>
-        </Attributes>
-      </ViewSettings>
-      <Order>1</Order>
-      <InFastSearch>true</InFastSearch>
-      <Filterable>true</Filterable>
-    </PropertyMetadata>
-    <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>58513e49-d049-4c88-b0e5-62adacb6876b</Uid>
       <Name>DateUtc</Name>
       <DisplayName>Дата письма</DisplayName>
@@ -87,7 +56,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>2</Order>
+      <Order>1</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
@@ -120,7 +89,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>3</Order>
+      <Order>2</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>63ffa1a8-e8b0-47c7-8e2f-532a4b72a291</Uid>
@@ -153,41 +122,8 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>4</Order>
+      <Order>3</Order>
       <Filterable>true</Filterable>
-    </PropertyMetadata>
-    <PropertyMetadata xsi:type="EntityPropertyMetadata">
-      <Uid>98886b73-7ebf-4c06-860b-2863f32a0d4f</Uid>
-      <Name>CommonHeaders</Name>
-      <DisplayName>Все заголовки</DisplayName>
-      <TypeUid>0aef74a9-d37c-4731-813b-d5f0b5ec4392</TypeUid>
-      <Settings xsi:type="HtmlStringSettings">
-        <FieldName>CommonHeaders</FieldName>
-      </Settings>
-      <Nullable>true</Nullable>
-      <ViewSettings>
-        <Attributes>
-          <ViewAttribute>
-            <ViewType>Create</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Edit</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>List</ViewType>
-            <Visibility>Hidden</Visibility>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Filter</ViewType>
-            <Visibility>Hidden</Visibility>
-          </ViewAttribute>
-        </Attributes>
-      </ViewSettings>
-      <Order>5</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>f2cfb4df-fb46-4a2b-aa20-3165cc08af79</Uid>
@@ -220,7 +156,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>6</Order>
+      <Order>4</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
@@ -253,7 +189,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>7</Order>
+      <Order>5</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>a68aa038-1344-43fb-863f-6966eea402c1</Uid>
@@ -287,7 +223,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>8</Order>
+      <Order>6</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
@@ -325,7 +261,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>9</Order>
+      <Order>7</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
@@ -363,7 +299,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>10</Order>
+      <Order>8</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
@@ -389,14 +325,13 @@
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>List</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>11</Order>
+      <Order>9</Order>
       <InFastSearch>true</InFastSearch>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
@@ -429,7 +364,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>12</Order>
+      <Order>10</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>fde76d12-ce30-4a72-8cd5-9bb85ba2dded</Uid>
@@ -463,7 +398,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>13</Order>
+      <Order>11</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>71fc1c0c-d424-4fbc-aa0c-0edff6352ce1</Uid>
@@ -500,7 +435,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>14</Order>
+      <Order>12</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
@@ -533,7 +468,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>15</Order>
+      <Order>13</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>f303976b-d9e1-43d3-b945-6f91e09ed452</Uid>
@@ -570,7 +505,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>16</Order>
+      <Order>14</Order>
       <Filterable>true</Filterable>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
@@ -608,7 +543,42 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>17</Order>
+      <Order>15</Order>
+      <Filterable>true</Filterable>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>bedd41f3-f821-45be-9ce1-aecfee0102d6</Uid>
+      <Name>Text</Name>
+      <DisplayName>Текст</DisplayName>
+      <TypeUid>317e3d72-9c47-4b68-926d-ba77a2579bc2</TypeUid>
+      <Settings xsi:type="TextSettings">
+        <FieldName>Text</FieldName>
+        <MultiLine>true</MultiLine>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>16</Order>
+      <InFastSearch>true</InFastSearch>
       <Filterable>true</Filterable>
     </PropertyMetadata>
   </Properties>
@@ -682,7 +652,7 @@
       <ViewType>List</ViewType>
     </TableView>
   </TableViews>
-  <TitlePropertyUid>408d066b-f103-4c0f-825f-a37909f64a2a</TitlePropertyUid>
+  <TitlePropertyUid>eeeb8ddd-eb36-4903-ad28-2f467dffd44e</TitlePropertyUid>
   <Type>Interface</Type>
   <ImplementationUid>59760e6a-3a97-4e9f-a608-d5d402150c2f</ImplementationUid>
   <IdTypeUid>d90a59af-7e47-48c5-8c4c-dad04834e6e3</IdTypeUid>

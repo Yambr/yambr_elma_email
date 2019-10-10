@@ -30,6 +30,7 @@ using NHibernate.Criterion;
 using Yambr.ELMA.Email.FullTextSearch.Model;
 using Yambr.ELMA.Email.Managers;
 using Yambr.ELMA.Email.Models;
+using Yambr.ELMA.Email.Services;
 
 namespace Yambr.ELMA.Email.FullTextSearch.Components
 {
@@ -39,8 +40,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
     [Component]
     internal class EmailMessagesFullTextSearchExtension : ModuleFullTextSearchExtension
     {
-        
-
+       
         private EmailMessageManager _emailMessageManager;
 
         private ISecurityService _securityService;
@@ -73,9 +73,8 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             var dictionary = new Dictionary<string, string>();
             if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType)
             {
-                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name), SR.T("Название"));
                 dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject), SR.T("Тема"));
-                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body), SR.T("Тело"));
+                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Text), SR.T("Тело"));
             }
             return dictionary;
         }
@@ -86,7 +85,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType)
             {
                 dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject), 100L);
-                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body), 200L);
+                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Text), 200L);
             }
             return dictionary;
         }
@@ -169,7 +168,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             {
                 var list2 = new List<string>();
                 list2.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject));
-                list2.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body));
+                list2.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Text));
                 return list2;
             }
             return new List<string>();
@@ -181,8 +180,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             var fields = base.GetFields(cardType);
             fields.AddRange(new List<string>
             {
-                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name),
-                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body),
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Text),
                 LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject),
                 LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.From),
                 LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.To),
@@ -200,9 +198,8 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
 
             searchFields.AddRange(new List<string>
             {
-                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name),
                 LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject),
-                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body)
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Text)
             });
 
             return searchFields;
@@ -214,9 +211,8 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             var searchFields = base.GetSearchFields(cardType);
             searchFields.AddRange(new List<string>
             {
-                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name),
                 LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject),
-                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Body)
+                LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Text)
             });
                 
             return searchFields;
@@ -228,6 +224,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType)
             {
                 dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject), Weight.High);
+                dictionary.Add(LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Text), Weight.Medium);
             }
             return dictionary;
         }
@@ -279,34 +276,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             return filterList;
         }
 
-        public override FilterList GetCustomFilterFields(Type cardType, FilterProperty filterProperty, FullTextSearchResultModel searchModel)
-        {
-            var customFilterFields = base.GetCustomFilterFields(cardType, filterProperty, searchModel);
-            if (customFilterFields != null)
-            {
-                return customFilterFields;
-            }
-            if (cardType != null && typeof(IEmailMessageFullTextSearchObject) == cardType && filterProperty != null)
-            {
-                if (InterfaceActivator.LoadPropertyMetadata((IEmailMessageFilter m) => m.Contractors).Uid == filterProperty.Uid)
-                {
-                    var emailMessageFullTextSearchResultModel = searchModel as EmailMessageFullTextSearchResultModel;
-                    if (emailMessageFullTextSearchResultModel == null || !(filterProperty.Value is IContractor contractor)) return null;
-                    emailMessageFullTextSearchResultModel.Contractor = contractor;
-                    return new FilterList();
-                }
-                if (InterfaceActivator.LoadPropertyMetadata((IEmailMessageFilter m) => m.Contacts).Uid == filterProperty.Uid)
-                {
-                    var emailMessageFullTextSearchResultModel = searchModel as EmailMessageFullTextSearchResultModel;
-                    if (emailMessageFullTextSearchResultModel == null || !(filterProperty.Value is IContact contact)) return null;
-                    emailMessageFullTextSearchResultModel.Contact = contact;
-                    return new FilterList();
-                }
-
-                //TODO поиск по From и TO
-            }
-            return null;
-        }
+     
 
         public override FilterList GetAutoFilterFields(Type cardType, FilterProperty filterProperty, FullTextSearchResultModel searchModel)
         {
@@ -329,27 +299,19 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
                             {
                                 emailMessagesFullTextSearchObject.IndexedObject = emailMessage;
                                 emailMessagesFullTextSearchObject.Id = emailMessage.Id.ToString(CultureInfo.InvariantCulture);
-                                emailMessagesFullTextSearchObject.Name = emailMessage.Name;
                                 emailMessagesFullTextSearchObject.Subject = emailMessage.Subject;
-                                emailMessagesFullTextSearchObject.Body = emailMessage.Body?.ToString();
-                                var contractors = new List<long>();
-                                var contacts = new List<long>();
+                              
+                                    emailMessagesFullTextSearchObject.Text = emailMessage.Text;
+                                
+
                                 emailMessagesFullTextSearchObject.From =
-                                    emailMessage.From.Select(c =>
-                                    {
-                                        ExtractParticipants(c, contacts, contractors);
-                                        return c.EmailString;
-                                    }).ToArray();
+                                    emailMessage.From.Select(c => c.EmailString).ToArray();
                                 emailMessagesFullTextSearchObject.To =
-                                    emailMessage.To.Select(c =>
-                                    {
-                                        ExtractParticipants(c, contacts, contractors);
-                                        return c.EmailString;
-                                    }).ToArray();
+                                    emailMessage.To.Select(c => c.EmailString).ToArray();
                                 emailMessagesFullTextSearchObject.Owners =
                                     emailMessage.Owners.Select(c => c.EmailLogin).ToArray();
-                                emailMessagesFullTextSearchObject.Contacts = contacts.ToArray();
-                                emailMessagesFullTextSearchObject.Contractors = contractors.ToArray();
+                                emailMessagesFullTextSearchObject.Contacts = emailMessage.Contacts.Select(c => c.Id).ToArray();
+                                emailMessagesFullTextSearchObject.Contractors = emailMessage.Contractors.Select(c => c.Id).ToArray();
                                 emailMessagesFullTextSearchObject.DateUtc = emailMessage.DateUtc;
                                 emailMessagesFullTextSearchObject.TypeUid = emailMessage.TypeUid.ToString("n");
                                 emailMessagesFullTextSearchObject.IsDeleted = emailMessage.IsDeleted;
@@ -368,17 +330,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
                 });
             }
         }
-
-        internal static void ExtractParticipants(IEmailMessageParticipant c, ICollection<long> contacts, ICollection<long> contractors)
-        {
-            if (!(c.CastAsRealType() is IEmailMessageParticipantContact participantContact)) return;
-            if (participantContact.Contact == null) return;
-            contacts.Add(participantContact.Contact.Id);
-            if (participantContact.Contact.Contractor != null)
-            {
-                contractors.Add(participantContact.Contact.Contractor.Id);
-            }
-        }
+        
 
         public override List<IEntity> GetEntities(Type cardType, List<Guid> listUid)
         {
@@ -512,10 +464,10 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
             if (cardType == null || typeof(IEmailMessageFullTextSearchObject) != cardType ||
                 resultItem?.ResultData == null || fakeEntity == null) return;
             if (!(fakeEntity is IEmailMessage dmsObject)) return;
-            var webDataItem = resultItem.ResultData.Items.FirstOrDefault(i => i.Name == LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Name));
+            var webDataItem = resultItem.ResultData.Items.FirstOrDefault(i => i.Name == LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Subject));
             if (webDataItem != null)
             {
-                dmsObject.Name = webDataItem.Value;
+                dmsObject.Subject = webDataItem.Value;
             }
         }
     }

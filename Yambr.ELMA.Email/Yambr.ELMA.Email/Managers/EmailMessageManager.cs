@@ -45,16 +45,12 @@ namespace Yambr.ELMA.Email.Managers
 
         public override void Save(IEmailMessage obj)
         {
-            obj.Uid = GetUid(obj.Hash);
-            obj.Name = GetName(obj);
+            var uid = GetUid(obj.Hash);
+            if (!obj.Uid.Equals(uid))
+                obj.Uid = uid;
             base.Save(obj);
         }
-
-        private static string GetName(IEmailMessage emailMessage)
-        {
-            return $"{emailMessage.DateUtc:f} {emailMessage.SubjectWithoutTags}";
-        }
-
+        
         public IEnumerable<EmailMonthStatDto> MonthStatContractor(long id)
         {
             var session = _sessionProvider.GetSession("");

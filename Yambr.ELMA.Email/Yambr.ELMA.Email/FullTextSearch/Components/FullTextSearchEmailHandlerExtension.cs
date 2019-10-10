@@ -13,6 +13,7 @@ using EleWise.ELMA.Services;
 using Yambr.ELMA.Email.FullTextSearch.Model;
 using Yambr.ELMA.Email.Managers;
 using Yambr.ELMA.Email.Models;
+using Yambr.ELMA.Email.Services;
 
 namespace Yambr.ELMA.Email.FullTextSearch.Components
 {
@@ -22,12 +23,12 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
     [Component]
     public class FullTextSearchDmsObjectHandlerExtension : FullTextSearchObjectHandlerExtension
     {
+
         private EmailMessageManager _emailMessageManager;
 
         private readonly List<string> _importantProperties = new List<string>
         {
             LinqUtils.NameOf((IEmailMessage d) => d.Id),
-            LinqUtils.NameOf((IEmailMessage d) => d.Name),
             LinqUtils.NameOf((IEmailMessage d) => d.Subject),
             LinqUtils.NameOf((IEmailMessage d) => d.DateUtc),
             LinqUtils.NameOf((IEmailMessage d) => d.From),
@@ -38,7 +39,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
 
         private readonly List<string> _visualDataProperties = new List<string>
         {
-            LinqUtils.NameOf((IEmailMessage d) => d.Name),
+            LinqUtils.NameOf((IEmailMessage d) => d.Subject),
             LinqUtils.NameOf((IEmailMessage d) => d.IsDeleted)
         };
 
@@ -46,6 +47,7 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
         /// <see cref="T:EmailMessageManager" />
         /// </summary>
         public EmailMessageManager EmailMessageManager => _emailMessageManager ?? (_emailMessageManager = Locator.GetServiceNotNull<EmailMessageManager>());
+
 
         /// <inheritdoc />
         public override Guid Uid { get; } = new Guid("{326BA0AE-FAC1-44AB-AA07-F32ECDECEAC0}");
@@ -108,14 +110,6 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
                         LinqUtils.NameOf((IEmailMessageFullTextSearchObject d) => d.Id), 
                         idPair.Value));
             }
-            var namePair = mergedIndexQueueItem.Find(p => Equals(p.Key, LinqUtils.NameOf((IEmailMessage d) => d.Name)));
-            if (namePair.Key != null)
-            {
-                queueToIndex.Properties.Add(
-                    new KeyValuePair<string, object>(LinqUtils.NameOf(
-                        (IEmailMessageFullTextSearchObject d) => d.Name), 
-                        namePair.Value));
-            }
             var typeUidPair = mergedIndexQueueItem.Find(p => Equals(p.Key, LinqUtils.NameOf((IEmailMessage d) => d.TypeUid)));
             if (typeUidPair.Key != null)
             {
@@ -147,13 +141,17 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
                             (IEmailMessageFullTextSearchObject d) => d.Subject),
                         subjectPair.Value));
             }
-            var bodyPair = mergedIndexQueueItem.Find(p => Equals(p.Key, LinqUtils.NameOf((IEmailMessage d) => d.Body)));
-            if (bodyPair.Key != null)
+            var textPair = mergedIndexQueueItem.Find(p => Equals(p.Key, LinqUtils.NameOf((IEmailMessage d) => d.Text)));
+            if (textPair.Key != null)
             {
-                queueToIndex.Properties.Add(
-                    new KeyValuePair<string, object>(LinqUtils.NameOf(
-                            (IEmailMessageFullTextSearchObject d) => d.Body),
-                        bodyPair.Value));
+                if (textPair.Value != null)
+                {
+                    var textPairValue = textPair.Value.ToString();
+                    queueToIndex.Properties.Add(
+                        new KeyValuePair<string, object>(LinqUtils.NameOf(
+                                (IEmailMessageFullTextSearchObject d) => d.Text),
+                            textPairValue));
+                }
             }
 
             var fromPair = mergedIndexQueueItem.Find(p => Equals(p.Key, LinqUtils.NameOf((IEmailMessage d) => d.From)));
@@ -163,20 +161,10 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
                 var emailMessage = EmailMessageManager.LoadOrNull(id);
                 if (emailMessage != null)
                 {
-                    var contractors = new List<long>();
-                    var contacts = new List<long>();
                     var  from =
-                        emailMessage.From.Select(c =>
-                        {
-                            EmailMessagesFullTextSearchExtension.ExtractParticipants(c, contacts, contractors);
-                            return c.EmailString;
-                        }).ToArray();
+                        emailMessage.From.Select(c => c.EmailString).ToArray();
                     var to =
-                        emailMessage.To.Select(c =>
-                        {
-                            EmailMessagesFullTextSearchExtension.ExtractParticipants(c, contacts, contractors);
-                            return c.EmailString;
-                        }).ToArray();
+                        emailMessage.To.Select(c => c.EmailString).ToArray();
                     queueToIndex.Properties.Add(
                         new KeyValuePair<string, object>(LinqUtils.NameOf(
                             (IEmailMessageFullTextSearchObject d) => d.From), 
@@ -188,11 +176,11 @@ namespace Yambr.ELMA.Email.FullTextSearch.Components
                     queueToIndex.Properties.Add(
                         new KeyValuePair<string, object>(LinqUtils.NameOf(
                                 (IEmailMessageFullTextSearchObject d) => d.Contractors),
-                            new SerializableList<long>(contractors)));
+                            new SerializableList<long>(emailMessage.Contractors.Select(c=>c.Id).ToArray())));
                     queueToIndex.Properties.Add(
                         new KeyValuePair<string, object>(LinqUtils.NameOf(
                                 (IEmailMessageFullTextSearchObject d) => d.Contacts),
-                            new SerializableList<long>(contacts)));
+                            new SerializableList<long>(emailMessage.Contacts.Select(c => c.Id).ToArray())));
                 }
 
                 var ownersPair = mergedIndexQueueItem.Find(p => Equals(p.Key, LinqUtils.NameOf((IEmailMessage d) => d.Owners)));

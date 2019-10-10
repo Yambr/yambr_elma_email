@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Yambr.ELMA.Email.Common.Enums;
-using Yambr.ELMA.Email.Components.Queue;
-using Yambr.ELMA.Email.Models;
 
 namespace Yambr.ELMA.Email.Common.Models
 {
-    public partial class EmailMessage :  IContentItem, IBodyPart, IMessagePart, IAttachmentsPart, ITagsPart, IEmbeddedPart
+    public class EmailMessage :  IContentItem, IBodyPart, IMessagePart, IAttachmentsPart, ITagsPart, IEmbeddedPart
     {
      
         [JsonConstructor]
@@ -20,7 +18,6 @@ namespace Yambr.ELMA.Email.Common.Models
             List<EmbeddedSummary> embedded) :this()
         {
             Owners = owners;
-            CommonHeaders = commonHeaders;
             From = @from;
             To = to;
             Attachments = attachments;
@@ -30,7 +27,6 @@ namespace Yambr.ELMA.Email.Common.Models
         public EmailMessage()
         {
             Owners = new List<MailOwnerSummary>();
-            CommonHeaders = new List<HeaderSummary>();
             From = new List<ContactSummary>();
             To = new List<ContactSummary>();
             Attachments = new List<AttachmentSummary>();
@@ -41,8 +37,8 @@ namespace Yambr.ELMA.Email.Common.Models
         public string Hash { get; set; }
         public ICollection<MailOwnerSummary> Owners { get; set; }
         public string MainHeader { get; set; }
-        public ICollection<HeaderSummary> CommonHeaders { get; set; }
         public string Body { get; set; }
+        public string Text { get; set; }
         public bool IsBodyHtml { get; set; }
         public Direction Direction { get; set; }
         public ICollection<ContactSummary> From { get; set; }

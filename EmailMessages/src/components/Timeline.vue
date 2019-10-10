@@ -136,12 +136,12 @@
                 this.searchtext = '';
                 this.filteredMessages = [];
                 this.searchInHistoryMode = false;
-                console.log(this.searchInHistoryMode);
+
             },
             searchInHistory: function (e) {
                 this.resetSearch();
                 this.searchInHistoryMode = true;
-                console.log(this.searchInHistoryMode);
+
                 let searchText = e.target.value.trim().toLowerCase();
                 this.searchtext = searchText;
                 if (searchText && searchText.length > 2) {

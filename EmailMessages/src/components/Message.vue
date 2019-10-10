@@ -45,6 +45,15 @@
         props: {
             message: {}
         },
+        watch: {
+            message: function(newVal, oldVal) { // watch it
+                if(newVal.id != oldVal.id && this.opened){
+                    this.opened = false;
+                    this.fullMessage = null;
+                    this.isDeleted = false;
+                }
+            }
+        },
         data() {
             return {
                 opened: false,

@@ -12,9 +12,9 @@ namespace Yambr.ELMA.Email.Managers
 
         public new static MailboxDomainManager Instance => _manager ?? (_manager = Locator.GetServiceNotNull<MailboxDomainManager>());
 
-        public IMailboxDomain Load(string hash)
+        public IMailboxDomain Load(string domain)
         {
-            var guid = GetUid(hash);
+            var guid = GetUid(domain);
             return LoadOrNull(guid);
         }
 

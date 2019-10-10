@@ -21,6 +21,8 @@ namespace Yambr.ELMA.Email.Services.Impl
 
         public IEmailMessage Save(EmailMessage emailMessage)
         {
+            //TODO письма без тела - бесполезные пока нет загрузки файлов
+            if (string.IsNullOrWhiteSpace(emailMessage.Body)) return null;
             var message = EmailMessageManager.Instance.Load(emailMessage.Hash);
             if (message != null)
                 return message;
@@ -30,7 +32,7 @@ namespace Yambr.ELMA.Email.Services.Impl
             message.DateUtc = emailMessage.DateUtc;
             message.Hash = emailMessage.Hash;
             message.MainHeader = ConvertHeader(emailMessage.MainHeader);
-            message.CommonHeaders = ConvertHeaders(emailMessage.CommonHeaders);
+            message.Text = emailMessage.Text;
             message.Body = ConvertBody(emailMessage.Body);
             message.IsBodyHtml = emailMessage.IsBodyHtml;
             message.Subject = emailMessage.Subject;
@@ -82,7 +84,7 @@ namespace Yambr.ELMA.Email.Services.Impl
 
         private static void FillParticipants(IUserMailbox userMailbox, IMessagePart emailMessage, IEmailMessage message)
         {
-            var participants = EmailMessageParticipants(userMailbox, emailMessage);
+            var participants = EmailMessageParticipants(userMailbox, emailMessage, message);
 
             var toParticipants =
                 participants
@@ -96,26 +98,10 @@ namespace Yambr.ELMA.Email.Services.Impl
                         emailMessage.From.Any(e => e.Email == c.EmailString)).ToList();
 
             message.From.AddAll(fromParticipants);
-
-            var existContactParticipants = participants
-                .Where(c => c.TypeUid == InterfaceActivator.UID<IEmailMessageParticipantContact>())
-                .Select(c => c.CastAsRealType() is IEmailMessageParticipantContact participantContact
-                    ? participantContact
-                    : null)
-                .Where(c => c != null).ToList();
-
-            var contacts =
-                existContactParticipants.Select(c => c.Contact)
-                    .Where(c => c != null).ToList();
-            var contractors =
-                contacts.Select(c => c.Contractor)
-                    .Where(c => c != null).ToList();
-
-            message.Contacts.AddAll(contacts);
-            message.Contractors.AddAll(contractors);
+          
         }
 
-        private static List<IEmailMessageParticipant> EmailMessageParticipants(IUserMailbox userMailbox, IMessagePart emailMessage)
+        private static List<IEmailMessageParticipant> EmailMessageParticipants(IUserMailbox userMailbox, IMessagePart emailMessage, IEmailMessage message)
         {
             var contactSummaries = emailMessage.From.ToList();
             contactSummaries.AddRange(emailMessage.To);
@@ -144,7 +130,16 @@ namespace Yambr.ELMA.Email.Services.Impl
                     ? participantContact
                     : null)
                 .Where(c => c != null).ToList();
-            emailMessageParticipantManager.UpdateParticipants(existContactParticipants, contactSummaries);
+
+            var contacts =
+                existContactParticipants.Select(c => c.Contact)
+                    .Where(c => c != null).ToList();
+            var contractors =
+                contacts.Select(c => c.Contractor)
+                    .Where(c => c != null).ToList();
+
+            message.Contacts.AddAll(contacts);
+            message.Contractors.AddAll(contractors);
 
             return participants;
         }

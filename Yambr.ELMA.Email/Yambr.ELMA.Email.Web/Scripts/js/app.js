@@ -1,5 +1,12 @@
 webpackJsonp([1],{
 
+/***/ "/p5p":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,13 +24,6 @@ module.exports = __webpack_require__("NHnr");
 /***/ }),
 
 /***/ "Gcgg":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "IFSn":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -574,6 +574,16 @@ var MessageHeading_Component = MessageHeading_normalizeComponent(
     props: {
         message: {}
     },
+    watch: {
+        message: function message(newVal, oldVal) {
+            // watch it
+            if (newVal.id != oldVal.id && this.opened) {
+                this.opened = false;
+                this.fullMessage = null;
+                this.isDeleted = false;
+            }
+        }
+    },
     data: function data() {
         return {
             opened: false,
@@ -613,14 +623,14 @@ var MessageHeading_Component = MessageHeading_normalizeComponent(
         }
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-22dc924c","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Message.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-5f5db2d5","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Message.vue
 var Message_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',{class:{'timeline-inverted': _vm.incoming}},[(!_vm.incoming)?[_c('div',{staticClass:"timeline-badge success"},[(!_vm.incoming)?_c('font-awesome-icon',{attrs:{"icon":"arrow-right"}}):_vm._e()],1)]:_vm._e(),_vm._v(" "),(_vm.incoming)?[_c('div',{staticClass:"timeline-badge danger"},[(_vm.incoming)?_c('font-awesome-icon',{attrs:{"icon":"arrow-left"}}):_vm._e()],1)]:_vm._e(),_vm._v(" "),_c('div',{staticClass:"timeline-panel"},[(!_vm.isDeleted)?_c('MessageHeading',{attrs:{"message":_vm.message,"date":_vm.date,"hide-message":_vm.hideMessage}}):_vm._e(),_vm._v(" "),(!_vm.isDeleted)?_c('div',{staticClass:"timeline-body"},[_c('table',{staticStyle:{"width":"100%"}},[_c('tr',[_c('td',{staticClass:"msg-desc",staticStyle:{"vertical-align":"top"},on:{"click":function($event){return _vm.swithMessage()}}},[_c('font-awesome-icon',{staticClass:"switcher",attrs:{"icon":"chevron-down","transform":{ rotate: _vm.iconRotate }}})],1),_vm._v(" "),_c('td',[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!this.opened),expression:"!this.opened"}],staticClass:"fade msg-header",domProps:{"innerHTML":_vm._s(_vm.message.mainHeader)}}),_vm._v(" "),(this.opened&&_vm.fullMessage)?_c('div',{staticClass:"msg-body",domProps:{"innerHTML":_vm._s(_vm.fullMessage)}}):_vm._e()])]),_vm._v(" "),_c('tr',{directives:[{name:"show",rawName:"v-show",value:(this.opened),expression:"this.opened"}]},[_c('td',{staticClass:"msg-desc",on:{"click":function($event){return _vm.swithMessage()}}},[_c('font-awesome-icon',{staticClass:"switcher",attrs:{"icon":"chevron-up"}})],1)])])]):_vm._e(),_vm._v(" "),(_vm.isDeleted)?_c('h4',[_vm._v("Сообщение будет удалено в течение 15 минут")]):_vm._e()],1)],2)}
 var Message_staticRenderFns = []
 var Message_esExports = { render: Message_render, staticRenderFns: Message_staticRenderFns }
 /* harmony default export */ var components_Message = (Message_esExports);
 // CONCATENATED MODULE: ./src/components/Message.vue
 function Message_injectStyle (ssrContext) {
-  __webpack_require__("ww5y")
+  __webpack_require__("/p5p")
 }
 var Message_normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -633,7 +643,7 @@ var Message___vue_template_functional__ = false
 /* styles */
 var Message___vue_styles__ = Message_injectStyle
 /* scopeId */
-var Message___vue_scopeId__ = "data-v-22dc924c"
+var Message___vue_scopeId__ = "data-v-5f5db2d5"
 /* moduleIdentifier (server only) */
 var Message___vue_module_identifier__ = null
 var Message_Component = Message_normalizeComponent(
@@ -1075,12 +1085,11 @@ highcharts_default.a.setOptions({
             this.searchtext = '';
             this.filteredMessages = [];
             this.searchInHistoryMode = false;
-            console.log(this.searchInHistoryMode);
         },
         searchInHistory: function searchInHistory(e) {
             this.resetSearch();
             this.searchInHistoryMode = true;
-            console.log(this.searchInHistoryMode);
+
             var searchText = e.target.value.trim().toLowerCase();
             this.searchtext = searchText;
             if (searchText && searchText.length > 2) {
@@ -1235,14 +1244,14 @@ highcharts_default.a.setOptions({
 
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-0f1c35c6","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Timeline.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-e1ff0f86","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Timeline.vue
 var Timeline_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('TimelineHeader',{attrs:{"count":_vm.count,"call-left":_vm.callLeft,"call-right":_vm.callRight,"show-chart":_vm.showChartClick,"message":_vm.msg,"search":_vm.search,"searchtext":_vm.searchtext,"search-in-history":_vm.searchInHistory,"search-in-history-mode":_vm.searchInHistoryMode}}),_vm._v(" "),_c('transition',{attrs:{"name":"fade"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.chartEnabled),expression:"!chartEnabled"}]},[_c('MessagesTimeline',{attrs:{"chart-enabled":_vm.chartEnabled,"messages":_vm.renderedMesages}})],1)]),_vm._v(" "),_c('highcharts',{directives:[{name:"show",rawName:"v-show",value:(_vm.chartEnabled),expression:"chartEnabled"}],attrs:{"constructor-type":'stockChart',"options":_vm.chartOptions}}),_vm._v(" "),_c('infinite-loading',{directives:[{name:"show",rawName:"v-show",value:(_vm.hasInSelectedMonth),expression:"hasInSelectedMonth"}],attrs:{"identifier":_vm.from},on:{"infinite":_vm.infiniteHandler}},[_c('div',{attrs:{"slot":"no-more"},slot:"no-more"},[_c('font-awesome-icon',{staticClass:"success",attrs:{"icon":"check","size":"2x"}})],1),_vm._v(" "),_c('div',{attrs:{"slot":"no-results"},slot:"no-results"},[_c('font-awesome-icon',{staticClass:"success",attrs:{"icon":"check","size":"2x"}})],1)])],1)}
 var Timeline_staticRenderFns = []
 var Timeline_esExports = { render: Timeline_render, staticRenderFns: Timeline_staticRenderFns }
 /* harmony default export */ var components_Timeline = (Timeline_esExports);
 // CONCATENATED MODULE: ./src/components/Timeline.vue
 function Timeline_injectStyle (ssrContext) {
-  __webpack_require__("IFSn")
+  __webpack_require__("gTMb")
 }
 var Timeline_normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -1255,7 +1264,7 @@ var Timeline___vue_template_functional__ = false
 /* styles */
 var Timeline___vue_styles__ = Timeline_injectStyle
 /* scopeId */
-var Timeline___vue_scopeId__ = "data-v-0f1c35c6"
+var Timeline___vue_scopeId__ = "data-v-e1ff0f86"
 /* moduleIdentifier (server only) */
 var Timeline___vue_module_identifier__ = null
 var Timeline_Component = Timeline_normalizeComponent(
@@ -1383,14 +1392,14 @@ window.emailMessagesInit = function (entityId, type) {
 
 /***/ }),
 
-/***/ "vkGo":
+/***/ "gTMb":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "ww5y":
+/***/ "vkGo":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

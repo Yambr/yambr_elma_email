@@ -135,6 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\EncryptionHelper\StringCipher.cs" />
+    <Compile Include="Components\EmailModelHistoryFilter.cs" />
+    <Compile Include="Components\Queue\ContractorHandler.cs" />
+    <Compile Include="Components\Queue\ContactHandler.cs" />
     <Compile Include="Components\Queue\MailBoxHandler.cs" />
     <Compile Include="DTO\Models\EmailMessage.cs" />
     <Compile Include="API\Models\EmailMessages.cs" />
@@ -187,7 +190,6 @@
     <Compile Include="Components\Queue\EmailMessageHandler.cs" />
     <Compile Include="Components\Queue\IRabbitEntityMessage.cs" />
     <Compile Include="Components\Queue\IRabbitEntitysMessage.cs" />
-    <Compile Include="Components\Queue\QueueUnitOfWorkListener.cs" />
     <Compile Include="Components\SDKContainerEvents.cs" />
     <Compile Include="Db\EmailDbStructure.cs" />
     <Compile Include="Enums\EmailDirection.cs">
@@ -204,6 +206,7 @@
     <Compile Include="ExtensionPoints\IRabbitMessageHandler.cs" />
     <Compile Include="Extensions\ActionExtensions.cs" />
     <Compile Include="EmailLogger.cs" />
+    <Compile Include="Extensions\HtmlAgilityPackExtensions.cs" />
     <Compile Include="FullTextSearch\Components\ContractorFullTextSearchExtension.cs" />
     <Compile Include="FullTextSearch\Components\FullTextSearchEmailHandlerExtension.cs" />
     <Compile Include="FullTextSearch\EmailFullTextSearchSettings.cs" />

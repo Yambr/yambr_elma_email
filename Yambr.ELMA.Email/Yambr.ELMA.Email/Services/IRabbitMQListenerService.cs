@@ -37,11 +37,5 @@ namespace Yambr.ELMA.Email.Services
         /// <param name="queueObject">сообщение для отправки</param>
         void SendMessage(IQueueObject queueObject);
 
-        /// <summary>
-        /// Отправить сообщение после сохранения в базу данных (рекомендуется)
-        /// в exchange очереди
-        /// </summary>
-        /// <param name="queueObject">сообщение для отправки</param>
-        void SendMessageOnCommit(IQueueObject queueObject);
     }
 }

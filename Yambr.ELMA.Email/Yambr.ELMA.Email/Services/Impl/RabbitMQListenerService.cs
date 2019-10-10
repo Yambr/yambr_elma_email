@@ -356,16 +356,7 @@ namespace Yambr.ELMA.Email.Services.Impl
                 throw new RabbitException("Ошибка при попытке отправить сообщение в очередь", ex);
             }
         }
-
-        public void SendMessageOnCommit(IQueueObject queueObject)
-        {
-            var queueObjects =
-                _contextBoundVariableService.GetOrAdd(
-                    QueueConstants.RabbitMqQueueKey,
-                    () => new List<IQueueObject>());
-            queueObjects.Add(queueObject);
-        }
-
+        
 
         private static string GetHost(YambrEmailSettings setting)
         {

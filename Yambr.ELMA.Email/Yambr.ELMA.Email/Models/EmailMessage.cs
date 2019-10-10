@@ -14,7 +14,7 @@ namespace Yambr.ELMA.Email.Models
     [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "DisplayName")]
     [global::EleWise.ELMA.Model.Attributes.AllowCreateHeirs(true)]
     [global::EleWise.ELMA.Model.Attributes.DisplayFormat(null)]
-    [global::EleWise.ELMA.Model.Attributes.TitleProperty("408d066b-f103-4c0f-825f-a37909f64a2a")]
+    [global::EleWise.ELMA.Model.Attributes.TitleProperty("eeeb8ddd-eb36-4903-ad28-2f467dffd44e")]
     [global::EleWise.ELMA.Model.Attributes.ClassFormsScheme(global::EleWise.ELMA.Model.Metadata.ClassFormsScheme.FormConstructor)]
     [global::EleWise.ELMA.Model.Attributes.DefaultForm(global::EleWise.ELMA.Model.Views.ViewType.Create, "00000000-0000-0000-0000-000000000000", "574d8ce1-42d1-4fd7-9741-78ffcbeaa440", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", false)]
     [global::EleWise.ELMA.Model.Attributes.DefaultForm(global::EleWise.ELMA.Model.Views.ViewType.Edit, "00000000-0000-0000-0000-000000000000", "574d8ce1-42d1-4fd7-9741-78ffcbeaa440", "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", false)]
@@ -52,33 +52,10 @@ namespace Yambr.ELMA.Email.Models
         }
         
         /// <summary>
-        /// Наименование
-        /// </summary>
-        [global::EleWise.ELMA.Model.Attributes.Uid("408d066b-f103-4c0f-825f-a37909f64a2a")]
-        [global::EleWise.ELMA.Model.Attributes.Order(1)]
-        [global::EleWise.ELMA.Model.Attributes.Required(true)]
-        [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
-        [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="Name")]
-        [global::EleWise.ELMA.Model.Types.Validation.RequiredField()]
-        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Name_DisplayName")]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.FastSearch(true)]
-        [global::EleWise.ELMA.Model.Attributes.Filterable()]
-        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
-        string Name
-        {
-            get;
-            set;
-        }
-        
-        /// <summary>
         /// Дата письма
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("58513e49-d049-4c88-b0e5-62adacb6876b")]
-        [global::EleWise.ELMA.Model.Attributes.Order(2)]
+        [global::EleWise.ELMA.Model.Attributes.Order(1)]
         [global::EleWise.ELMA.ComponentModel.CanBeNull()]
         [global::EleWise.ELMA.Model.Attributes.Property("dac9211e-e02b-47cd-8868-89a3bfc0f749")]
         [global::EleWise.ELMA.Model.Types.Settings.DateTimeSettings(FieldName="DateUtc")]
@@ -100,7 +77,7 @@ namespace Yambr.ELMA.Email.Models
         /// Hash
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("d80dee87-7099-4baa-8490-852c4ebbd939")]
-        [global::EleWise.ELMA.Model.Attributes.Order(3)]
+        [global::EleWise.ELMA.Model.Attributes.Order(2)]
         [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
         [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="Hash")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Hash_DisplayName")]
@@ -120,7 +97,7 @@ namespace Yambr.ELMA.Email.Models
         /// Основной заголовок
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("63ffa1a8-e8b0-47c7-8e2f-532a4b72a291")]
-        [global::EleWise.ELMA.Model.Attributes.Order(4)]
+        [global::EleWise.ELMA.Model.Attributes.Order(3)]
         [global::EleWise.ELMA.Model.Attributes.Property("0aef74a9-d37c-4731-813b-d5f0b5ec4392")]
         [global::EleWise.ELMA.Model.Types.Settings.HtmlStringSettings(FieldName="MainHeader")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_MainHeader_DisplayName")]
@@ -138,30 +115,10 @@ namespace Yambr.ELMA.Email.Models
         }
         
         /// <summary>
-        /// Все заголовки
-        /// </summary>
-        [global::EleWise.ELMA.Model.Attributes.Uid("98886b73-7ebf-4c06-860b-2863f32a0d4f")]
-        [global::EleWise.ELMA.Model.Attributes.Order(5)]
-        [global::EleWise.ELMA.Model.Attributes.Property("0aef74a9-d37c-4731-813b-d5f0b5ec4392")]
-        [global::EleWise.ELMA.Model.Types.Settings.HtmlStringSettings(FieldName="CommonHeaders")]
-        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_CommonHeaders_DisplayName")]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
-        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
-        System.Web.HtmlString CommonHeaders
-        {
-            get;
-            set;
-        }
-        
-        /// <summary>
         /// Тело письма
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("f2cfb4df-fb46-4a2b-aa20-3165cc08af79")]
-        [global::EleWise.ELMA.Model.Attributes.Order(6)]
+        [global::EleWise.ELMA.Model.Attributes.Order(4)]
         [global::EleWise.ELMA.Model.Attributes.Property("0aef74a9-d37c-4731-813b-d5f0b5ec4392")]
         [global::EleWise.ELMA.Model.Types.Settings.HtmlStringSettings(FieldName="Body")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Body_DisplayName")]
@@ -182,7 +139,7 @@ namespace Yambr.ELMA.Email.Models
         /// Html письмо
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("4b378993-25ae-457b-b8bb-3762cf7997a9")]
-        [global::EleWise.ELMA.Model.Attributes.Order(7)]
+        [global::EleWise.ELMA.Model.Attributes.Order(5)]
         [global::EleWise.ELMA.ComponentModel.NotNull()]
         [global::EleWise.ELMA.Model.Attributes.Property("9cd56a40-6192-4d8a-840c-c4bd4dfb88eb")]
         [global::EleWise.ELMA.Model.Types.Settings.BoolSettings(FieldName="IsBodyHtml")]
@@ -203,7 +160,7 @@ namespace Yambr.ELMA.Email.Models
         /// Направление письма
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("a68aa038-1344-43fb-863f-6966eea402c1")]
-        [global::EleWise.ELMA.Model.Attributes.Order(8)]
+        [global::EleWise.ELMA.Model.Attributes.Order(6)]
         [global::EleWise.ELMA.ComponentModel.NotNull()]
         [global::EleWise.ELMA.Model.Attributes.Property("849c1ac9-4d46-4194-8cbb-43f84adf9c17", "efab67bf-2e70-4118-afb6-82d1990c3777")]
         [global::EleWise.ELMA.Model.Types.Settings.EnumSettings(DefaultValueStr="2c402344-245d-40f1-b6ad-95839adc8ed6", FieldName="Direction")]
@@ -225,7 +182,7 @@ namespace Yambr.ELMA.Email.Models
         /// От
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("6bb71d88-ab64-4fe3-813b-d7cae7677827")]
-        [global::EleWise.ELMA.Model.Attributes.Order(9)]
+        [global::EleWise.ELMA.Model.Attributes.Order(7)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "2474afc5-cfb2-4c63-aa91-12c4087819d9")]
         [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_From", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_From_DisplayName")]
@@ -246,7 +203,7 @@ namespace Yambr.ELMA.Email.Models
         /// Кому
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("813fc69c-8716-40af-846c-4437552f50b5")]
-        [global::EleWise.ELMA.Model.Attributes.Order(10)]
+        [global::EleWise.ELMA.Model.Attributes.Order(8)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "2474afc5-cfb2-4c63-aa91-12c4087819d9")]
         [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_To", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_To_DisplayName")]
@@ -267,14 +224,14 @@ namespace Yambr.ELMA.Email.Models
         /// Тема
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("eeeb8ddd-eb36-4903-ad28-2f467dffd44e")]
-        [global::EleWise.ELMA.Model.Attributes.Order(11)]
+        [global::EleWise.ELMA.Model.Attributes.Order(9)]
         [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
         [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="Subject")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Subject_DisplayName")]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.FastSearch(true)]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
@@ -288,7 +245,7 @@ namespace Yambr.ELMA.Email.Models
         /// Тема (без тегов)
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("7c753539-013d-4137-8edb-78984be9012a")]
-        [global::EleWise.ELMA.Model.Attributes.Order(12)]
+        [global::EleWise.ELMA.Model.Attributes.Order(10)]
         [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
         [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="SubjectWithoutTags")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_SubjectWithoutTags_DisplayName")]
@@ -311,7 +268,7 @@ namespace Yambr.ELMA.Email.Models
         /// теги через запятую
         /// </remarks>
         [global::EleWise.ELMA.Model.Attributes.Uid("fde76d12-ce30-4a72-8cd5-9bb85ba2dded")]
-        [global::EleWise.ELMA.Model.Attributes.Order(13)]
+        [global::EleWise.ELMA.Model.Attributes.Order(11)]
         [global::EleWise.ELMA.Model.Attributes.Property("317e3d72-9c47-4b68-926d-ba77a2579bc2")]
         [global::EleWise.ELMA.Model.Types.Settings.TextSettings(FieldName="Tags")]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Tags_DisplayName")]
@@ -332,7 +289,7 @@ namespace Yambr.ELMA.Email.Models
         /// Владельцы письма
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("71fc1c0c-d424-4fbc-aa0c-0edff6352ce1")]
-        [global::EleWise.ELMA.Model.Attributes.Order(14)]
+        [global::EleWise.ELMA.Model.Attributes.Order(12)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "06aeb963-e379-4fff-9951-de6bf6cb508f")]
         [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_Owners", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Owners_DisplayName")]
@@ -353,7 +310,7 @@ namespace Yambr.ELMA.Email.Models
         /// IsDeleted
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("f4e9a5e6-7a5a-4682-af9f-9fd5df22ecdc")]
-        [global::EleWise.ELMA.Model.Attributes.Order(15)]
+        [global::EleWise.ELMA.Model.Attributes.Order(13)]
         [global::EleWise.ELMA.ComponentModel.NotNull()]
         [global::EleWise.ELMA.Model.Attributes.Property("9cd56a40-6192-4d8a-840c-c4bd4dfb88eb")]
         [global::EleWise.ELMA.Model.Types.Settings.BoolSettings(FieldName="IsDeleted")]
@@ -374,7 +331,7 @@ namespace Yambr.ELMA.Email.Models
         /// Контакты
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("f303976b-d9e1-43d3-b945-6f91e09ed452")]
-        [global::EleWise.ELMA.Model.Attributes.Order(16)]
+        [global::EleWise.ELMA.Model.Attributes.Order(14)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "a9b1bc6a-3286-4264-81aa-02f6df73c080")]
         [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_Contacts", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Contacts_DisplayName")]
@@ -395,7 +352,7 @@ namespace Yambr.ELMA.Email.Models
         /// Контрагенты
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("c5e79fc2-303d-4146-935f-12ddfd906d1e")]
-        [global::EleWise.ELMA.Model.Attributes.Order(17)]
+        [global::EleWise.ELMA.Model.Attributes.Order(15)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "38096146-0c73-4809-94f5-e18b2d525531")]
         [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(RelationType=global::EleWise.ELMA.Model.Types.Settings.RelationType.ManyToMany, RelationTableName="M_EmailMessage_Contractors", ParentColumnName="Parent", ChildColumnName="Child", CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate)]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Contractors_DisplayName")]
@@ -407,6 +364,28 @@ namespace Yambr.ELMA.Email.Models
         [global::EleWise.ELMA.Model.Attributes.Filterable()]
         [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
         Iesi.Collections.Generic.ISet<EleWise.ELMA.CRM.Models.IContractor> Contractors
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Текст
+        /// </summary>
+        [global::EleWise.ELMA.Model.Attributes.Uid("bedd41f3-f821-45be-9ce1-aecfee0102d6")]
+        [global::EleWise.ELMA.Model.Attributes.Order(16)]
+        [global::EleWise.ELMA.Model.Attributes.Property("317e3d72-9c47-4b68-926d-ba77a2579bc2")]
+        [global::EleWise.ELMA.Model.Types.Settings.TextSettings(FieldName="Text")]
+        [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IEmailMessage), "P_Text_DisplayName")]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.FastSearch(true)]
+        [global::EleWise.ELMA.Model.Attributes.Filterable()]
+        [global::EleWise.ELMA.Model.Attributes.EntityProperty()]
+        string Text
         {
             get;
             set;
@@ -432,14 +411,6 @@ namespace Yambr.ELMA.Email.Models
             }
         }
         
-        public static string P_Name_DisplayName
-        {
-            get
-            {
-                return global::EleWise.ELMA.SR.T("Наименование");
-            }
-        }
-        
         public static string P_DateUtc_DisplayName
         {
             get
@@ -461,14 +432,6 @@ namespace Yambr.ELMA.Email.Models
             get
             {
                 return global::EleWise.ELMA.SR.T("Основной заголовок");
-            }
-        }
-        
-        public static string P_CommonHeaders_DisplayName
-        {
-            get
-            {
-                return global::EleWise.ELMA.SR.T("Все заголовки");
             }
         }
         
@@ -576,6 +539,14 @@ namespace Yambr.ELMA.Email.Models
             }
         }
         
+        public static string P_Text_DisplayName
+        {
+            get
+            {
+                return global::EleWise.ELMA.SR.T("Текст");
+            }
+        }
+        
         private static string @__AllFormsResources
         {
             get
@@ -591,15 +562,6 @@ namespace Yambr.ELMA.Email.Models
     [global::EleWise.ELMA.Model.Attributes.FilterFor(typeof(IEmailMessage))]
     public interface IEmailMessageFilter : global::EleWise.ELMA.Model.Common.IEntityFilter
     {
-        
-        /// <summary>
-        /// Фильтр для свойства "Наименование"
-        /// </summary>
-        string Name
-        {
-            get;
-            set;
-        }
         
         /// <summary>
         /// Фильтр для свойства "Дата письма"
@@ -677,6 +639,15 @@ namespace Yambr.ELMA.Email.Models
         /// Фильтр для свойства "Контрагенты"
         /// </summary>
         Iesi.Collections.Generic.ISet<EleWise.ELMA.CRM.Models.IContractor> Contractors
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// Фильтр для свойства "Текст"
+        /// </summary>
+        string Text
         {
             get;
             set;
