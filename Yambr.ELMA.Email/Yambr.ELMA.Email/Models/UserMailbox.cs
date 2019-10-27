@@ -163,8 +163,10 @@ namespace Yambr.ELMA.Email.Models
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("3535c6a8-360e-45ba-95b7-0e0efeff8d5d")]
         [global::EleWise.ELMA.Model.Attributes.Order(6)]
+        [global::EleWise.ELMA.Model.Attributes.Required(true)]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "8786ded0-8825-482d-9446-e9a6eaf6caa0")]
         [global::EleWise.ELMA.Model.Types.Settings.EntitySettings(CascadeMode=global::EleWise.ELMA.Model.Types.Settings.CascadeMode.SaveUpdate, FieldName="Server")]
+        [global::EleWise.ELMA.Model.Types.Validation.RequiredField()]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_Server_DisplayName")]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
@@ -183,13 +185,15 @@ namespace Yambr.ELMA.Email.Models
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("ab12b139-f183-414f-8043-529a1c0936f7")]
         [global::EleWise.ELMA.Model.Attributes.Order(7)]
+        [global::EleWise.ELMA.Model.Attributes.Required(true)]
         [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
         [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="EmailLogin")]
+        [global::EleWise.ELMA.Model.Types.Validation.RequiredField()]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_EmailLogin_DisplayName")]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Display, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=true)]
-        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Hidden, ReadOnly=false)]
+        [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.List, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Filter, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.FastSearch(true)]
         [global::EleWise.ELMA.Model.Attributes.Filterable()]
@@ -205,8 +209,10 @@ namespace Yambr.ELMA.Email.Models
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("a7295997-9533-4d16-9da5-d1cf9741eaea")]
         [global::EleWise.ELMA.Model.Attributes.Order(8)]
+        [global::EleWise.ELMA.Model.Attributes.Required(true)]
         [global::EleWise.ELMA.Model.Attributes.Property("9b9aac17-22bb-425c-aa93-9c02c5146965")]
         [global::EleWise.ELMA.Model.Types.Settings.StringSettings(FieldName="EmailPassword")]
+        [global::EleWise.ELMA.Model.Types.Validation.RequiredField()]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_EmailPassword_DisplayName")]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
@@ -221,13 +227,15 @@ namespace Yambr.ELMA.Email.Models
         }
         
         /// <summary>
-        /// Время последнего сбора писем
+        /// Следующий сбор писем с
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("3c5b0672-8b44-403c-8f88-2e153a88fa82")]
         [global::EleWise.ELMA.Model.Attributes.Order(9)]
         [global::EleWise.ELMA.ComponentModel.NotNull()]
+        [global::EleWise.ELMA.Model.Attributes.Required(true)]
         [global::EleWise.ELMA.Model.Attributes.Property("dac9211e-e02b-47cd-8868-89a3bfc0f749")]
         [global::EleWise.ELMA.Model.Types.Settings.DateTimeSettings(SetCurrentDate=true, FieldName="LastMailUpdate")]
+        [global::EleWise.ELMA.Model.Types.Validation.RequiredField()]
         [global::EleWise.ELMA.Model.Attributes.DisplayName(typeof(@__Resources_IUserMailbox), "P_LastMailUpdate_DisplayName")]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Create, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
         [global::EleWise.ELMA.Model.Attributes.View(ViewType=global::EleWise.ELMA.Model.Views.ViewType.Edit, ItemType=global::EleWise.ELMA.Model.Views.ItemType.Default, Visibility=global::EleWise.ELMA.Model.Views.Visibility.Visible, ReadOnly=false)]
@@ -435,7 +443,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("Время последнего сбора писем");
+                return global::EleWise.ELMA.SR.T("Следующий сбор писем с");
             }
         }
         
@@ -551,7 +559,7 @@ namespace Yambr.ELMA.Email.Models
         }
         
         /// <summary>
-        /// Фильтр для свойства "Время последнего сбора писем"
+        /// Фильтр для свойства "Следующий сбор писем с"
         /// </summary>
         EleWise.ELMA.Model.Ranges.DateTimeRange LastMailUpdate
         {

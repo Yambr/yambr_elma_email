@@ -1,0 +1,94 @@
+﻿@using EleWise.ELMA.Model.Types.Settings
+@model Yambr.ELMA.Email.Models.IUserMailbox
+
+@{
+    var serverId = Html.ViewData.TemplateInfo.GetFullHtmlFieldId("Server.Id");
+    var dateId = Html.ViewData.TemplateInfo.GetFullHtmlFieldId("LastMailUpdate.date");
+}
+@if (Model != null && !Model.IsNew())
+{
+    @Html.HiddenFor(m => m.Id)
+}
+else
+{
+    <script type="text/javascript">
+        jQuery('#@serverId').tComboBoxTemplateMode( {
+                highlightFirst:false, onLoad:function(e) {
+                    defaultOnLoadComboBox(e);
+                    defaultOnLoadComboBoxTemplateMode(e);
+                    $('#User_UserMailBoxes__0___Server_validate').val('');
+                }
+                , onChange:function(e) {
+                    {
+                        defaultOnChangeComboBox(e);
+                    }
+                }
+                , onClose:function(e) {}
+                , ajax: {
+                    "selectUrl": "/Common/Entity/Select?localize=False\u0026uid=27058b45-7262-4578-b0d9-026b2dedd839"
+                }
+                , cache:false, filter:0, minChars:1, encoded:false
+            }
+        );
+        jQuery('#@dateId').tDatePicker( {
+                onLoad:onLoadDatePicker, onChange:function(e) {
+                    onChangeDatePicker(e);
+                }
+                , onClose:onCloseDatePicker, format:'dd.MM.yyyy', maxValue:new Date(9999, 11, 31), showWeekNumbers:false
+            }
+
+        );
+    </script>
+}
+<div class="table-form-container">
+    <table class="table-form">
+        <tr>
+            <td style="padding: 2px;">
+                @Html.EditorFor(m => m.EmailLogin, new { ViewAttributes = new WebViewAttributes { Html = { @class = "email" }, Required = true } })
+                <span class="comment"> @Html.Caption(m => m.EmailLogin)</span>
+            </td>
+            <td style="padding: 2px;">
+                @Html.EditorFor(m => m.EmailPassword, new { ViewAttributes = new WebViewAttributes { Html = { inputType = "password" }, Required = true } })
+                <span class="comment"> @Html.Caption(m => m.EmailPassword)</span>
+            </td>
+            <td style="padding: 2px;">
+                @Html.Editor(m => m.Server,
+                    a => {
+                             a.Required = true;
+                        a.TypeSettingsAction = settings =>
+                        {
+                            settings.As<EntitySettings>().HideCreator = true;
+                            settings.As<EntitySettings>().HideSelect = true;
+                        };
+                    })
+                <span class="comment"> @Html.Caption(m => m.Server)</span>
+            </td>
+            <td style="padding: 2px;">
+                @Html.EditorFor(m => m.Aliases, new { Required = true })
+                <span class="comment"> @Html.Caption(m => m.Aliases)</span>
+            </td>
+            <td style="padding: 2px;">
+                <div>
+                    @Html.Editor(m => m.LastMailUpdate, a =>
+               {
+                   a.Required = true;
+                   a.TypeSettingsAction = settings => settings.As<DateTimeSettings>().ShowTime = false;
+               })
+                </div>
+                <div style="display: inline-block;">
+                    <span class="comment"> @Html.Caption(m => m.LastMailUpdate)</span>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+@Html.Hidden("", null, new { @class = "deleted validationMoveField", moveTo = serverId })
+<script type="text/javascript">
+    $(document).ready(function () {
+        elma.ValidationRulesManager.add('@ViewData.TemplateInfo.GetFullHtmlFieldId("")');
+        elma.ValidationRulesManager.executeMove();
+    });
+</script>

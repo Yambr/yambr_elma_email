@@ -1,5 +1,5 @@
 @echo off
-set baseVersion=1.0.0
+set baseVersion=3.13.0
 echo base %baseVersion%
 
 set /p Build=<version.txt

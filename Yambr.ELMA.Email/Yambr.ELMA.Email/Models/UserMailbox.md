@@ -221,6 +221,7 @@
         <CascadeMode>SaveUpdate</CascadeMode>
       </Settings>
       <Nullable>true</Nullable>
+      <Required>true</Required>
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
@@ -253,6 +254,7 @@
         <FieldName>EmailLogin</FieldName>
       </Settings>
       <Nullable>true</Nullable>
+      <Required>true</Required>
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
@@ -267,7 +269,6 @@
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>List</ViewType>
-            <Visibility>Hidden</Visibility>
           </ViewAttribute>
           <ViewAttribute>
             <ViewType>Filter</ViewType>
@@ -287,6 +288,7 @@
         <FieldName>EmailPassword</FieldName>
       </Settings>
       <Nullable>true</Nullable>
+      <Required>true</Required>
       <ViewSettings>
         <Attributes>
           <ViewAttribute>
@@ -315,13 +317,14 @@
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>3c5b0672-8b44-403c-8f88-2e153a88fa82</Uid>
       <Name>LastMailUpdate</Name>
-      <DisplayName>Время последнего сбора писем</DisplayName>
+      <DisplayName>Следующий сбор писем с</DisplayName>
       <TypeUid>dac9211e-e02b-47cd-8868-89a3bfc0f749</TypeUid>
       <Settings xsi:type="DateTimeSettings">
         <FieldName>LastMailUpdate</FieldName>
         <SetCurrentDate>true</SetCurrentDate>
       </Settings>
       <Nullable>false</Nullable>
+      <Required>true</Required>
       <ViewSettings>
         <Attributes>
           <ViewAttribute>

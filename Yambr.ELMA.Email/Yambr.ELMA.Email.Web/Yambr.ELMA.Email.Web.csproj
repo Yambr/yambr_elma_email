@@ -50,6 +50,9 @@
     <Reference Include="EleWise.ELMA.BPM.Web">
       <HintPath>..\..\Assemblies\EleWise.ELMA.BPM.Web.dll</HintPath>
     </Reference>
+    <Reference Include="EleWise.ELMA.BPM.Web.Security">
+      <HintPath>..\..\..\..\..\..\..\ELMA3-Enterprise\Web\Modules\EleWise.ELMA.BPM.Web.Security\bin\EleWise.ELMA.BPM.Web.Security.dll</HintPath>
+    </Reference>
     <Reference Include="EleWise.ELMA.CRM">
       <HintPath>..\..\Assemblies\EleWise.ELMA.CRM.dll</HintPath>
     </Reference>
@@ -103,12 +106,13 @@
   <ItemGroup>
     <Compile Include="Components\ContactEmailMessagesZone.cs" />
     <Compile Include="Components\ContractorEmailMessagesZone.cs" />
+    <Compile Include="Components\UserProfileInfoExtensionZone.cs" />
     <Compile Include="Components\YambrEmailSettingsModuleController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\EmailMessageController.cs" />
     <Compile Include="Controllers\EmailStatsController.cs" />
     <Compile Include="Controllers\FullTextSearchController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\YambrEmailSettingsController.cs" />
     <Compile Include="FullTextSearch\Components\EmailFullTextSearchModuleSettingsRender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,7 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Yambr.ELMA.Email\Yambr.ELMA.Email.csproj">
@@ -142,7 +145,6 @@
   <ItemGroup>
     <Content Include="Content\css\app.css.map" />
     <None Include="Properties\Yambr.ELMA.Email.Web.nuspec" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\YambrEmailSettings\Edit.cshtml" />
     <Content Include="Views\YambrEmailSettings\View.cshtml" />
     <Content Include="Views\Contractor\ContractorExtensionZone.cshtml" />
@@ -152,6 +154,10 @@
     <Content Include="Views\Contact\ContactExtensionZone.cshtml" />
     <Content Include="Views\FullTextSearch\Settings\FullTextSearchEmailSettingsEditForm.cshtml" />
     <Content Include="Views\FullTextSearch\Settings\FullTextSearchEmailSettingsViewForm.cshtml" />
+    <Content Include="Views\Security\UserProfileEdit.cshtml" />
+    <Content Include="Views\Security\UserProfileInfo.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Entities\UserMailbox.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Entities\UserMailboxSet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

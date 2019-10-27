@@ -22,7 +22,7 @@ library.add(faArrowLeft, faArrowRight, faCalendar, faShareAlt, faEyeSlash, faPap
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-Vue.config.productionTip = true
+Vue.config.productionTip = false
 
 window.emailMessagesInit = function (entityId, type) {
   /* eslint-disable no-new */

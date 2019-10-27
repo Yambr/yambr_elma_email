@@ -1,0 +1,78 @@
+﻿@model UserModel
+@using System.Linq
+@using System.Security
+@using EleWise.ELMA.BPM.Web.Security.Models
+@using EleWise.ELMA.Helpers
+@using EleWise.ELMA.Security
+@using EleWise.ELMA.Security.Managers
+@using EleWise.ELMA.Services
+@using Yambr.ELMA.Email.Enums
+@using Yambr.ELMA.Email.Models
+
+@if (Model != null && Model.User != null)
+{
+    var currentUser = UserManager.Instance.GetCurrentUser();
+    var mailBoxes = ((IUserExt)Model.User).UserMailBoxes;
+
+    <div class="profile_block">
+        @SR.T("История переписки CRM"):
+        @if (mailBoxes.Any())
+        {
+            if (currentUser == Model.User)
+            {
+                <div class="t-widget t-grid">
+
+                    <div class="t-grid-table-container">
+                        <table class="t-grid-table">
+                            <thead class="t-grid-header">
+                                <tr>
+                                    <th class="t-header t-first-header">
+                                        Логин
+                                    </th>
+                                    <th class="t-header">
+                                        Статус
+                                    </th>
+                                    <th class="t-header t-last-header">
+                                        Время последнего сбора писем
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var mailbox in mailBoxes)
+                                {
+                                    <tr>
+                                        <td>
+                                            @mailbox.EmailLogin
+                                        </td>
+                                        <td>
+                                            @(EnumHelper.GetDisplayName(mailbox.Status))
+                                        </td>
+                                        <td>
+                                            @(mailbox.LastMailUpdate.ToString("F"))
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (mailBoxes.Any(c => c.Status == EmailLoadingStatus.Error))
+                {
+                    <b>Есть ошибки</b>
+                }
+                else
+                {
+                    <b>Активна</b>
+                }
+            }
+        }
+        else
+        {
+            <b> Не настроено</b>
+        }
+
+    </div>
+}
