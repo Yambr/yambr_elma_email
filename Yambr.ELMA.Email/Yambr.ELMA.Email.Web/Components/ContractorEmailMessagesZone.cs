@@ -29,7 +29,7 @@ namespace Yambr.ELMA.Email.Web.Components
                 if (model == null)
                     return;
 
-                html.RenderPartial("Contractor/ContractorExtensionZone");
+                html.RenderPartial("Contractor/ContractorExt");
             }
         }
 

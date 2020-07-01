@@ -43,15 +43,15 @@ else
 <div class="table-form-container">
     <table class="table-form">
         <tr>
-            <td style="padding: 2px;">
+            <td style="padding: 2px;max-width: 250px;">
                 @Html.EditorFor(m => m.EmailLogin, new { ViewAttributes = new WebViewAttributes { Html = { @class = "email" }, Required = true } })
                 <span class="comment"> @Html.Caption(m => m.EmailLogin)</span>
             </td>
-            <td style="padding: 2px;">
+            <td style="padding: 2px;max-width: 250px;">
                 @Html.EditorFor(m => m.EmailPassword, new { ViewAttributes = new WebViewAttributes { Html = { inputType = "password" }, Required = true } })
                 <span class="comment"> @Html.Caption(m => m.EmailPassword)</span>
             </td>
-            <td style="padding: 2px;">
+            <td style="padding: 2px;max-width: 250px;">
                 @Html.Editor(m => m.Server,
                     a => {
                              a.Required = true;
@@ -63,12 +63,12 @@ else
                     })
                 <span class="comment"> @Html.Caption(m => m.Server)</span>
             </td>
-            <td style="padding: 2px;">
-                @Html.EditorFor(m => m.Aliases, new { Required = true })
+            <td style="padding: 2px;max-width: 250px;">
+                @Html.EditorFor(m => m.Aliases, new { ViewAttributes = new WebViewAttributes { Html = { inputType = "text", style = new HtmlStyle(){ {"width" , "250px"}  }}, Required = true } })
                 <span class="comment"> @Html.Caption(m => m.Aliases)</span>
             </td>
-            <td style="padding: 2px;">
-                <div>
+            <td style="padding: 2px;max-width: 250px;">
+                <div style="display: flex">
                     @Html.Editor(m => m.LastMailUpdate, a =>
                {
                    a.Required = true;

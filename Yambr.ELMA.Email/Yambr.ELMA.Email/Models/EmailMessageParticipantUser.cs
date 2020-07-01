@@ -27,7 +27,7 @@ namespace Yambr.ELMA.Email.Models
     {
         
         /// <summary>
-        /// User
+        /// Пользователь
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("62ebc39c-714f-471e-955e-ec1c5717c279")]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "cfdeb03c-35e9-45e7-aad8-037d83888f73")]
@@ -46,7 +46,7 @@ namespace Yambr.ELMA.Email.Models
         }
         
         /// <summary>
-        /// Mailbox
+        /// Почтовый ящик
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("cbf3be84-d207-45d0-a26b-e60822be9197")]
         [global::EleWise.ELMA.Model.Attributes.Order(1)]
@@ -81,7 +81,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("User");
+                return global::EleWise.ELMA.SR.T("Пользователь");
             }
         }
         
@@ -89,7 +89,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("Mailbox");
+                return global::EleWise.ELMA.SR.T("Почтовый ящик");
             }
         }
     }

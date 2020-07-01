@@ -384,40 +384,6 @@
       <Order>10</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
-      <Uid>5ac0cb4a-57c1-4a9d-b72d-017fec7aeb52</Uid>
-      <Name>Aliases</Name>
-      <DisplayName>Псевдонимы почтового ящика</DisplayName>
-      <Description>алиасы через запятую: example@mail.ru, example2@mail.ru</Description>
-      <TypeUid>317e3d72-9c47-4b68-926d-ba77a2579bc2</TypeUid>
-      <Settings xsi:type="TextSettings">
-        <FieldName>Aliases</FieldName>
-        <MultiLine>true</MultiLine>
-      </Settings>
-      <Nullable>true</Nullable>
-      <ViewSettings>
-        <Attributes>
-          <ViewAttribute>
-            <ViewType>Create</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Edit</ViewType>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Display</ViewType>
-            <ReadOnly>true</ReadOnly>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>List</ViewType>
-            <Visibility>Hidden</Visibility>
-          </ViewAttribute>
-          <ViewAttribute>
-            <ViewType>Filter</ViewType>
-          </ViewAttribute>
-        </Attributes>
-      </ViewSettings>
-      <Order>11</Order>
-    </PropertyMetadata>
-    <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>d03fcad9-6a86-4fa2-a43d-9f170a5f39f6</Uid>
       <Name>Status</Name>
       <DisplayName>Статус</DisplayName>
@@ -449,7 +415,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>12</Order>
+      <Order>11</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>62b54065-2e37-464e-8673-d1b24d8bb901</Uid>
@@ -482,7 +448,7 @@
           </ViewAttribute>
         </Attributes>
       </ViewSettings>
-      <Order>13</Order>
+      <Order>12</Order>
     </PropertyMetadata>
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>e106dc79-9b3e-46c7-b15a-c108ee9f40bd</Uid>
@@ -515,6 +481,39 @@
           <ViewAttribute>
             <ViewType>Filter</ViewType>
             <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+        </Attributes>
+      </ViewSettings>
+      <Order>13</Order>
+    </PropertyMetadata>
+    <PropertyMetadata xsi:type="EntityPropertyMetadata">
+      <Uid>ee5d4033-0a12-49c6-b7f1-6e6994fa9d89</Uid>
+      <Name>Aliases</Name>
+      <DisplayName>Псевдонимы почтового ящика</DisplayName>
+      <Description>алиасы через запятую: example@mail.ru, example2@mail.ru</Description>
+      <TypeUid>9b9aac17-22bb-425c-aa93-9c02c5146965</TypeUid>
+      <Settings xsi:type="StringSettings">
+        <FieldName>Aliases</FieldName>
+      </Settings>
+      <Nullable>true</Nullable>
+      <ViewSettings>
+        <Attributes>
+          <ViewAttribute>
+            <ViewType>Create</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Edit</ViewType>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Display</ViewType>
+            <ReadOnly>true</ReadOnly>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>List</ViewType>
+            <Visibility>Hidden</Visibility>
+          </ViewAttribute>
+          <ViewAttribute>
+            <ViewType>Filter</ViewType>
           </ViewAttribute>
         </Attributes>
       </ViewSettings>

@@ -27,7 +27,7 @@ namespace Yambr.ELMA.Email.Models
     {
         
         /// <summary>
-        /// Contact
+        /// Контакт
         /// </summary>
         [global::EleWise.ELMA.Model.Attributes.Uid("dac4aebc-48ea-401e-9a45-86139f08bec9")]
         [global::EleWise.ELMA.Model.Attributes.Property("72ed98ca-f260-4671-9bcd-ff1d80235f47", "a9b1bc6a-3286-4264-81aa-02f6df73c080")]
@@ -61,7 +61,7 @@ namespace Yambr.ELMA.Email.Models
         {
             get
             {
-                return global::EleWise.ELMA.SR.T("Contact");
+                return global::EleWise.ELMA.SR.T("Контакт");
             }
         }
     }

@@ -30,7 +30,7 @@ namespace Yambr.ELMA.Email.Web.Components
                 if (model == null)
                     return;
 
-                html.RenderPartial("Contact/ContactExtensionZone");
+                html.RenderPartial("Contact/ContactExt");
             }
         }
 

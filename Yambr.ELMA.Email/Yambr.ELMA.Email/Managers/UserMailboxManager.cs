@@ -80,32 +80,36 @@ namespace Yambr.ELMA.Email.Managers
             return email.GetDeterministicGuid();
         }
 
-        public override void Save(IUserMailbox obj)
+
+        public static void UpdateMailBox(IUserMailbox obj)
         {
-            obj.Uid = GetUid(obj.EmailLogin);
+            var uid = GetUid(obj.EmailLogin);
+
+            if (obj.Uid != uid)
+            {
+                obj.Uid = uid;
+            }
             if (obj.EmailParticipant == null)
             {
                 obj.EmailParticipant = InterfaceActivator.Create<IEmailMessageParticipantUser>();
                 obj.EmailParticipant.Mailbox = obj;
                 obj.EmailParticipant.EmailString = obj.EmailLogin;
                 obj.EmailParticipant.User = obj.Owner;
-                obj.Save();
             }
             else
             {
                 if (obj.EmailParticipant.EmailString != obj.EmailLogin)
                 {
+                    obj.EmailParticipant.Name = obj.EmailLogin;
                     obj.EmailParticipant.EmailString = obj.EmailLogin;
-                    obj.Save();
                 }
             }
 
-            if (obj.EmailPassword != DefaultPassword){
-                
+            if (obj.EmailPassword != DefaultPassword)
+            {
                 obj.PasswordEncoded = EncryptionHelper.EncryptPwd(obj.EmailPassword);
                 obj.EmailPassword = DefaultPassword;
             }
-            base.Save(obj);
         }
 
 

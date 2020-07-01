@@ -9,7 +9,7 @@
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>62ebc39c-714f-471e-955e-ec1c5717c279</Uid>
       <Name>User</Name>
-      <DisplayName>User</DisplayName>
+      <DisplayName>Пользователь</DisplayName>
       <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
       <SubTypeUid>cfdeb03c-35e9-45e7-aad8-037d83888f73</SubTypeUid>
       <Settings xsi:type="EntityUserSettings">
@@ -43,7 +43,7 @@
     <PropertyMetadata xsi:type="EntityPropertyMetadata">
       <Uid>cbf3be84-d207-45d0-a26b-e60822be9197</Uid>
       <Name>Mailbox</Name>
-      <DisplayName>Mailbox</DisplayName>
+      <DisplayName>Почтовый ящик</DisplayName>
       <TypeUid>72ed98ca-f260-4671-9bcd-ff1d80235f47</TypeUid>
       <SubTypeUid>06aeb963-e379-4fff-9951-de6bf6cb508f</SubTypeUid>
       <Settings xsi:type="EntitySettings">

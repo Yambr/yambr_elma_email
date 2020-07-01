@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\EncryptionHelper\StringCipher.cs" />
+    <Compile Include="Components\EmailEventListener.cs" />
     <Compile Include="Components\EmailModelHistoryFilter.cs" />
     <Compile Include="Components\Queue\ContractorHandler.cs" />
     <Compile Include="Components\Queue\ContactHandler.cs" />
